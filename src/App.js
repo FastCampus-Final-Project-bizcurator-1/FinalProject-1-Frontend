@@ -1,14 +1,50 @@
+import { useEffect, useRef, useState } from 'react';
 import Footer from './main/Footer';
 import PartnerList from './main/PartnerList';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
 
 function App() {
+  const [isView, setIsView] = useState(false);
+  const sectionRef = useRef(null);
+
+  const option = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.4,
+  };
+
+  useEffect(() => {
+    let observer = new IntersectionObserver(e => {
+      e.forEach(entry => {
+        if (entry.intersectionRatio > 0.3) {
+          entry.target.classList.add('active');
+          setIsView(true);
+        }
+      });
+    }, option);
+
+    const currentTarget = sectionRef.current;
+    if (currentTarget) {
+      Array.from(currentTarget.children).forEach(child => {
+        observer.observe(child);
+      });
+    }
+    return () => {
+      if (currentTarget) {
+        Array.from(currentTarget.children).forEach(child => {
+          observer.unobserve(child);
+        });
+      }
+    };
+  }, [sectionRef]);
   return (
     <div className="App">
       <GlobalStyle />
       <Test />
-      <PartnerList />
+      <div ref={sectionRef}>
+        <PartnerList />
+      </div>
       <Footer />
     </div>
   );
