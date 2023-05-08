@@ -3,6 +3,7 @@ import Footer from './main/Footer';
 import PartnerList from './main/PartnerList';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
+import FAQ from './main/FAQ/FAQ';
 
 function App() {
   const [isView, setIsView] = useState(false);
@@ -43,6 +44,7 @@ function App() {
       <GlobalStyle />
       <Test />
       <div ref={sectionRef}>
+        <FAQ />
         <PartnerList />
       </div>
       <Footer />
