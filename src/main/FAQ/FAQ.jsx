@@ -54,6 +54,11 @@ const Container = styled.section`
   line-height: 20px;
   color: #2b66f6;
 
+  @media (max-width: 1024px) {
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
   @media (max-width: 768px) {
     justify-content: space-around;
     flex-direction: column;
@@ -104,12 +109,13 @@ const TextContainer = styled.div`
     opacity: 1;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-top: 36px;
     align-items: center;
     width: auto;
     flex-direction: row;
     font-size: 38px;
+
     ${Container}.active & {
       animation: ${fadeInUp} 0.5s linear;
       opacity: 1;
@@ -120,7 +126,7 @@ const TextContainer = styled.div`
 const Text = styled.div`
   font-weight: 300;
   text-align: left;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-weight: 500;
     margin-right: 12px;
   }
@@ -128,7 +134,7 @@ const Text = styled.div`
 const Text2 = styled.div`
   font-weight: bold;
   text-align: left;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-weight: 500;
   }
 `;

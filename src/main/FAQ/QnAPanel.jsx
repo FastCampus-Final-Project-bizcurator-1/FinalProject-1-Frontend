@@ -17,7 +17,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 755px;
+  width: 700px;
   height: 160px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -32,7 +32,7 @@ const Container = styled.div`
     color: #ffffff;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     width: 650px;
   }
 `;
