@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import FAQ from './main/FAQ/FAQ';
 import Sample from './main/Sample/Sample';
 import BusinessDeals from './main/BusinessDeals';
+import Category from './main/category/Category';
 
 function App() {
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
@@ -57,6 +58,7 @@ function App() {
       <GlobalStyle />
       <Test />
       <div ref={sectionRef}>
+        <Category />
         {outerWidth > 1024 ? (
           <BusinessDeals>
             <Bold>기업고객 특가 상품</Bold>은 사업자 있으신 사장님이라면
