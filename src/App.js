@@ -4,6 +4,7 @@ import PartnerList from './main/PartnerList';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
 import FAQ from './main/FAQ/FAQ';
+import Sample from './main/Sample/Sample';
 
 function App() {
   const [isView, setIsView] = useState(false);
@@ -44,6 +45,7 @@ function App() {
       <GlobalStyle />
       <Test />
       <div ref={sectionRef}>
+        <Sample isView={isView} />
         <FAQ />
         <PartnerList />
       </div>
