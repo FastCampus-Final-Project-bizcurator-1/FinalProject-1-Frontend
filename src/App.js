@@ -1,4 +1,5 @@
 import Footer from './main/Footer';
+import PartnerList from './main/PartnerList';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
 
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <Test />
+      <PartnerList />
       <Footer />
     </div>
   );
