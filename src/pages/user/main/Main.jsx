@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PartnerList from '../../../../src/main/PartnerList';
-import FAQ from '../../../../src/main/FAQ/FAQ';
-import Sample from '../../../../src/main/Sample/Sample';
-import BusinessDeals from '../../../../src/main/BusinessDeals';
-import Category from '../../../../src/main/category/Category';
+import PartnerList from '../../../components/main/PartnerList';
+import FAQ from '../../../components/main/FAQ/FAQ';
+import Sample from '../../../components/main/Sample/Sample';
+import BusinessDeals from '../../../components/main/BusinessDeals';
+import Category from '../../../components/main/category/Category';
 import styled from 'styled-components';
 
 export default function Main() {

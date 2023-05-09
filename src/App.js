@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import variables from './styles/variables';
-import Footer from './main/Footer';
+import Footer from './components/main/Footer';
 import { Outlet } from 'react-router-dom';
 
 function App() {
