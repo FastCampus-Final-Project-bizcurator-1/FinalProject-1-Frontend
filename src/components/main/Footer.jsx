@@ -46,7 +46,6 @@ const Container = styled.footer`
     padding: 35px;
     align-items: stretch;
     flex-direction: column;
-    width: 768px;
   }
 `;
 
