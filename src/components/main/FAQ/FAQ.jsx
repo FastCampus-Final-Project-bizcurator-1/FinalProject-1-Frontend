@@ -44,10 +44,9 @@ export default function FAQ() {
 }
 
 const Container = styled.section`
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
-  width: auto;
   height: 676px;
   background-color: #f1f5ff;
   font-size: 12px;
@@ -58,18 +57,24 @@ const Container = styled.section`
     justify-content: space-around;
     flex-direction: column;
   }
-
-  @media (max-width: 768px) {
-    justify-content: space-around;
-    flex-direction: column;
+  @media (max-width: 480px) {
+    height: 800px;
   }
 `;
 
 const Row1 = styled.div`
+  width: 50%;
   flex-grow: 3;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
 `;
 const Row2 = styled.div`
+  width: 50%;
   flex-grow: 1;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
 `;
 
 const fadeInRight = keyframes`
@@ -97,7 +102,7 @@ const fadeInUp = keyframes`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 50%;
   margin: auto;
   font-family: GmarketSansTTFMedium;
   font-size: 48px;
@@ -108,24 +113,32 @@ const TextContainer = styled.div`
     animation: ${fadeInRight} 0.5s linear;
     opacity: 1;
   }
+  @media (max-width: 1440px) {
+    font-size: 40px;
+  }
 
   @media (max-width: 1024px) {
     margin-top: 36px;
+    justify-content: center;
     align-items: center;
     width: auto;
     flex-direction: row;
-    font-size: 38px;
-
+    font-size: 36px;
+    
     ${Container}.active & {
       animation: ${fadeInUp} 0.5s linear;
       opacity: 1;
     }
   }
+  @media (max-width: 480px) {
+    font-size: 24px;
+
 `;
 
 const Text = styled.div`
   font-weight: 300;
   text-align: left;
+
   @media (max-width: 1024px) {
     font-weight: 500;
     margin-right: 12px;
