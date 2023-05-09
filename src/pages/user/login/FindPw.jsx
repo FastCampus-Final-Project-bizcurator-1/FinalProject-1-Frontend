@@ -9,7 +9,12 @@ export default function FindId() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm();
+
+  // 폼 입력 확인
+  const watchWriteId = watch('userId');
+  const watchWriteEmail = watch('email');
 
   // 아이디 찾기 정보 submit
   const onSubmit = data => {
@@ -24,6 +29,7 @@ export default function FindId() {
       handleSubmit(onSubmit);
     }
   };
+
   return (
     <Wrapper>
       <Title>비밀번호 찾기</Title>
@@ -67,7 +73,9 @@ export default function FindId() {
               <Error>이메일을 입력해주세요.</Error>
             ))}
         </TextArea>
-        <Btn disabled={isSubmitting}>인증하기</Btn>
+        <Btn status={watchWriteId && watchWriteEmail} disabled={isSubmitting}>
+          인증하기
+        </Btn>
       </Form>
       <FindBtn href="/findId">
         아이디 찾기
@@ -157,13 +165,16 @@ const Btn = styled.button`
   height: 52px;
   font-size: 16px;
   font-weight: 600;
-  color: ${props => (props.status ? '#2b66f6' : '#fff')};
+  color: #fff;
   border: 0;
   border-radius: 999px;
   background-color: ${props => (props.status ? '#2b66f6' : '#d0d0d0')};
   margin-bottom: 15px;
   cursor: pointer;
   transition: 0.3s ease;
+  &:hover {
+    background-color: ${props => (props.status ? '#164AC9' : '#d0d0d0')};
+  }
   @media (max-width: 768px) {
     font-size: 14px;
   }

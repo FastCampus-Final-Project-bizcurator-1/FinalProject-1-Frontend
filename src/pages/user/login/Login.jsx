@@ -164,12 +164,17 @@ const Btn = styled.button`
   font-size: 16px;
   font-weight: 600;
   color: ${props => (props.status ? '#2b66f6' : '#fff')};
-  border: ${props => (props.status ? '1px solid #2b66f6' : '0')};
+  border: ${props => (props.status ? '2px solid #2b66f6' : '0')};
   border-radius: 999px;
-  background-color: ${props => (props.status ? '#fff' : '#2b66f6')};
+  background-color: ${props => (props.status ? 'transparent' : '#2b66f6')};
   margin-bottom: ${props => (props.status ? '20px' : '8px')};
   cursor: pointer;
   transition: 0.3s ease;
+  &:hover {
+    background-color: ${props => (props.status ? 'transparent' : '#164AC9')};
+    border: ${props => (props.status ? '2px solid #164AC9' : '0')};
+    color: ${props => (props.status ? '#164AC9' : '#fff')};
+  }
   @media (max-width: 768px) {
     width: 310px;
     height: 50px;
