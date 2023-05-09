@@ -162,17 +162,8 @@ const Active = styled.span`
 `;
 
 const PartnerLogo = styled.div`
-  width: calc(768 / 5);
   height: 90px;
-  @media (max-width: 1440px) {
-    width: calc(1440 / 4);
-  }
-  @media (max-width: 768px) {
-    width: calc(768 / 3);
-  }
 `;
 const Img = styled.img`
   margin: auto;
-  @media (max-width: 768px) {
-  }
 `;

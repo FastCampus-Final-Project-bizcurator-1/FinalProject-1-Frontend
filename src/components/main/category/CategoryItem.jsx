@@ -28,8 +28,7 @@ export default function CategoryItem({
 }
 
 const Container = styled.div`
-  width: 300px;
-  height: 400px;
+  height: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,8 +39,8 @@ const Container = styled.div`
   border-radius: 15px;
 `;
 const Item = styled.div`
-  width: 255px;
-  height: 304px;
+  min-width: 255px;
+  min-height: 320px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,19 +51,14 @@ const Item = styled.div`
   border-radius: 15px;
   -webkit-box-shadow: 0px 5px 15px 4px rgba(208, 208, 208, 0.4);
   box-shadow: 0px 5px 15px 4px rgba(208, 208, 208, 0.4);
-
-  @media (max-width: 1440px) {
-    width: 225px;
-    height: 300px;
-  }
-
-  @media (max-width: 768px) {
-    width: 225px;
-    height: 300px;
-  }
 `;
 
-const Img = styled.img``;
+const Img = styled.img`
+  margin-bottom: 10px;
+  min-width: 255px;
+  max-height: 191px;
+  overflow: hidden;
+`;
 const ItemContainer = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
 `;
