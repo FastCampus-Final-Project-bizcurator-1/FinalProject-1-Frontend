@@ -40,13 +40,22 @@ const Question = styled.div`
   font-size: 20px;
   margin-bottom: 22px;
   font-weight: 700;
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 const Answer = styled.span`
   font-weight: 400;
   font-size: 16px;
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;
 
 const SubAnswer = styled.span`
   font-weight: 300;
   font-size: 14px;
+  @media (max-width: 480px) {
+    font-size: 10.5px;
+  }
 `;
