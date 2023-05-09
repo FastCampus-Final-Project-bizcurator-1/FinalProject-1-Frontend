@@ -1,0 +1,76 @@
+{
+  "user": [
+    {
+      "id": "ironpeople",
+      "email": "ironpeople@mariott.com",
+      "manager_name": "박철민",
+      "phone_number": "010-5346-2479",
+      "role": "ROLE_STANDBY",
+      "company": {
+        "owner_name": "박철민",
+        "company_name": "매리어트 본보이 호텔 앤 리조트 주식회사",
+        "opening_date": "2021-03-06",
+        "corporate_number": "105-23-53476",
+        "business_license": "사업자등록증 자리 varchar 타입임."
+      },
+      "created_at": "2023-03-02T14:30:00Z",
+      "modified_at": "2023-03-03T16:00:00Z",
+      "is_deleted": false,
+      "deleted_at": null
+    },
+    {
+      "id": "sy.kim",
+      "email": "sy.kim@hanha.com",
+      "manager_name": "김선영",
+      "phone_number": "010-3254-7869",
+      "role": "ROLE_USER",
+      "company": {
+        "owner_name": "김선영",
+        "company_name": "주식회사 한하리조트",
+        "opening_date": "1992-03-06",
+        "corporate_number": "101-41-25466",
+        "business_license": "사업자등록증 자리 varchar 타입임."
+      },
+      "created_at": "2023-01-02T11:30:00Z",
+      "modified_at": "2023-01-04T16:00:00Z",
+      "is_deleted": false,
+      "deleted_at": null
+    },
+    {
+      "id": "wtk256",
+      "email": "wtk256@gmail.com",
+      "manager_name": "최대영",
+      "phone_number": "010-3075-8112",
+      "role": "ROLE_USER",
+      "company": {
+        "owner_name": "최대영",
+        "company_name": "이투스에듀 주식회사",
+        "opening_date": "1998-04-08",
+        "corporate_number": "102-08-11946",
+        "business_license": "사업자등록증 자리 varchar 타입임."
+      },
+      "created_at": "2021-07-02T04:30:00Z",
+      "modified_at": "2021-07-03T15:00:00Z",
+      "is_deleted": false,
+      "deleted_at": null
+    },
+    {
+      "id": "addio011",
+      "email": "addio011@naver.com",
+      "manager_name": "김세윤",
+      "phone_number": "010-2293-4771",
+      "role": "ROLE_REFUSE",
+      "company": {
+        "owner_name": "김세윤",
+        "company_name": "매리어트 본보이 호텔 앤 리조트 주식회사",
+        "opening_date": "2022-01-07",
+        "corporate_number": "106-63-43116",
+        "business_license": "사업자등록증 자리 varchar 타입임."
+      },
+      "created_at": "2022-09-02T13:00:00Z",
+      "modified_at": "2022-09-03T09:30:00Z",
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  ]
+}
