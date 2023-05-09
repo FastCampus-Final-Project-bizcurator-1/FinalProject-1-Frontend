@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 export default function CompanyAdvantages({ isView, text, delay }) {
   return (
     <Container delay={delay} isView={isView} className={isView ? 'active' : ''}>
-      <img src="/images/checked.png" alt="" />
+      <Img src="/images/checked.png" alt="" />
       <Text3>{text}</Text3>
     </Container>
   );
@@ -32,9 +32,24 @@ const Container = styled.div`
     animation-delay: ${props => props.delay}s;
     opacity: 1;
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const Img = styled.img`
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const Text3 = styled.div`
-  margin-left: 16px;
   font-weight: 300;
+  margin-left: 16px;
+
+  @media (max-width: 768px) {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
 `;
