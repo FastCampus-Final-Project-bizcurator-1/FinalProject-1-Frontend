@@ -77,4 +77,6 @@ const Test = styled.div`
 const Bold = styled.span`
   font-weight: 700;
 `;
-const Img = styled.img``;
+const Img = styled.img`
+  width: 100%;
+`;
