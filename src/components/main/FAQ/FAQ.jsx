@@ -58,17 +58,14 @@ const Container = styled.section`
     justify-content: space-around;
     flex-direction: column;
   }
-
-  @media (max-width: 768px) {
-    justify-content: space-around;
-    flex-direction: column;
-  }
 `;
 
 const Row1 = styled.div`
+  width: 50%;
   flex-grow: 3;
 `;
 const Row2 = styled.div`
+  width: 50%;
   flex-grow: 1;
 `;
 

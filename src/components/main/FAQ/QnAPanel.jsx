@@ -33,7 +33,7 @@ const Container = styled.div`
   }
 
   @media (max-width: 1024px) {
-    width: 650px;
+    width: 100%;
   }
 `;
 const Question = styled.div`
