@@ -94,7 +94,7 @@ const fadeInUp = keyframes`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 100%;
   margin: auto;
   font-family: GmarketSansTTFMedium;
   font-size: 48px;
@@ -108,6 +108,7 @@ const TextContainer = styled.div`
 
   @media (max-width: 1024px) {
     margin-top: 36px;
+    justify-content: center;
     align-items: center;
     width: auto;
     flex-direction: row;
