@@ -23,7 +23,8 @@ export default function PartnerList() {
     autoplay: true,
     autoplaySpeed: 1500,
     speed: 800,
-    slidesToShow: outerWidth > 1440 ? 5 : outerWidth > 768 ? 4 : 3,
+    slidesToShow:
+      outerWidth > 1440 ? 4 : outerWidth > 768 ? 3 : outerWidth > 480 ? 2 : 1,
     slidesToScroll: 1,
     variableHeight: true,
     centerMode: true,
@@ -91,10 +92,6 @@ const Container = styled.section`
   font-size: 12px;
   line-height: 20px;
   color: #181818;
-
-  @media (max-width: 768px) {
-    width: 768px;
-  }
 `;
 
 const Row1 = styled.div`
