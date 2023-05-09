@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Login() {
@@ -67,9 +67,7 @@ export default function Login() {
           </TextField>
           {errors.password && <Error>비밀번호를 입력해주세요.</Error>}
         </TextArea>
-        {/* <BtnArea> */}
         <Btn disabled={isSubmitting}>시작하기</Btn>
-        {/* </BtnArea> */}
       </Form>
       <a href="/signUp">
         <Btn status={true}>가입하고 바로 견적확인</Btn>
@@ -85,7 +83,6 @@ export default function Login() {
 
 const Wrapper = styled.div`
   width: 340px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,7 +90,6 @@ const Wrapper = styled.div`
   margin: 60px auto 100px;
   padding: 0 15px;
   transition: 0.3s ease;
-  font-family: 'Noto Sans KR', sans-serif;
   @media (max-width: 768px) {
     width: 320px;
     padding: 0 15px;
