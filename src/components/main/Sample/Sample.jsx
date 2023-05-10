@@ -91,7 +91,7 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 390px;
+  width: 100%;
   height: 100px;
   margin: auto;
   font-size: 48px;
