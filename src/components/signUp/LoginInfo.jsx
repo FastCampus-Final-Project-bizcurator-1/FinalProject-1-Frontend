@@ -39,8 +39,6 @@ export default function LoginInfo({ loginData, setLoginData }) {
     }
   };
 
-  // console.log(`${`123456789`}`);
-
   return (
     <Container>
       <Title>로그인 정보</Title>

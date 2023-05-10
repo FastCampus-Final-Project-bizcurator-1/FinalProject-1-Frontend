@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BsCheckLg } from 'react-icons/bs';
 import LoginInfo from '../../components/signUp/LoginInfo';
+import CorporateInfo from '../../components/signUp/CorporateInfo';
 
 export default function SignUp() {
   // 로그인 정보
   const [loginData, setLoginData] = useState(false);
+  // 사업자 정보
+  const [corporateData, setCorporateData] = useState(false);
+
+  console.log(corporateData);
 
   return (
     <Wrapper>
@@ -18,12 +23,25 @@ export default function SignUp() {
         </CheckCircle>
         <ProgressLine left={true} finish={loginData.password?.length} />
         <CircleFill finish={loginData.password?.length}>2</CircleFill>
-        <ProgressLine />
-        <Circle status={true}>3</Circle>
+        <ProgressLine
+          finish={
+            loginData.password?.length && corporateData.openingDate?.length
+          }
+        />
+        <Circle
+          finish={
+            loginData.password?.length && corporateData.openingDate?.length
+          }
+        >
+          3
+        </Circle>
       </Progress>
       <FormContainer>
         <LoginInfo setLoginData={setLoginData} loginData={loginData} />
-
+        <CorporateInfo
+          setCorporateData={setCorporateData}
+          corporateData={corporateData}
+        />
         <StartBtn>시작하기</StartBtn>
       </FormContainer>
     </Wrapper>
