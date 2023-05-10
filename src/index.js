@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import AdminApp from './AdminApp';
 import Main from './pages/user/main/Main';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/user/SignUp';
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <App />,
+    element: <AdminApp />,
     errorElement: <NotFound />,
     children: [
       { index: true, element: <AdminLogin /> },
