@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import { BsCheckLg } from 'react-icons/bs';
 import LoginInfo from '../../components/signUp/LoginInfo';
 import CorporateInfo from '../../components/signUp/CorporateInfo';
+import ServiceAgreement from '../../components/signUp/ServiceAgreement';
 
 export default function SignUp() {
   // 로그인 정보
   const [loginData, setLoginData] = useState(false);
   // 사업자 정보
   const [corporateData, setCorporateData] = useState(false);
+  // 서비스 정책 (필수) 클릭여부
+  const [checkService, setCheckService] = useState(false);
+  // 시작버튼 클릭여부 => 체크박스 확인용
+  const [clickStart, setClickStart] = useState(false);
 
   return (
     <Wrapper>
@@ -40,7 +45,11 @@ export default function SignUp() {
           setCorporateData={setCorporateData}
           corporateData={corporateData}
         />
-        <StartBtn>시작하기</StartBtn>
+        <ServiceAgreement
+          setCheckService={setCheckService}
+          clickStart={clickStart}
+        />
+        <StartBtn onClick={() => setClickStart(!clickStart)}>시작하기</StartBtn>
       </FormContainer>
     </Wrapper>
   );
