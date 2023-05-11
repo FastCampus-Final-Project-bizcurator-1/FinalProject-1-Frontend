@@ -10,8 +10,6 @@ export default function SignUp() {
   // 사업자 정보
   const [corporateData, setCorporateData] = useState(false);
 
-  console.log(corporateData);
-
   return (
     <Wrapper>
       <Logo src="./images/logo_origin.png" />
