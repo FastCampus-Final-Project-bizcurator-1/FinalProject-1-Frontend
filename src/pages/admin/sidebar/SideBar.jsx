@@ -35,6 +35,7 @@ const Container = styled.div`
   height: 200px;
   font-size: 16px;
   font-weight: 500;
+  top : 15%;
   left: 15%;
 
   @media (max-width: 1440px) {
