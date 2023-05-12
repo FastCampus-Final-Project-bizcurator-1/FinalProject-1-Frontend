@@ -80,6 +80,9 @@ const Container = styled.div`
   left: 10%;
   margin-top: 30px;
 
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+  }
   @media (max-width: 480px) {
     height: 224px;
   }
@@ -98,6 +101,9 @@ const RoleStateContainer = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
     padding: 0 100px;
+  }
+  @media (max-width: 768px) {
+    padding: 0 40px;
   }
 `;
 

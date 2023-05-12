@@ -34,10 +34,24 @@ const Container = styled.div`
   width: 94px;
   height: 200px;
   font-size: 16px;
-  background-color: yellow;
-  left: 20%;
+  font-weight: 500;
+  left: 15%;
+
+  @media (max-width: 1440px) {
+    left 10%;
+  }
+
+  @media (max-width: 1024px) {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    left: 0;
+  }
 `;
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 1024px) {
+    flex-direction: row;
+  }
 `;
