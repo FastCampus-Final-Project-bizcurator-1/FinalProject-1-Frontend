@@ -23,6 +23,7 @@ export default function ServiceAgreement() {
     });
   };
 
+  // 체크 확인
   const handleCheck = e => {
     const allCheck = document.getElementById('allChecked');
     if (!e.target.checked) {
@@ -37,10 +38,6 @@ export default function ServiceAgreement() {
     // 모든 옵션 선택되면 => 전체동의도 체크
     if (count === 4) {
       allCheck.checked = true;
-    }
-    // 필수 항목이면 value 설정
-    if (e.required) {
-      e.target.value = 'done';
     }
   };
 

@@ -4,6 +4,7 @@ import { BsCheckLg } from 'react-icons/bs';
 import LoginInfo from '../../components/signUp/LoginInfo';
 import CorporateInfo from '../../components/signUp/CorporateInfo';
 import ServiceAgreement from '../../components/signUp/ServiceAgreement';
+import ServiceModal from '../../components/signUp/ServiceModal';
 
 export default function SignUp() {
   // 로그인 정보
@@ -28,7 +29,9 @@ export default function SignUp() {
   // 사업자 정보 진위 확인
   const [isVerify, setIsVerify] = useState(false);
   // 사업자정보 기입 완료 여부
-  const [corporateFinish, setCoporateFinish] = useState(false);
+  const [corporateFinish, setCoporateFinish] = useState(true);
+  // 서비스정책 완료 x  => 모달
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     // 로그인정보 완료 체크
@@ -54,13 +57,34 @@ export default function SignUp() {
     }
   }, [loginData, confirmEmail, corporateData, isVerify]);
 
+  useEffect(() => {
+    const startBtn = document.getElementById('startBtn');
+    if (!(loginFinish && corporateFinish)) {
+      startBtn.disabled = true;
+    }
+  }, [loginFinish, corporateFinish]);
+
   const handleSubmit = () => {
-    console.log(loginData, confirmEmail);
-    console.log(corporateData, isVerify);
+    // 서비스정책 필수 항목 체크 확인
+    const checkList = document.querySelectorAll('.serviceArea input:required');
+    let count = 0;
+    for (let i = 0; i < checkList.length; i++) {
+      if (checkList[i].checked) {
+        count += 1;
+      }
+    }
+    if (count === 3) {
+      // console.log('완료');
+      // api 연결 => 회원가입
+    } else {
+      // console.log('미완료');
+      setOpen(true);
+    }
   };
 
   return (
     <Wrapper>
+      {open && <ServiceModal setOpen={setOpen} />}
       <Logo src="./images/logo_origin.png" />
       <Progress>
         <CheckCircle>
@@ -87,7 +111,9 @@ export default function SignUp() {
           isVerify={isVerify}
         />
         <ServiceAgreement />
+        {/* {serviceError && <Error>* 필수 항목을 동의해주세요.</Error>} */}
         <StartBtn
+          id="startBtn"
           finish={loginFinish && corporateFinish}
           onClick={() => handleSubmit()}
         >
@@ -228,7 +254,7 @@ const StartBtn = styled.button`
   border: ${props => (props.finish ? '0' : '1px solid #d0d0d0')};
   border-radius: 999px;
   background-color: ${props => (props.finish ? '#2b66f6' : '#f5f5f5')};
-  cursor: pointer;
+  cursor: ${props => (props.finish ? 'pointer' : 'default')};
   transition: 0.3s ease;
 `;
 
