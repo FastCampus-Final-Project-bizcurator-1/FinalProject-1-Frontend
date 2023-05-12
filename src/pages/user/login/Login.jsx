@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import LoginModal from '../../../components/login/LoginModal';
 
 export default function Login() {
   // 경로이동을 위함
   const navigate = useNavigate();
+  // 모달
+  const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
   const {
     register,
@@ -15,7 +18,6 @@ export default function Login() {
 
   // 로그인정보 submit
   const onSubmit = data => {
-    console.log(data);
     // 메인이동
     navigate('/');
   };
@@ -27,8 +29,14 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    // 로그인 실패시, 모달 open
+    // setOpen(true);
+  }, []);
+
   return (
     <Wrapper>
+      {open && <LoginModal setOpen={setOpen} />}
       <Logo src="./images/logo_origin.png" alt="login_logo" />
       <LoginText>로그인 후 바로 서비스를 이용하세요.</LoginText>
       <Form onSubmit={handleSubmit(onSubmit)} onKeyPress={onKeyPress}>

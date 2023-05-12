@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
+import FindIdModal from '../../../components/login/FindIdModal';
 
 export default function FindId() {
+  // 모달
+  const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
   const {
     register,
@@ -19,18 +22,20 @@ export default function FindId() {
   // 아이디 찾기 정보 submit
   const onSubmit = data => {
     console.log(data);
-    // 메인이동
-    alert('입력하신 이메일로 인증 메일이 전송되었습니다.');
+    // 이메일전송 api 연결 & 모달 오픈
+    setOpen(true);
   };
 
   // Enter 눌렀을 경우에도 아이디 찾기 요청
   const onKeyPress = e => {
     if (e.key === 'Enter') {
-      handleSubmit(onSubmit);
+      handleSubmit(onSubmit());
     }
   };
+
   return (
     <Wrapper>
+      {open && <FindIdModal setOpen={setOpen} />}
       <Title>아이디 찾기</Title>
       <Info>
         가입 시 등록한 성함과 이메일을 알려주시면 <br />

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
+import FindPwModal from '../../../components/login/FindPwModal';
 
 export default function FindId() {
+  // 모달
+  const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
   const {
     register,
@@ -16,14 +19,13 @@ export default function FindId() {
   const watchWriteId = watch('userId');
   const watchWriteEmail = watch('email');
 
-  // 아이디 찾기 정보 submit
+  // 비밀번호 찾기 정보 submit
   const onSubmit = data => {
-    console.log(data);
-    // 메인이동
-    alert('입력하신 이메일로 임시 비밀번호를 전송하였습니다.');
+    // console.log(data);
+    setOpen(true);
   };
 
-  // Enter 눌렀을 경우에도 아이디 찾기 요청
+  // Enter 눌렀을 경우에도 비밀번호 찾기 요청
   const onKeyPress = e => {
     if (e.key === 'Enter') {
       handleSubmit(onSubmit);
@@ -32,6 +34,7 @@ export default function FindId() {
 
   return (
     <Wrapper>
+      {open && <FindPwModal setOpen={setOpen} />}
       <Title>비밀번호 찾기</Title>
       <Info>
         가입 시 등록한 아이디와 이메일을 알려주시면 <br />
