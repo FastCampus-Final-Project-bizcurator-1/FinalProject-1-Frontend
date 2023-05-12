@@ -26,7 +26,7 @@ import PaymentHistory from './pages/admin/PaymentHistory';
 import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
-import UserList from './pages/admin/UserList';
+import UserList from './pages/admin/userList/UserList';
 
 const router = createBrowserRouter([
   {
