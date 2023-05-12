@@ -20,7 +20,7 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
   // 사업자등록번호 검사
   const validCorporateNumber = e => {
     const reg = /^\d{10}$/;
-    const num = parseInt(e.target.value.split('-').join(''));
+    const num = parseInt(e.target.value.replace(/[^0-9]/g, ''));
     if (reg.test(num)) {
       e.target.value = num;
       setNumError(false);
@@ -54,15 +54,16 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
   };
 
   return (
-    <Container>
+    <Container className="coporateInfo">
       <Title>사업자 정보</Title>
       <TextField>
         <SubTitle>업체명</SubTitle>
-        <Input type="text" id="companyName" onChange={handleChange} />
+        <Input required type="text" id="companyName" onChange={handleChange} />
       </TextField>
       <TextField>
         <SubTitle>사업자등록번호</SubTitle>
         <Input
+          required
           type="text"
           id="corporateNumber"
           onChange={validCorporateNumber}
@@ -71,11 +72,16 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
       {numError && <Error>10자로 이루어진 정확한 번호를 입력해주세요.</Error>}
       <TextField>
         <SubTitle>대표자명</SubTitle>
-        <Input type="text" id="ownerName" onChange={handleChange} />
+        <Input required type="text" id="ownerName" onChange={handleChange} />
       </TextField>
       <TextField>
         <SubTitle>개업일시 (YYYY-MM-DD)</SubTitle>
-        <Input type="text" id="openingDate" onChange={validOpeningDate} />
+        <Input
+          required
+          type="text"
+          id="openingDate"
+          onChange={validOpeningDate}
+        />
       </TextField>
       {dateError && <Error>정확한 날짜를 입력해주세요.</Error>}
       <BtnGroup>
@@ -155,7 +161,7 @@ const AttachBtn = styled.button`
   justify-content: center;
   align-items: center;
   background-color: ${props => (props.finish ? '#2B66F6' : 'transparent')};
-  border: ${props => (props.finish ? '0' : '2px solid #2B66F6')};
+  border: ${props => (props.finish ? '0' : '1px solid #2B66F6')};
   border-radius: 999px;
   color: ${props => (props.finish ? '#fff' : '#2B66F6')};
   font-size: 14px;
@@ -184,7 +190,7 @@ const CofirmBtn = styled.button`
   justify-content: center;
   align-items: center;
   background-color: ${props => (props.finish ? '#2B66F6' : '#f5f5f5')};
-  border: ${props => (props.finish ? '0' : '2px solid #d0d0d0')};
+  border: ${props => (props.finish ? '0' : '1px solid #d0d0d0')};
   border-radius: 999px;
   color: ${props => (props.finish ? '#fff' : '#797979')};
   font-size: 14px;

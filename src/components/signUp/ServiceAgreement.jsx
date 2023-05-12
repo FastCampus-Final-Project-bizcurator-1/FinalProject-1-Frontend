@@ -1,61 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export default function ServiceAgreement({ setCheckService, clickStart }) {
-  // 필수 체크 항목
-  const [checkRequired, setCheckRequired] = useState({
-    requiredValue1: false,
-    requiredValue2: false,
-  });
+export default function ServiceAgreement() {
   // 서비스정책 내용보기 open 버튼
   const [open, setOpen] = useState({
     first: false,
     second: false,
   });
-
-  // 필수 체크 항목 선택여부 변경
-  const hadleRequired = e => {
-    if (e.target.checked) {
-      setCheckRequired({
-        ...checkRequired,
-        [e.target.value]: true,
-      });
-    } else {
-      setCheckRequired({
-        ...checkRequired,
-        [e.target.value]: false,
-      });
-    }
-  };
+  // 체크 개수 세기
+  let count = 0;
 
   // 전체동의 설정
   const handleAllcheck = e => {
     let checkboxList = document.querySelectorAll(
       '.serviceArea input[type="checkbox"]:not(#allChecked)'
     );
-    // 전체동의 버튼 checked에 따라 isCheck true/false
-    const isCheck = e.target.checked;
     checkboxList.forEach(el => {
       // 해당 요소의 checked 속성을 변경
-      el.checked = isCheck;
-      // 필수 요소의 checked 속성 변경
-      setCheckRequired({
-        requiredValue1: isCheck,
-        requiredValue2: isCheck,
-      });
+      el.checked = e.target.checked;
+      // 전체동의이므로, count = 4
+      count = 4;
     });
   };
 
-  // 시작버튼 클릭시, 필수체크 여부 확인
-  useEffect(() => {
-    if (checkRequired.requiredValue1 && checkRequired.requiredValue2) {
-      // console.log('체크완료');
-      setCheckService(true);
+  const handleCheck = e => {
+    const allCheck = document.getElementById('allChecked');
+    if (!e.target.checked) {
+      // 체크가 해제되면 => 전체동의도 체크해제
+      allCheck.checked = false;
+      // 체크 해제되면 => count -1
+      count -= 1;
     } else {
-      setCheckService(false);
-      // console.log('체크미완료');
+      // 체크 되면 => count +1
+      count += 1;
     }
-  }, [clickStart]);
+    // 모든 옵션 선택되면 => 전체동의도 체크
+    if (count === 4) {
+      allCheck.checked = true;
+    }
+    // 필수 항목이면 value 설정
+    if (e.required) {
+      e.target.value = 'done';
+    }
+  };
 
   // 서비스정책 내용
   const [text, setText] = useState('');
@@ -74,7 +61,6 @@ export default function ServiceAgreement({ setCheckService, clickStart }) {
   return (
     <Container>
       <ServiceTitle>서비스 정책</ServiceTitle>
-
       <Service className="serviceArea">
         <Label>
           <CheckBox type="checkbox" id="allChecked" onChange={handleAllcheck} />
@@ -82,16 +68,11 @@ export default function ServiceAgreement({ setCheckService, clickStart }) {
         </Label>
         <ServiceLine />
         <Label>
-          <CheckBox type="checkbox" id="option" value="optionValue1" />
-          관리자 승인 후 서비스 이용이 가능합니다.
+          <CheckBox required type="checkbox" onChange={handleCheck} />
+          관리자 승인 후 서비스 이용이 가능합니다. (필수)
         </Label>
         <Label>
-          <CheckBox
-            type="checkbox"
-            id="required"
-            value="requiredValue1"
-            onChange={hadleRequired}
-          />
+          <CheckBox required type="checkbox" onChange={handleCheck} />
           이용약관 (필수)
           <MoreBtn
             onClick={() => setOpen({ first: !open.first, second: false })}
@@ -107,12 +88,7 @@ export default function ServiceAgreement({ setCheckService, clickStart }) {
           )}
         </Label>
         <Label>
-          <CheckBox
-            type="checkbox"
-            id="required"
-            value="requiredValue2"
-            onChange={hadleRequired}
-          />
+          <CheckBox required type="checkbox" onChange={handleCheck} />
           개인정보 수집 및 이용 안내 (필수)
           <MoreBtn
             onClick={() => setOpen({ first: false, second: !open.second })}
@@ -128,7 +104,7 @@ export default function ServiceAgreement({ setCheckService, clickStart }) {
           )}
         </Label>
         <Label>
-          <CheckBox type="checkbox" id="option" value="optionValue2" />
+          <CheckBox type="checkbox" onChange={handleCheck} />
           이벤트/프로모션 등 알림 수신 (선택)
         </Label>
       </Service>

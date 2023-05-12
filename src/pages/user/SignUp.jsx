@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsCheckLg } from 'react-icons/bs';
 import LoginInfo from '../../components/signUp/LoginInfo';
@@ -7,13 +7,46 @@ import ServiceAgreement from '../../components/signUp/ServiceAgreement';
 
 export default function SignUp() {
   // 로그인 정보
-  const [loginData, setLoginData] = useState(false);
+  const [loginData, setLoginData] = useState({
+    userId: '',
+    managerName: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
+  });
+  // 로그인정보 기입 완료 여부
+  const [loginFinish, setLoginFinish] = useState(false);
   // 사업자 정보
-  const [corporateData, setCorporateData] = useState(false);
-  // 서비스 정책 (필수) 클릭여부
-  const [checkService, setCheckService] = useState(false);
-  // 시작버튼 클릭여부 => 체크박스 확인용
-  const [clickStart, setClickStart] = useState(false);
+  const [corporateData, setCorporateData] = useState({
+    companyName: '',
+    corporateNumber: '',
+    ownerName: '',
+    openingDate: '',
+  });
+  // 사업자정보 기입 완료 여부
+  const [corporateFinish, setCoporateFinish] = useState(false);
+
+  useEffect(() => {
+    // 로그인정보 완료체크
+    if (
+      loginData.userId.length > 0 &&
+      loginData.managerName.length > 0 &&
+      loginData.phoneNumber.length > 0 &&
+      loginData.email.length > 0 &&
+      loginData.password.length > 0
+    ) {
+      setLoginFinish(true);
+    }
+    // 사업자정보 완료 체크
+    if (
+      corporateData.companyName.length > 0 &&
+      corporateData.corporateNumber.length > 0 &&
+      corporateData.ownerName.length > 0 &&
+      corporateData.openingDate.length > 0
+    ) {
+      setCoporateFinish(true);
+    }
+  }, [loginData, corporateData]);
 
   return (
     <Wrapper>
@@ -24,20 +57,10 @@ export default function SignUp() {
             <BsCheckLg />
           </Icon>
         </CheckCircle>
-        <ProgressLine left={true} finish={loginData.password?.length} />
-        <CircleFill finish={loginData.password?.length}>2</CircleFill>
-        <ProgressLine
-          finish={
-            loginData.password?.length && corporateData.openingDate?.length
-          }
-        />
-        <Circle
-          finish={
-            loginData.password?.length && corporateData.openingDate?.length
-          }
-        >
-          3
-        </Circle>
+        <ProgressLine left={true} finish={loginFinish} />
+        <CircleFill finish={loginFinish}>2</CircleFill>
+        <ProgressLine finish={corporateFinish} />
+        <Circle finish={corporateFinish}>3</Circle>
       </Progress>
       <FormContainer>
         <LoginInfo setLoginData={setLoginData} loginData={loginData} />
@@ -45,12 +68,19 @@ export default function SignUp() {
           setCorporateData={setCorporateData}
           corporateData={corporateData}
         />
-        <ServiceAgreement
-          setCheckService={setCheckService}
-          clickStart={clickStart}
+        <ServiceAgreement />
+        <StartBtn
+          type="submit"
+          value="시작하기"
+          id="submitBtn"
+          finish={loginFinish && corporateFinish}
         />
-        <StartBtn onClick={() => setClickStart(!clickStart)}>시작하기</StartBtn>
       </FormContainer>
+      {loginFinish && corporateFinish ? (
+        <></>
+      ) : (
+        <Error>* 필수 입력 항목을 확인해주세요 </Error>
+      )}
     </Wrapper>
   );
 }
@@ -166,19 +196,26 @@ const Circle = styled.div`
   }
 `;
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   width: 100%;
 `;
 
-const StartBtn = styled.button`
+const StartBtn = styled.input`
   width: 100%;
   height: 52px;
   margin-top: 20px;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
-  border: 0;
+  color: ${props => (props.finish ? '#fff' : '#797979')};
+  border: ${props => (props.finish ? '0' : '1px solid #d0d0d0')};
   border-radius: 999px;
-  background-color: #2b66f6;
+  background-color: ${props => (props.finish ? '#2b66f6' : '#f5f5f5')};
   cursor: pointer;
+  transition: 0.3s ease;
+`;
+
+const Error = styled.p`
+  color: #d30000;
+  margin-top: 15px;
+  font-size: 12px;
 `;
