@@ -42,7 +42,7 @@ export default function Sample({ isView }) {
 }
 
 const Container = styled.section`
-  width: 100vw;
+  width: 100%;
   height: 910px;
   display: flex;
   justify-content: center;
@@ -52,6 +52,10 @@ const Container = styled.section`
   background-color: #ffffff;
   line-height: 20px;
   font-family: GmarketSansTTFMedium;
+
+  @media (max-width: 480px) {
+    height: 700px;
+  }
 `;
 
 const Row1 = styled.div`
@@ -65,6 +69,10 @@ const Row2 = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 72px 0;
+
+  @media (max-width: 480px) {
+    margin: 0;
+  }
 `;
 
 const fadeInUp = keyframes`
@@ -83,7 +91,7 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 390px;
+  width: 100%;
   height: 100px;
   margin: auto;
   font-size: 48px;
@@ -118,6 +126,13 @@ const AdvantagesContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const ImgDescription = styled.div`
@@ -129,11 +144,15 @@ const ImgDescription = styled.div`
   opacity: 0.9;
   font-weight: 100;
   font-family: 'Noto Sans KR', sans-serif;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const SampleImageContainer = styled.div`
   position: relative;
-  width: 470px;
+  width: 480px;
   height: 410px;
   margin: 40px auto 0;
   position: relative;
@@ -143,12 +162,30 @@ const SampleImageContainer = styled.div`
   &:hover ${ImgDescription} {
     display: none;
   }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+  }
 `;
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 20px;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+    height: 80%;
+  }
+
+  @media (max-width: 480px) {
+    top: 20%;
+    left: 10%;
+    width: 60%;
+    height: 60%;
+  }
 `;
 
 const ImgHover = styled.div`
@@ -168,6 +205,20 @@ const ImgHover = styled.div`
   cursor: pointer;
   &:hover {
     opacity: 0.6;
+  }
+
+  @media (max-width: 1024px) {
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+  }
+
+  @media (max-width: 480px) {
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
   }
 `;
 

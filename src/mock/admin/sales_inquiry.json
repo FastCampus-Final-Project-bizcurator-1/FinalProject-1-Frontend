@@ -1,0 +1,64 @@
+{
+  "sales_inquiry": [
+    {
+      "status": "답변완료",
+      "id": "rurilee",
+      "email": "rurilee@9randhotel.kr",
+      "phone_number": "010-3548-1094",
+      "company_name": "구랜드호텔",
+      "company_address": "(01234) 서울시 무슨구 무슨동 9층 구랜드호텔",
+      "manufacturing_company": "비큐산업",
+      "url": "www.9randhotel.co.kr",
+      "created_at": "2023-03-02T14:30:00Z",
+      "modify_at": "2023-03-04T11:30:00Z"
+    },
+    {
+      "status": "안읽음",
+      "id": "wtk256",
+      "email": "wtk256@gmail.com",
+      "phone_number": "010-3075-8112",
+      "company_name": "이투스에듀 주식회사",
+      "delivery_address": "서울특별시 서초구 남부순환로 2547 (서초동)",
+      "manufacturing_company": "가나다라",
+      "url": "https://www.etoos.com/home/default.asp",
+      "created_at": "2021-07-02T04:30:00Z",
+      "modify_at": "2023-07-06T09:00:00Z"
+    },
+    {
+      "status": "안읽음",
+      "id": "sy.kim",
+      "email": "sy.kim@hanha.com",
+      "phone_number": "010-3254-7869",
+      "company_name": "매리어트 본보이 호텔 앤 리조트 주식회사",
+      "delivery_address": "(04837) 서울특별시 예시구 예시길 123 4층 구매팀 (예시동, 한하리조트)",
+      "manufacturing_company": "마바사",
+      "url": "https://www.etoos.com/home/default.asp",
+      "created_at": "2023-01-02T11:30:00Z",
+      "modify_at": "2023-01-04T15:30:00Z"
+    },
+    {
+      "status": "답변미완료",
+      "id": "addio011",
+      "email": "addio011@naver.com",
+      "phone_number": "010-2293-4771",
+      "company_name": "쿠팡",
+      "delivery_address": "(04837) 서울특별시 예시구 예시길 123 4층 구매팀 (예시동, 한하리조트)",
+      "manufacturing_company": "아자차카",
+      "url": "https://www.etoos.com/home/default.asp",
+      "created_at": "2022-09-12T23:30:00Z",
+      "modify_at": "2023-09-15T17:00:00Z"
+    },
+    {
+      "status": "답변완료",
+      "id": "ironpeople",
+      "email": "ironpeople@mariott.com",
+      "phone_number": "010-5346-2479",
+      "company_name": "네이버",
+      "delivery_address": "(04837) 서울특별시 예시구 예시길 123 4층 구매팀 (예시동, 한하리조트)",
+      "manufacturing_company": "타파하",
+      "url": "https://www.etoos.com/home/default.asp",
+      "created_at": "2023-10-15T12:20:00Z",
+      "modify_at": "2023-10-20T11:00:00Z"
+    }
+  ]
+}

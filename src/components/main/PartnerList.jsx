@@ -23,7 +23,8 @@ export default function PartnerList() {
     autoplay: true,
     autoplaySpeed: 1500,
     speed: 800,
-    slidesToShow: outerWidth > 1440 ? 5 : outerWidth > 768 ? 4 : 3,
+    slidesToShow:
+      outerWidth > 1440 ? 4 : outerWidth > 1024 ? 3 : outerWidth > 600 ? 2 : 1,
     slidesToScroll: 1,
     variableHeight: true,
     centerMode: true,
@@ -91,10 +92,6 @@ const Container = styled.section`
   font-size: 12px;
   line-height: 20px;
   color: #181818;
-
-  @media (max-width: 768px) {
-    width: 768px;
-  }
 `;
 
 const Row1 = styled.div`
@@ -165,17 +162,8 @@ const Active = styled.span`
 `;
 
 const PartnerLogo = styled.div`
-  width: calc(768 / 5);
   height: 90px;
-  @media (max-width: 1440px) {
-    width: calc(1440 / 4);
-  }
-  @media (max-width: 768px) {
-    width: calc(768 / 3);
-  }
 `;
 const Img = styled.img`
   margin: auto;
-  @media (max-width: 768px) {
-  }
 `;

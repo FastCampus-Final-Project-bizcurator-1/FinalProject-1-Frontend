@@ -22,11 +22,12 @@ export default function Category() {
     autoplay: true,
     autoplaySpeed: 1500,
     speed: 800,
-    slidesToShow: outerWidth > 1440 ? 5 : outerWidth > 768 ? 4 : 3,
+    slidesToShow:
+      outerWidth > 1440 ? 4 : outerWidth > 1024 ? 3 : outerWidth > 600 ? 2 : 1,
     slidesToScroll: 1,
     variableHeight: true,
     centerMode: true,
-    centerPadding: '-40px',
+    centerPadding: '0px',
     touchThreshold: 20,
   };
 
@@ -131,7 +132,7 @@ export default function Category() {
 }
 
 const Container = styled.section`
-  width: 100vw;
+  width: 100%;
   height: 690px;
   display: flex;
   justify-content: center;
@@ -173,7 +174,7 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 510px;
+  width: 100%;
   height: 100px;
   margin: auto;
   font-size: 48px;
@@ -191,11 +192,17 @@ const Text1 = styled.div`
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -1px;
+  @media (max-width: 510px) {
+    font-size: 15px;
+  }
 `;
 const Text2 = styled.div`
   font-color: #181818;
   font-size: 36px;
   font-weight: bold;
+  @media (max-width: 510px) {
+    font-size: 27px;
+  }
 `;
 
 const Bold = styled.span`
