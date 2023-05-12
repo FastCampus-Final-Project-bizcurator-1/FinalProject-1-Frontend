@@ -24,7 +24,7 @@ export default function PartnerList() {
     autoplaySpeed: 1500,
     speed: 800,
     slidesToShow:
-      outerWidth > 1440 ? 4 : outerWidth > 768 ? 3 : outerWidth > 480 ? 2 : 1,
+      outerWidth > 1440 ? 4 : outerWidth > 1024 ? 3 : outerWidth > 600 ? 2 : 1,
     slidesToScroll: 1,
     variableHeight: true,
     centerMode: true,
