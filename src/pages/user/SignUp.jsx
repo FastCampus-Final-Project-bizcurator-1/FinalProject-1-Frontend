@@ -29,7 +29,7 @@ export default function SignUp() {
   // 사업자 정보 진위 확인
   const [isVerify, setIsVerify] = useState(false);
   // 사업자정보 기입 완료 여부
-  const [corporateFinish, setCoporateFinish] = useState(true);
+  const [corporateFinish, setCoporateFinish] = useState(false);
   // 서비스정책 완료 x  => 모달
   const [open, setOpen] = useState(false);
 
