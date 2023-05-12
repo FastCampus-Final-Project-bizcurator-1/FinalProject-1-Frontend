@@ -14,6 +14,8 @@ export default function SignUp() {
     email: '',
     password: '',
   });
+  // 이메일 인증확인
+  const [confirmEmail, setConfirmEmail] = useState(false);
   // 로그인정보 기입 완료 여부
   const [loginFinish, setLoginFinish] = useState(false);
   // 사업자 정보
@@ -23,17 +25,20 @@ export default function SignUp() {
     ownerName: '',
     openingDate: '',
   });
+  // 사업자 정보 진위 확인
+  const [isVerify, setIsVerify] = useState(false);
   // 사업자정보 기입 완료 여부
   const [corporateFinish, setCoporateFinish] = useState(false);
 
   useEffect(() => {
-    // 로그인정보 완료체크
+    // 로그인정보 완료 체크
     if (
       loginData.userId.length > 0 &&
       loginData.managerName.length > 0 &&
       loginData.phoneNumber.length > 0 &&
       loginData.email.length > 0 &&
-      loginData.password.length > 0
+      loginData.password.length > 0 &&
+      confirmEmail
     ) {
       setLoginFinish(true);
     }
@@ -42,11 +47,17 @@ export default function SignUp() {
       corporateData.companyName.length > 0 &&
       corporateData.corporateNumber.length > 0 &&
       corporateData.ownerName.length > 0 &&
-      corporateData.openingDate.length > 0
+      corporateData.openingDate.length > 0 &&
+      isVerify
     ) {
       setCoporateFinish(true);
     }
-  }, [loginData, corporateData]);
+  }, [loginData, confirmEmail, corporateData, isVerify]);
+
+  const handleSubmit = () => {
+    console.log(loginData, confirmEmail);
+    console.log(corporateData, isVerify);
+  };
 
   return (
     <Wrapper>
@@ -63,18 +74,25 @@ export default function SignUp() {
         <Circle finish={corporateFinish}>3</Circle>
       </Progress>
       <FormContainer>
-        <LoginInfo setLoginData={setLoginData} loginData={loginData} />
+        <LoginInfo
+          setLoginData={setLoginData}
+          loginData={loginData}
+          setConfirmEmail={setConfirmEmail}
+          confirmEmail={confirmEmail}
+        />
         <CorporateInfo
           setCorporateData={setCorporateData}
           corporateData={corporateData}
+          setIsVerify={setIsVerify}
+          isVerify={isVerify}
         />
         <ServiceAgreement />
         <StartBtn
-          type="submit"
-          value="시작하기"
-          id="submitBtn"
           finish={loginFinish && corporateFinish}
-        />
+          onClick={() => handleSubmit()}
+        >
+          시작하기
+        </StartBtn>
       </FormContainer>
       {loginFinish && corporateFinish ? (
         <></>
@@ -196,11 +214,11 @@ const Circle = styled.div`
   }
 `;
 
-const FormContainer = styled.form`
+const FormContainer = styled.div`
   width: 100%;
 `;
 
-const StartBtn = styled.input`
+const StartBtn = styled.button`
   width: 100%;
   height: 52px;
   margin-top: 20px;

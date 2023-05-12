@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import EmailModal from './EmailModal';
 
-export default function LoginInfo({ loginData, setLoginData }) {
+export default function LoginInfo({
+  loginData,
+  setLoginData,
+  confirmEmail,
+  setConfirmEmail,
+}) {
   // 아이디 패턴 확인을 위함
   const [idError, setIdError] = useState(false);
+  // 아이디 중복확인
+  const [isCheck, setIsCheck] = useState(false);
   // 연락처 패턴 확인을 위함
   const [phoneError, setPhoneError] = useState(false);
+  // 이메일 인증 모달
+  const [open, setOpen] = useState(false);
   // 이메일 패턴 확인을 위함
   const [emailError, setEmailError] = useState(false);
   // 비밀번호
@@ -14,8 +24,6 @@ export default function LoginInfo({ loginData, setLoginData }) {
   const [pwError, setpwError] = useState(false);
   // 비밀번호 일치 확인을 위함
   const [checkPw, setCheckPw] = useState(false);
-  // 이메일 인증확인
-  const [confirmEmail, setConfirmEmail] = useState(false);
 
   // loginData 설정
   const handleChange = e => {
@@ -31,6 +39,15 @@ export default function LoginInfo({ loginData, setLoginData }) {
     } else {
       setIdError(true);
     }
+  };
+
+  // 아이디 중복확인
+  const checkExist = () => {
+    console.log(loginData.userId);
+    // api 연결 => 아이디 중복확인
+    // setIsCheck(true);
+    alert('사용가능한 아이디입니다.');
+    // alert('이미 존재하는 아이디입니다.');
   };
 
   // 연락처 패턴 확인
@@ -80,6 +97,13 @@ export default function LoginInfo({ loginData, setLoginData }) {
     }
   };
 
+  // 이메일 인증
+  const handleConfirm = e => {
+    // api 연결 => 해당 이메일로 인증번호발송
+    console.log(loginData.email);
+    setOpen(true);
+  };
+
   // 비밀번호 패턴 확인
   const validPassword = e => {
     const reg =
@@ -102,8 +126,12 @@ export default function LoginInfo({ loginData, setLoginData }) {
       setCheckPw(true);
     }
   };
+
   return (
     <Container className="loginInfo">
+      {open && (
+        <EmailModal setOpen={setOpen} setConfirmEmail={setConfirmEmail} />
+      )}
       <Title>로그인 정보</Title>
       <TextField>
         <SubTitle>아이디</SubTitle>
@@ -114,6 +142,9 @@ export default function LoginInfo({ loginData, setLoginData }) {
           name="login"
           onChange={validId}
         />
+        <Btn finish={isCheck} onClick={() => checkExist()}>
+          {isCheck ? '확인 완료' : '중복 확인'}
+        </Btn>
       </TextField>
       {idError && <Error>영문 혹은 숫자의 조합으로 입력해주세요.</Error>}
       <TextField>
@@ -146,8 +177,8 @@ export default function LoginInfo({ loginData, setLoginData }) {
           name="login"
           onChange={validEmail}
         />
-        <Btn finish={confirmEmail} onClick={e => e.preventDefault()}>
-          {confirmEmail ? '인증완료' : '인증메일발송'}
+        <Btn finish={confirmEmail} onClick={e => handleConfirm(e)}>
+          {confirmEmail ? '인증완료' : '인증메일 발송'}
         </Btn>
       </TextField>
       {emailError && (
@@ -191,6 +222,7 @@ const Title = styled.p`
   font-size: 24px;
   color: #2b66f6;
   margin-bottom: 5px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 20px;
   }
@@ -205,6 +237,7 @@ const TextField = styled.div`
   color: #797979;
   margin: 15px auto;
   position: relative;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 12px;
   }

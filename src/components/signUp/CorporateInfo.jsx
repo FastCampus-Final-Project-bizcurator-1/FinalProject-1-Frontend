@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import FileModal from './FileModal';
 
 export default function CorporateInfo({ setCorporateData, corporateData }) {
   // 사업자등록번호 확인을 위함
@@ -10,11 +11,14 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
   const [attachFinish, setAttachFinish] = useState(false);
   // 사업자 정보 진위 확인
   const [isVerify, setIsVerify] = useState(false);
+  // 사업자등록증 첨부 모달
+  const [open, setOpen] = useState(false);
+  // 사업자등록증
+  const [businessLicense, setBusinessLicense] = useState('');
 
-  // loginData 설정
+  // coporateData 설정
   const handleChange = e => {
-    isVerify &&
-      setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
+    setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
   };
 
   // 사업자등록번호 검사
@@ -53,8 +57,25 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
       .replace(/(-{1,2}$)/g, '');
   };
 
+  const checkVerify = () => {
+    console.log(corporateData);
+    // 오픈 api 연결 => 검증
+    // 성공 => setIsVerify(true)
+    alert('인증이 완료되었습니다.');
+    // alert('인증에 실패하였습니다. 확인 후, 다시 시도해주세요');
+  };
+
+  useEffect(() => {
+    businessLicense &&
+      setCorporateData({ ...corporateData, businessLicense: businessLicense });
+  }, [businessLicense]);
+  // console.log(businessLicense);
+
   return (
     <Container className="coporateInfo">
+      {open && (
+        <FileModal setOpen={setOpen} setBusinessLicense={setBusinessLicense} />
+      )}
       <Title>사업자 정보</Title>
       <TextField>
         <SubTitle>업체명</SubTitle>
@@ -85,13 +106,28 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
       </TextField>
       {dateError && <Error>정확한 날짜를 입력해주세요.</Error>}
       <BtnGroup>
-        <AttachBtn finish={attachFinish}>
-          사업자등록증 첨부
-          <Span>(선택)</Span>
-        </AttachBtn>
-        <CofirmBtn finish={isVerify}>
-          사업자 정보 <Span>진위확인</Span>
+        <CofirmBtn finish={isVerify} onClick={() => checkVerify()}>
+          {isVerify ? (
+            <>
+              사업자정보<Span> 확인 완료</Span>
+            </>
+          ) : (
+            <>
+              사업자정보<Span> 인증 (필수)</Span>
+            </>
+          )}
         </CofirmBtn>
+        <Attach>
+          <FileBtn finish={businessLicense} onClick={() => setOpen(true)}>
+            사업자등록증
+            {businessLicense ? (
+              <Span> 첨부 완료</Span>
+            ) : (
+              <Span>첨부 (선택)</Span>
+            )}
+          </FileBtn>
+          <Error>{businessLicense}</Error>
+        </Attach>
       </BtnGroup>
     </Container>
   );
@@ -149,12 +185,13 @@ const Error = styled.p`
 
 const BtnGroup = styled.div`
   width: 100%;
+  height: 60px;
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
 `;
 
-const AttachBtn = styled.button`
+const CofirmBtn = styled.button`
   width: 200px;
   height: 52px;
   display: flex;
@@ -176,14 +213,14 @@ const AttachBtn = styled.button`
   }
 `;
 
-const Span = styled.span`
-  margin-left: 5px;
-  @media (max-width: 768px) {
-    margin: 0;
-  }
+const Attach = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const CofirmBtn = styled.button`
+const FileBtn = styled.button`
   width: 200px;
   height: 52px;
   display: flex;
@@ -201,5 +238,12 @@ const CofirmBtn = styled.button`
     height: 48px;
     font-size: 12px;
     flex-direction: column;
+  }
+`;
+
+const Span = styled.span`
+  margin-left: 5px;
+  @media (max-width: 768px) {
+    margin: 0;
   }
 `;
