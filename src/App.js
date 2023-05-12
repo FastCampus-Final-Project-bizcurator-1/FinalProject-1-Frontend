@@ -11,7 +11,7 @@ function App() {
     <ThemeProvider theme={{ style: theme, variables }}>
       <GlobalStyle />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </ThemeProvider>
   );
 }
