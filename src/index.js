@@ -22,7 +22,7 @@ import Payment from './pages/user/Payment';
 import AdminLogin from './pages/admin/AdminLogin';
 import CategoryManagement from './pages/admin/CategoryManagement';
 import InquiryHistory from './pages/admin/InquiryHistory';
-import PaymentHistory from './pages/admin/PaymentHistory';
+import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
 import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
