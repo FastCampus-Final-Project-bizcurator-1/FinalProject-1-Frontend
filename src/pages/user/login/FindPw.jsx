@@ -4,7 +4,7 @@ import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import FindPwModal from '../../../components/login/FindPwModal';
 
-export default function FindId() {
+export default function FindPw() {
   // 모달
   const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
