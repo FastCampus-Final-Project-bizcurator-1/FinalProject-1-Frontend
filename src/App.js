@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
@@ -11,7 +10,7 @@ function App() {
     <ThemeProvider theme={{ style: theme, variables }}>
       <GlobalStyle />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </ThemeProvider>
   );
 }
