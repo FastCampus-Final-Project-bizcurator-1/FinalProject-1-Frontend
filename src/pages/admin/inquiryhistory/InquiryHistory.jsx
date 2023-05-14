@@ -49,9 +49,9 @@ export default function InquiryHistory() {
       </ButtonContainer>
       <SearchContainer>
         <SelectOption onChange={handleSelect}>
-          <option value="company_name">업체명</option>
+          <option value="company_name">기업명</option>
           <option value="id">아이디</option>
-          <option value="status">구분</option>
+          <option value="state">구분</option>
         </SelectOption>
         <Input />
       </SearchContainer>
