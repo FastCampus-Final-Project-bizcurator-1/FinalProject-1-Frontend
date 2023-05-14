@@ -45,6 +45,9 @@ export default function PaymentHistory() {
     <Container>
       <DateSelect>
         <SelectOption onChange={handleSelect}>
+          <option value="" selected disabled hidden>
+            년
+          </option>
           {yearsArray.map((e, i) => {
             return (
               <option value={`20${e}`} key={i}>
@@ -54,6 +57,9 @@ export default function PaymentHistory() {
           })}
         </SelectOption>
         <SelectOption onChange={handleSelect}>
+          <option value="" selected disabled hidden>
+            월
+          </option>
           {monthArray.map((e, i) => {
             return (
               <option key={i} value={e}>
