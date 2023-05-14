@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
 import { TbThumbUpFilled, TbThumbUp } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+// 임시 id
+const productId = 1;
+
 export default function ProductList() {
+  // 경로이동
+  const navigate = useNavigate();
+  // 추천버튼
   const [isRecommend, setIsRecommend] = useState(false);
-  const handleRecommend = () => {
+
+  // 추천 submit
+  const handleRecommend = e => {
     console.log('추천');
     setIsRecommend(!isRecommend);
   };
+
+  const handleDelete = e => {
+    console.log('삭제');
+    // 해당 상품 삭제
+  };
+
   return (
     <Wrapper>
       {/* map 사용 */}
       <Container>
-        <Icon onClick={() => handleRecommend()}>
+        <Icon onClick={e => handleRecommend(e)}>
           {isRecommend ? <TbThumbUpFilled /> : <TbThumbUp />}
         </Icon>
         <Content>
@@ -30,8 +45,10 @@ export default function ProductList() {
           </Div>
         </Content>
         <BtnGroup>
-          <Btn modify={true}>수정</Btn>
-          <Btn>삭제</Btn>
+          <Btn modify={true} onClick={() => navigate(`/modify/${productId}`)}>
+            수정
+          </Btn>
+          <Btn onClick={e => handleDelete(e)}>삭제</Btn>
         </BtnGroup>
       </Container>
     </Wrapper>
