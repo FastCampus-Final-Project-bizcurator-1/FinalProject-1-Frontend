@@ -93,6 +93,9 @@ export default function InquiryItem({ inquiry }) {
                 제품등록파일
               </Button2>
               <SelectOption onChange={handleSelect}>
+                <option value="" selected disabled hidden>
+                  처리상태
+                </option>
                 <option value="안읽음">안읽음</option>
                 <option value="답변미완료">답변미완료</option>
                 <option value="답변완료">답변완료</option>

@@ -123,8 +123,10 @@ export default function InquiryItem({ inquiry }) {
           </Row1>
           <Row3>
             <StateContainer>
-              <SelectOption onChange={handleSelect} defaultValue="처리상태">
-                <option disabled>처리상태</option>
+              <SelectOption onChange={handleSelect}>
+                <option value="" selected disabled hidden>
+                  처리상태
+                </option>
                 <option value="안읽음">안읽음</option>
                 <option value="견적등록">견적등록</option>
                 <option value="샘플발송">샘플발송</option>
