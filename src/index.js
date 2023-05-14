@@ -15,7 +15,7 @@ import MyOrder from './pages/user/mypage/MyOrder';
 import WishList from './pages/user/mypage/WishList';
 import MyInquiryList from './pages/user/mypage/MyInquiryList';
 import Cart from './pages/user/mypage/Cart';
-import Inquiry from './pages/user/Inquiry';
+import Inquiry from './pages/user/inquiry/Inquiry';
 import ProductDetail from './pages/user/shopping/ProductDetail';
 import Shopping from './pages/user/shopping/Shopping';
 import Payment from './pages/user/Payment';
@@ -27,6 +27,7 @@ import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
 import UserList from './pages/admin/userList/UserList';
+import FloatingButton from './components/FloatingButton';
 
 const router = createBrowserRouter([
   {
