@@ -68,7 +68,7 @@ export default function Product() {
 }
 
 const Wrapper = styled.div`
-  width: 680px;
+  width: 800px;
   margin: 30px auto 0;
   padding-left: 80px;
   transition: 0.3s ease;
