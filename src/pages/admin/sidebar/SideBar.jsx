@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Item from './Item';
 
 export default function SideBar() {
+  const location = useLocation();
+
   const [select, setSelect] = useState('userlist');
   const navigate = useNavigate();
 
@@ -16,6 +18,11 @@ export default function SideBar() {
   };
 
   console.log(select);
+
+  // 로그인 페이지 사이드바 숨김
+  if (location.pathname === '/admin') {
+    return null;
+  }
 
   return (
     <Container>
