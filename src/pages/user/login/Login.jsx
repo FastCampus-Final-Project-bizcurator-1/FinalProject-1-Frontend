@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -28,11 +28,6 @@ export default function Login() {
       handleSubmit(onSubmit);
     }
   };
-
-  useEffect(() => {
-    // 로그인 실패시, 모달 open
-    // setOpen(true);
-  }, []);
 
   return (
     <Wrapper>
