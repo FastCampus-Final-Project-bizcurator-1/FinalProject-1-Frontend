@@ -17,6 +17,7 @@ export default function PaymentItem({ historyInfo }) {
     delivery_phonenumber,
     auto_confirmation,
   } = historyInfo;
+
   const [isToggled, setIsToggled] = useState(false);
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
   const [select, setSelect] = useState('');
@@ -162,6 +163,7 @@ const Text = styled.div`
 `;
 const Status = styled.div`
   color: ${props => (props.status === '결제완료' ? '#2b66f6' : '#d30000')};
+  margin-top: 1px;
 `;
 
 const ToggleButton = styled.div`

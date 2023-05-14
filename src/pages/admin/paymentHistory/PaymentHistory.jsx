@@ -5,7 +5,6 @@ import PaymentItem from './PaymentItem';
 export default function PaymentHistory() {
   const date = new Date();
   const [year, setYear] = useState();
-  const [month, setMonth] = useState();
 
   const [history, setHistory] = useState([]);
 
