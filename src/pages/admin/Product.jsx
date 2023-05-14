@@ -11,7 +11,7 @@ export default function Product() {
     view: false,
   });
   const handleProductList = e => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     // 각각 상품리스트 api 요청
     if (e.target.id === 'recommend') {
       setIsClick({

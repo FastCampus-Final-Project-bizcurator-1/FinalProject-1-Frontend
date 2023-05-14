@@ -6,15 +6,16 @@ import styled from 'styled-components';
 export default function ProductList() {
   // 경로이동
   const navigate = useNavigate();
-  // 추천버튼
-  const [isRecommend, setIsRecommend] = useState(false);
   // 상품리스트
   const [productList, setProductList] = useState();
+  //
+  const [isClick, setIsClick] = useState(false);
 
   // 추천 submit
-  const handleRecommend = e => {
-    console.log('추천');
-    setIsRecommend(!isRecommend);
+  const handleRecommend = id => {
+    console.log(id, '추천');
+    // api 연결
+    setIsClick(!isClick);
   };
 
   const handleDelete = e => {
@@ -22,6 +23,7 @@ export default function ProductList() {
     // 해당 상품 삭제
   };
 
+  // 처음, 추천상품클릭시 => 상품리스트요청
   useEffect(() => {
     fetch('/mock/admin/product_recommendations.json')
       .then(res => res.json())
@@ -29,15 +31,15 @@ export default function ProductList() {
         // console.log(data.product_recommendations);
         setProductList(data.product_recommendations);
       });
-  }, []);
+  }, [isClick]);
 
   return (
     <Wrapper>
       {productList &&
         productList.map(product => (
           <Container key={product.id}>
-            <Icon onClick={e => handleRecommend(e)}>
-              {isRecommend ? <TbThumbUpFilled /> : <TbThumbUp />}
+            <Icon onClick={() => handleRecommend(product.id)}>
+              {product.recommend_status ? <TbThumbUpFilled /> : <TbThumbUp />}
             </Icon>
             <Content>
               <Div>
@@ -87,6 +89,7 @@ const Icon = styled.div`
   text-align: center;
   font-size: 25px;
   color: #434343;
+  cursor: pointer;
   transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 20px;
