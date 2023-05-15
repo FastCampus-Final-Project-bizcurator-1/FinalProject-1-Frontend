@@ -83,6 +83,7 @@ const Container = styled.li`
       : '#F5F5F5'};
   border-bottom: 1px solid #d0d0d0;
   padding: 14px;
+
   @media (max-width: 480px) {
     height: ${props => (props.isToggled ? '240px' : '')};
   }
@@ -91,12 +92,22 @@ const Container = styled.li`
 `;
 
 const UserInfoItem = styled.div`
-  ${props => props.theme.variables.flex('row', 'center', 'center')}
+  ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
+  width: 100%;
 `;
 const InfoKey = styled.div`
+  width: 10%;
   padding: 5px;
   font-size: 14px;
   font-weight: bold;
+
+  @media (max-width: 1440px) {
+    width: 15%;
+  }
+  @media (max-width: 768px) {
+    width: 25%;
+    font-size: 12px;
+  }
 `;
 const InfoValue = styled.div`
   display: flex;
