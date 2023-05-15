@@ -23,7 +23,7 @@ export default function ProductList() {
     // 해당 상품 삭제
   };
 
-  // 처음, 추천상품클릭시 => 상품리스트요청
+  // 상품리스트요청
   useEffect(() => {
     fetch('/mock/admin/product_recommendations.json')
       .then(res => res.json())
@@ -31,7 +31,7 @@ export default function ProductList() {
         // console.log(data.product_recommendations);
         setProductList(data.product_recommendations);
       });
-  }, [isClick]);
+  }, []);
 
   return (
     <Wrapper>
@@ -70,10 +70,11 @@ export default function ProductList() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 const Container = styled.div`
-  width: 100%;
   height: 110px;
   ${props => props.theme.variables.flex('', 'space-between', 'center')}
   border-bottom : 1px solid #d0d0d0;
@@ -126,7 +127,7 @@ const Bold = styled.p`
   margin-right: 10px;
   transition: 0.3s ease;
   @media (max-width: 426px) {
-    width: 30%;
+    width: 33%;
   }
 `;
 

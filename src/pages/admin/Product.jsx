@@ -68,14 +68,16 @@ export default function Product() {
 }
 
 const Wrapper = styled.div`
-  width: 800px;
+  width: 50%;
   margin: 30px auto 0;
-  padding-left: 80px;
+  padding: 0 15px;
   transition: 0.3s ease;
+  @media (max-width: 1024px) {
+    width: 80%;
+    margin-top: 10px;
+  }
   @media (max-width: 768px) {
     width: 100%;
-    margin-top: 10px;
-    padding: 0 15px;
   }
 `;
 
