@@ -51,12 +51,12 @@ export default function PaymentItem({ historyInfo }) {
       <div>
         <Row1>
           <Text>{product_name}</Text>
-          <VerticalBar />
+          {outerWidth > 480 ? <VerticalBar /> : <></>}
           <Status status={status}>{status}</Status>
         </Row1>
         <Row1 color="#797979">
           <Text color="#2b66f6">{price * count}</Text>
-          <VerticalBar />
+          {outerWidth > 480 ? <VerticalBar /> : <></>}
           {count}개
         </Row1>
       </div>
@@ -74,7 +74,7 @@ export default function PaymentItem({ historyInfo }) {
             </Column1>
             <Hr />
             <Title>배송정보</Title>
-            {outerWidth <= 768 ? (
+            {outerWidth <= 1024 ? (
               <>
                 <Text size={12}>수령인 : {delivery_name}</Text>
                 <Text size={12}>주소 : {delivery_address}</Text>
@@ -109,7 +109,7 @@ export default function PaymentItem({ historyInfo }) {
                   <option value="manager_name">담당자명</option>
                 </SelectOption>
                 <Input placeholder="송장번호" />
-                <Input2 value="데이터피커" />
+                <Input2 type="date" />
               </InputContainer>
               <ButtonContainer>
                 <Button>등록</Button>
@@ -126,7 +126,7 @@ const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
   width: 100%;
-  height: ${props => (props.isToggled ? '305px' : '72px')};
+  height: ${props => (props.isToggled ? '315px' : '72px')};
   background-color: white;
   border-bottom: 1px solid #d0d0d0;
   padding: 14px;
@@ -136,20 +136,25 @@ const Container = styled.li`
   cursor: pointer;
 
   @media (max-width: 1024px) {
-    height: ${props => (props.isToggled ? '285px' : '54px')};
+    height: ${props => (props.isToggled ? '330px' : '54px')};
     padding: 0 14px;
     font-size: 14px;
   }
 
   @media (max-width: 768px) {
-    height: ${props => (props.isToggled ? '320px' : '54px')};
+    height: ${props => (props.isToggled ? '400px' : '54px')};
+    padding: 0;
   }
 `;
 
 const Title = styled.div`
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin: 10px 0 4px;
+
+  @media (max-width: 768px) {
+    padding: 2px;
+  }
 `;
 
 const Text = styled.div`
@@ -159,6 +164,10 @@ const Text = styled.div`
   margin: 2px 0 2px;
   @media (max-width: 1024px) {
     font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2px;
   }
 `;
 const Status = styled.div`
@@ -181,10 +190,14 @@ const Row1 = styled.div`
   ${props => props.theme.variables.flex('row', '', 'flex-start')}
   color: ${props => props.color};
   padding: 5px;
+
+  @media (max-width: 480px) {
+    ${props => props.theme.variables.flex('', '', 'flex-start')}
+  }
 `;
 const Row2 = styled.div`
   ${props => props.theme.variables.flex('column', 'center', 'flex-start')}
-  width: 97%;
+  width: 100%;
   height: 140px;
   padding: 15px 12px;
   background-color: #f5f5f5;
@@ -193,16 +206,18 @@ const Row2 = styled.div`
   border-radius: 4px;
   cursor: auto;
 
+  @media (max-width: 1024px) {
+    height: 180px;
+  }
   @media (max-width: 768px) {
-    height: 172px;
+    height: 215px;
   }
 `;
 const Row3 = styled.div`
-  width: 95%;
-  margin: 10px 0;
+  ${props => props.theme.variables.flex('column', 'center', 'flex-start')}
+  width: 100%;
   font-size: 14px;
   font-weight: bold;
-  margin-left: 11px;
   cursor: auto;
 
   @media (max-width: 1440px) {
@@ -233,18 +248,21 @@ const Column1 = styled.div`
 const SearchContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'center', 'center')}
   width: 100%;
-  height: 40px;
   margin: 12px 0;
 
   @media (max-width: 1024px) {
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    ${props => props.theme.variables.flex('column', 'center', 'center')}
+    padding: 0;
   }
 `;
 
 const SelectOption = styled.select`
   width: 20%;
   height: 40px;
-  margin-right: 4px;
   color: #616161;
   font-size: 15px;
   border: 1px solid #dadada;
@@ -255,28 +273,30 @@ const SelectOption = styled.select`
   }
 
   @media (max-width: 768px) {
+    width: 22.5%;
     font-size: 12px;
     padding: 2px;
   }
 `;
 
 const Input = styled.input`
-  width: 50%;
+  width: 52.5%;
   height: 40px;
   border: 1px solid #dadada;
   border-radius: 10px;
   color: #616161;
   font-size: 15px;
   padding: 8px;
-  margin-right: 4px;
 
   @media (max-width: 1440px) {
+    width: 50%;
     font-size: 12px;
   }
 
   @media (max-width: 768px) {
+    width: 45%;
     font-size: 12px;
-    padding: 10px;
+    margin: 0;
   }
 `;
 
@@ -291,7 +311,14 @@ const Input2 = styled.input`
   margin-right: 4px;
 
   @media (max-width: 1440px) {
+    width: 25%;
     font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    width: 30%;
+    margin: 0;
+    font-size: 11px;
   }
 `;
 
@@ -310,13 +337,24 @@ const Button = styled.button`
     color: #2b66f6;
   }
   @media (max-width: 768px) {
+    width 100%;
+    margin-top: 10px;
     font-size: 12px;
   }
 `;
 
 const InputContainer = styled.div`
-  width: 75%;
+  ${props => props.theme.variables.flex('', 'space-around', 'center')}
+  box-sizing: border-box;
+  width: 100%;
+  @media (max-width: 768px) {
+    margin: auto;
+  }
 `;
 const ButtonContainer = styled.div`
   width: 25%;
+
+  @media (max-width: 768px) {
+    width: 98%;
+  }
 `;
