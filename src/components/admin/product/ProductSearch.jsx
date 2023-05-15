@@ -47,6 +47,7 @@ const Input = styled.input`
   border: 2px solid #dadada;
   border-radius: 10px;
   padding: 5px 10px;
+  outline: none;
   ::placeholder {
     color: #d0d0d0;
   }
