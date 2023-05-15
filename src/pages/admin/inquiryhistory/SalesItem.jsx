@@ -89,7 +89,7 @@ export default function InquiryItem({ inquiry }) {
           )}
           <Row3>
             <StateContainer>
-              <Button2 width="35%" attachment={attachment}>
+              <Button2 width="30%" attachment={attachment}>
                 제품등록파일
               </Button2>
               <SelectOption onChange={handleSelect}>
@@ -113,7 +113,7 @@ const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
   width: 100%;
-  height: ${props => (props.isToggled ? '245px' : '72px')};
+  height: ${props => (props.isToggled ? '250px' : '72px')};
   background-color: ${props =>
     props.state === '안읽음'
       ? '#f1f5ff'
@@ -127,7 +127,7 @@ const Container = styled.li`
   cursor: pointer;
 
   @media (max-width: 1024px) {
-    height: ${props => (props.isToggled ? '230px' : '54px')};
+    height: ${props => (props.isToggled ? '230px' : '58px')};
     padding: 4px 14px;
     font-size: 12px;
   }
@@ -204,12 +204,12 @@ const Row3 = styled.div`
 `;
 const StateContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
-  width: 50%;
+  width: 100%;
   height: 40px;
   margin: 12px 0;
 
   @media (max-width: 1024px) {
-    width: 75%;
+    width: 100%;
   }
 `;
 

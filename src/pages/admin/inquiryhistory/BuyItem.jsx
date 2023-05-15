@@ -135,8 +135,8 @@ export default function InquiryItem({ inquiry }) {
                 <option value="배송중">배송중</option>
                 <option value="배송완료">배송완료</option>
               </SelectOption>
-              <Button1 width="20%">저장</Button1>
-              <Button2 width="35%">견적서 등록</Button2>
+              <Button1 width="10%">저장</Button1>
+              <Button2 width="20%">견적서 등록</Button2>
             </StateContainer>
           </Row3>
         </>
@@ -149,7 +149,7 @@ const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
   width: 100%;
-  height: ${props => (props.isToggled ? '410px' : '98px')};
+  height: ${props => (props.isToggled ? '435px' : '98px')};
   background-color: ${props =>
     props.state === '안읽음'
       ? '#f1f5ff'
@@ -240,17 +240,17 @@ const Row3 = styled.div`
 `;
 const StateContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
-  width: 60%;
+  width: 100%;
   height: 40px;
   margin: 12px 0;
 
   @media (max-width: 1024px) {
-    width: 75%;
+    width: 100%;
   }
 `;
 
 const SelectOption = styled.select`
-  width: 100px;
+  width: 15%;
   height: 40px;
   margin: 0 6px;
   color: #616161;
@@ -263,6 +263,7 @@ const SelectOption = styled.select`
   }
 
   @media (max-width: 768px) {
+    width: 25%;
     font-size: 12px;
     padding: 2px;
   }
@@ -284,6 +285,7 @@ const Button1 = styled.button`
     color: #2b66f6;
   }
   @media (max-width: 768px) {
+    width: 15%;
     font-size: 12px;
   }
 `;
@@ -304,6 +306,7 @@ const Button2 = styled.button`
     color: #ffffff;
   }
   @media (max-width: 768px) {
+    width: 30%;
     font-size: 12px;
   }
 `;
