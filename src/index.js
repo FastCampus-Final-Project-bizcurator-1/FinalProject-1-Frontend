@@ -20,7 +20,7 @@ import ProductDetail from './pages/user/shopping/ProductDetail';
 import Shopping from './pages/user/shopping/Shopping';
 import Payment from './pages/user/Payment';
 import AdminLogin from './pages/admin/AdminLogin';
-import CategoryManagement from './pages/admin/CategoryManagement';
+import CategoryManagement from './pages/admin/product/CategoryManagement';
 import InquiryHistory from './pages/admin/inquiryhistory/InquiryHistory';
 import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
 import Product from './pages/admin/Product';
