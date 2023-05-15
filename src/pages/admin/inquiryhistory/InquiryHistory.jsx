@@ -73,29 +73,20 @@ export default function InquiryHistory() {
 
 const Container = styled.div`
   ${props => props.theme.variables.flex('column', '', 'center')}
-  width: 100%;
+  width: 50%;
   font-family: 'Noto Sans KR', sans-serif;
   left: 10%;
-  margin-top: 30px;
+  margin: 30px auto;
   background-color: #ffffff;
   padding: 0 10px;
 
   @media (max-width: 1024px) {
-    margin-top: 10px;
+    width: 100%;
   }
 `;
 
-const Text = styled.span`
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  margin-top: 16px;
-  color: #434343;
-  letter-spacing: -1px;
-`;
-
 const ButtonContainer = styled.div`
-  width: 50%;
+  width: 80%;
   height: 40px;
   margin-top: 10px;
   @media (max-width: 1024px) {
@@ -134,7 +125,7 @@ const Button2 = styled.button`
 `;
 const SearchContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'center', 'center')}
-  width: 50%;
+  width: 80%;
   height: 40px;
   margin: 12px 0;
 
@@ -174,7 +165,7 @@ const Input = styled.input`
   }
 `;
 const InquiryContainer = styled.div`
-  width: 50%;
+  width: 80%;
   margin-top: 10px;
   @media (max-width: 1024px) {
     width: 100%;
