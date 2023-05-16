@@ -121,6 +121,11 @@ export default function UserModify() {
             {...register('phoneNumber')}
             onChange={e => validPhoneNumber(e)}
           />
+          {phoneError && (
+            <Error>
+              * 연락처 형식에 <Span>맞지 않습니다.</Span>
+            </Error>
+          )}
         </TextField>
         <TextField>
           <Label>이메일</Label>
