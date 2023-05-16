@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { TiDeleteOutline } from 'react-icons/ti';
-import AddproductModal from '../../components/admin/product/AddproductModal';
+import ProductModal from '../../components/admin/product/ProductModal';
 
 export default function ProductAdd() {
   // 상품등록데이터
@@ -43,7 +43,7 @@ export default function ProductAdd() {
 
   return (
     <Wrapper>
-      {open && <AddproductModal setOpen={setOpen} data={data} />}
+      {open && <ProductModal setOpen={setOpen} data={data} />}
       <ListPage href="/admin/management/product">
         <MdArrowBackIos />
         상품 목록

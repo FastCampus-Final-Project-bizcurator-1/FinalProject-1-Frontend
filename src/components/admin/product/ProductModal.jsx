@@ -1,8 +1,10 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-export default function AddproductModal({ setOpen, data }) {
+export default function ProductModal({ setOpen, data }) {
+  const { productId } = useParams();
   // submit 후, 상품관리로 이동
   const submitData = () => {
     console.log(data);
@@ -13,9 +15,17 @@ export default function AddproductModal({ setOpen, data }) {
   return (
     <Wrapper>
       <Container>
-        <Large>상품을 등록하시겠습니까?</Large>
+        {productId ? (
+          <Large>해당 상품을 수정하시겠습니까?</Large>
+        ) : (
+          <Large>해당 상품을 등록하시겠습니까?</Large>
+        )}
         <BtnGroup>
-          <Btn onClick={() => submitData()}>등록</Btn>
+          {productId ? (
+            <Btn onClick={() => submitData()}>수정</Btn>
+          ) : (
+            <Btn onClick={() => submitData()}>등록</Btn>
+          )}
           <Btn onClick={() => setOpen(false)}>취소</Btn>
         </BtnGroup>
       </Container>
