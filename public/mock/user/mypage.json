@@ -1,0 +1,18 @@
+{
+  "userId": "ssammoo123",
+  "companyName": "sourcemusic",
+  "ownerName": "김채원",
+  "openingDate": "2023-05-16",
+  "corporateNumber": "12478359782",
+  "businessLicense": [
+    {
+      "fileName": "사업자등록증",
+      "filePath": "/asdf/asdf/asdf",
+      "originalFileName": "string"
+    }
+  ],
+  "managerName": "홍은채",
+  "phoneNumber": "010-4725-3698",
+  "email": "ssammoo123@gmail.com",
+  "role": "ROLE_STANDBY"
+}
