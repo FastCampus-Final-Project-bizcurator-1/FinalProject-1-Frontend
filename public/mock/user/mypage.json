@@ -17,10 +17,11 @@
   "role": "ROLE_STANDBY",
   "payment_history": [
     {
-      "status": "결제완료",
+      "state": "배송완료",
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 50000,
       "delivery_name": "김채원",
@@ -32,9 +33,10 @@
       "auto_confirmation": "2023-05-26T"
     },
     {
-      "status": "결제완료",
+      "state": "배송중",
       "manager_name": "김채원",
-      "product_name": "더블유 세안용품 5종 세트",
+      "product_name": "더블유 세안용품 5종 세트 어쩌고 저쩌고 길게 텍스트를 넣어봅시다",
+      "imgUrl": "/images/sample/sample01.png",
       "phone_number": "010-3254-7869",
       "count": 3,
       "price": 128000,
@@ -47,10 +49,11 @@
       "auto_confirmation": "2019-10-04T"
     },
     {
-      "status": "결제완료",
+      "state": "배송시작",
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 13650,
       "delivery_name": "김채원",
@@ -62,9 +65,10 @@
       "auto_confirmation": "2023-03-16T"
     },
     {
-      "status": "결제완료",
+      "state": "결제완료",
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 17000,
       "phone_number": "010-3254-7869",
@@ -77,10 +81,11 @@
       "auto_confirmation": "2023-01-16T"
     },
     {
-      "status": "결제완료",
+      "state": "결제완료",
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 50000,
       "delivery_name": "김채원",
@@ -92,9 +97,10 @@
       "auto_confirmation": "2023-05-26T"
     },
     {
-      "status": "결제완료",
+      "state": "결제완료",
       "manager_name": "김채원",
       "product_name": "더블유 세안용품 5종 세트",
+      "imgUrl": "/images/sample/sample01.png",
       "phone_number": "010-3254-7869",
       "count": 3,
       "price": 128000,
@@ -107,10 +113,11 @@
       "auto_confirmation": "2019-10-04T"
     },
     {
-      "status": "결제완료",
+      "state": "결제완료",
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 13650,
       "delivery_name": "김채원",
@@ -122,9 +129,10 @@
       "auto_confirmation": "2023-03-16T"
     },
     {
-      "status": "결제완료",
+      "state": "결제완료",
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
+      "imgUrl": "/images/sample/sample01.png",
       "count": 3,
       "price": 17000,
       "phone_number": "010-3254-7869",
