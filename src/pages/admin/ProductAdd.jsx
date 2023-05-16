@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { TiDeleteOutline } from 'react-icons/ti';
+import AddproductModal from '../../components/admin/product/AddproductModal';
 
 export default function ProductAdd() {
+  // 상품등록데이터
+  const [data, setData] = useState();
+  // 서브카테고리
   const [subList, setSubList] = useState();
+  // 이미지파일
   const [imgList, setImgList] = useState([]);
-
+  // 모달
+  const [open, setOpen] = useState(false);
+  // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // 서브카테고리 가져오기
   const handleCategory = e => {
-    console.log(e.target.value);
-    // api 연결 => 서브카테고리 가져오기
-    // setSubList()
+    // console.log(e.target.value);
+    // api 연결 => setSubList()
   };
 
+  // 이미지 삭제
   const handleDeleteImg = name => {
     // 삭제 구현하기
     console.log(name);
   };
 
+  // data
   const onSubmit = data => {
     data.productImgfile = imgList;
-    // data 전송
     console.log(data);
+    setData(data);
+    setOpen(true);
   };
 
   return (
     <Wrapper>
+      {open && <AddproductModal setOpen={setOpen} data={data} />}
       <ListPage href="/admin/management/product">
         <MdArrowBackIos />
         상품 목록
@@ -436,7 +447,6 @@ const File = styled.input`
 
 const FileNameSection = styled.div`
   width: 100%;
-  height: 100%;
   ${props => props.theme.variables.flex('', 'flex-start', 'center')};
   flex-wrap: wrap;
   margin-bottom: 10px;
@@ -446,7 +456,7 @@ const FileName = styled.div`
   height: 100%;
   ${props => props.theme.variables.flex('', 'center', 'center')};
   color: #434343;
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 25px;
   transition: 0.3s ease;
   @media (max-width: 480px) {
