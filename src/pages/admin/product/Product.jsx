@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ProductSearch from '../../components/admin/product/ProductSearch';
-import ProductList from '../../components/admin/product/ProductList';
+import ProductSearch from '../../../components/admin/product/ProductSearch';
+import ProductList from '../../../components/admin/product/ProductList';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 export default function Product() {

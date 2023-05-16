@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { TiDeleteOutline } from 'react-icons/ti';
-import ProductModal from '../../components/admin/product/ProductModal';
+import ProductModal from '../../../components/admin/product/ProductModal';
 
 export default function ProductAdd() {
   // 상품등록데이터

@@ -23,10 +23,10 @@ import AdminLogin from './pages/admin/AdminLogin';
 import CategoryManagement from './pages/admin/product/CategoryManagement';
 import InquiryHistory from './pages/admin/inquiryhistory/InquiryHistory';
 import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
-import Product from './pages/admin/Product';
-import ProductAdd from './pages/admin/ProductAdd';
-import ProductModify from './pages/admin/ProductModify';
 import UserList from './pages/admin/userList/UserList';
+import Product from './pages/admin/product/Product';
+import ProductAdd from './pages/admin/product/ProductAdd';
+import ProductModify from './pages/admin/product/ProductModify';
 
 const router = createBrowserRouter([
   {

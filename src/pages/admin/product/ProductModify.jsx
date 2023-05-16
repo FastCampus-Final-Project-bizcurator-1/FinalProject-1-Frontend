@@ -4,7 +4,7 @@ import { MdArrowBackIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useParams } from 'react-router-dom';
-import ProductModal from '../../components/admin/product/ProductModal';
+import ProductModal from '../../../components/admin/product/ProductModal';
 
 export default function ProductModify() {
   const { productId } = useParams();
