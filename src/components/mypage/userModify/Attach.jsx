@@ -10,7 +10,7 @@ export default function Attach({ userInfo }) {
   };
   return (
     <AttachSection>
-      {!userInfo ? (
+      {userInfo ? (
         <Div>
           {userInfo?.bussinessLicense ? (
             <>
@@ -56,7 +56,8 @@ export default function Attach({ userInfo }) {
             <ColorLarge>추가서류</ColorLarge>를 첨부해주세요.
           </LargeP>
           <SmallP>
-            사업자등록증 명의와 회원 이름이 일치하지 않아 가입대기 중이에요.
+            사업자등록증 명의와 회원 이름이 <span />
+            일치하지 않아 가입대기 중이에요.
           </SmallP>
           <SmallP>
             <ColorSmall>재직여부를 확인할 수 있는 추가서류</ColorSmall>를
@@ -102,20 +103,27 @@ const LargeP = styled.p`
 `;
 
 const SmallP = styled.p`
+  display: block;
+  width: 100%;
   word-break: keep-all;
   text-align: center;
   color: #434343;
   font-size: 14px;
   line-height: 1.5;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const ColorLarge = styled.span`
+  word-break: keep-all;
   text-align: center;
   font-weight: 600;
   color: #2b66f6;
 `;
 
 const ColorSmall = styled.span`
+  word-break: keep-all;
   text-align: center;
   font-weight: 600;
   color: #434343;

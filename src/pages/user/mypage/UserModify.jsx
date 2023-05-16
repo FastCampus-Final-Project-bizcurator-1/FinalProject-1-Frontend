@@ -9,11 +9,17 @@ export default function UserModify() {
   const [userInfo, setUserInfo] = useState();
   // 회원탈퇴모달
   const [accountModal, setAccountModal] = useState(false);
+  // 연락처 패턴 확인을 위함
+  const [phoneError, setPhoneError] = useState(false);
   // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
+    clearErrors,
+    setValue,
+    getValues,
   } = useForm();
 
   // 회원 정보
@@ -22,7 +28,49 @@ export default function UserModify() {
     // api 연결
     console.log(data);
     // 새로고침
-    window.location.reload();
+    // window.location.reload();
+  };
+
+  // 연락처 패턴 확인
+  const validPhoneNumber = e => {
+    // 일반 연락처
+    const reg1 = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    // 핸드폰 연락처
+    const reg2 = /^\d{3}-\d{3,4}-\d{4}$/;
+    // 연락처 패턴확인
+    if (reg1.test(e.target.value)) {
+      setPhoneError(false);
+    } else if (reg2.test(e.target.value)) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
+    // 자동 구분자(-) 추가
+    if (e.target.value[1] === '2') {
+      e.target.value = e.target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,2})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(-{1,2}$)/g, '');
+    } else if (e.target.value[2] === '0') {
+      e.target.value = e.target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(-{1,2}$)/g, '');
+    } else {
+      e.target.value = e.target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,3})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(-{1,2}$)/g, '');
+    }
+  };
+
+  // 비밀번호 확인
+  const handlePassword = e => {
+    if (getValues('password') !== e.target.value) {
+      setError('checkPassword');
+    } else {
+      clearErrors('checkPassword');
+    }
   };
 
   // 로그아웃
@@ -42,28 +90,89 @@ export default function UserModify() {
         <SubArticle>로그인 정보 수정</SubArticle>
         <TextField>
           <Label>아이디</Label>
-          <Input status={true} defaultValue="사용자의 아이디" readOnly />
-          <ModifyId>* 아이디는 수정이 불가합니다.</ModifyId>
+          <Input
+            type="text"
+            id="userId"
+            status={true}
+            defaultValue="사용자 아이디"
+            readOnly
+            placeholder="example"
+            {...register('userId')}
+          />
+          <Error status={true}>
+            * 아이디는 수정이 <Span>불가합니다.</Span>
+          </Error>
         </TextField>
         <TextField>
           <Label>이름</Label>
-          <Input type="text" />
+          <Input
+            type="text"
+            id="managerName"
+            defaultValue="사용자 이름"
+            {...register('managerName')}
+          />
         </TextField>
         <TextField>
           <Label>연락처</Label>
-          <Input type="text" />
+          <Input
+            type="text"
+            id="phoneNumber"
+            defaultValue="사용자 연락처"
+            {...register('phoneNumber')}
+            onChange={e => validPhoneNumber(e)}
+          />
         </TextField>
         <TextField>
           <Label>이메일</Label>
-          <Input type="text" />
+          <Input
+            type="email"
+            id="email"
+            defaultValue="사용자 이메일"
+            {...register('email', {
+              pattern: {
+                value:
+                  /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{2,3})(\]?)$/,
+              },
+            })}
+          />
+          {errors.email && (
+            <Error>
+              * 이메일 형식에 <Span>맞지 않습니다.</Span>
+            </Error>
+          )}
         </TextField>
         <TextField>
           <Label>비밀번호</Label>
-          <Input type="password" />
+          <Input
+            type="password"
+            id="password"
+            defaultValue="사용자 비밀번호"
+            {...register('password', {
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,16}$/,
+              },
+            })}
+          />
+          {errors.password && (
+            <Error>
+              * 영문 대/소문자, 숫자, <Span>특수문자 조합 8~16자리</Span>
+            </Error>
+          )}
         </TextField>
         <TextField>
           <Label>비밀번호 확인</Label>
-          <Input type="password" />
+          <Input
+            type="password"
+            id="checkPassword"
+            {...register('checkPassword')}
+            onChange={e => handlePassword(e)}
+          />
+          {errors.checkPassword && (
+            <Error>
+              * 비밀번호가 <Span> 일치하지 않습니다.</Span>
+            </Error>
+          )}
         </TextField>
         <SubmitBtn>저장하기</SubmitBtn>
       </Form>
@@ -143,16 +252,6 @@ const Label = styled.p`
   }
 `;
 
-const ModifyId = styled.p`
-  font-size: 10px;
-  font-weight: 600;
-  color: #d30000;
-  position: absolute;
-  right: 0;
-  bottom: -50%;
-  transition: 0.3s ease;
-`;
-
 const Input = styled.input`
   width: 75%;
   height: 100%;
@@ -197,6 +296,7 @@ const SubmitBtn = styled.button`
 `;
 
 const Notice = styled.div`
+  word-break: keep-all;
   width: 100%;
   height: 80px;
   ${props => props.theme.variables.flex('column', 'center', 'flex-start')};
@@ -218,6 +318,7 @@ const NoticeLarge = styled.p`
 `;
 
 const NoticeSmall = styled.p`
+  line-height: 1.5;
   font-size: 12px;
   color: #797979;
   transition: 0.3s ease;
@@ -258,5 +359,27 @@ const DeleteAccountBtn = styled.button`
   }
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+`;
+
+const Error = styled.p`
+  ${props => props.theme.variables.flex('', 'space-between', 'center')};
+  font-size: 10px;
+  font-weight: ${props => (props.status ? '600' : '500')};
+  color: #d30000;
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  transition: 0.3s ease;
+  @media (max-width: 768px) {
+    line-height: 1.5;
+    ${props => props.theme.variables.flex('column', '', 'flex-end')};
+  }
+`;
+
+const Span = styled.span`
+  margin-left: 5px;
+  @media (max-width: 768px) {
+    margin-left: 0;
   }
 `;
