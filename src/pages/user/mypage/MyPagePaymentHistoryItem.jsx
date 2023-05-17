@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formatNumber } from '../../../helper/formatNumber';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyPagePaymentHistoryItem({ paymenthistory }) {
-  const { product_name, price, count, created_at, state, imgUrl } =
+  const { product_name, price, count, created_at, state, imgUrl, number } =
     paymenthistory;
+  const navigate = useNavigate();
 
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
 
@@ -16,7 +18,6 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
     window.addEventListener('resize', handleResize);
   }, []);
 
-  const number = Math.floor(Math.random() * 1_000_000_000_000_000);
   const date = new Date(created_at);
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
@@ -56,10 +57,15 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
                 {count}박스
               </Text>
             </PriceContainer>
-            <Text color="#2b66f6" size={14} weight="bold">
+            <OrderDetail
+              color="#2b66f6"
+              size={14}
+              weight="bold"
+              onClick={() => navigate(`/mypage/order/detail/${number}`)}
+            >
               주문 상세보기
               <MdOutlineArrowForwardIos />
-            </Text>
+            </OrderDetail>
             {outerWidth <= 768 ? (
               ''
             ) : (
@@ -376,5 +382,23 @@ const Button = styled.div`
   @media (max-width: 480px) {
     height: 40px;
     font-size: 10px;
+  }
+`;
+
+const OrderDetail = styled.div`
+  ${props => props.theme.variables.flex('', '', 'flex-start')}
+  display:inline-block;
+  width: ${props => (props.width ? props.width : '100%')};
+  font-size: ${props => (props.size ? props.size : 20)}px;
+  font-weight: ${props => (props.weight ? props.weight : 500)};
+  margin: ${props => (props.margin ? props.margin : '')};
+  color: ${props => (props.color ? props.color : '#000000')};
+  cursor: pointer;
+  @media (max-width: 768px) {
+    font-size: ${props => props.size + 5}px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: ${props => props.size - 2}px;
   }
 `;

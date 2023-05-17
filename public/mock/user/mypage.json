@@ -18,6 +18,7 @@
   "payment_history": [
     {
       "state": "배송완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
@@ -34,6 +35,7 @@
     },
     {
       "state": "배송중",
+      "number": 354275230531652,
       "manager_name": "김채원",
       "product_name": "더블유 세안용품 5종 세트 어쩌고 저쩌고 길게 텍스트를 넣어봅시다",
       "imgUrl": "/images/sample/sample01.png",
@@ -50,6 +52,7 @@
     },
     {
       "state": "배송시작",
+      "number": 34567835467893,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
@@ -66,6 +69,7 @@
     },
     {
       "state": "결제완료",
+      "number": 698734687934879,
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
       "imgUrl": "/images/sample/sample01.png",
@@ -82,6 +86,7 @@
     },
     {
       "state": "결제완료",
+      "number": 9856347982678,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
@@ -98,6 +103,7 @@
     },
     {
       "state": "결제완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "product_name": "더블유 세안용품 5종 세트",
       "imgUrl": "/images/sample/sample01.png",
@@ -114,6 +120,7 @@
     },
     {
       "state": "결제완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
@@ -130,6 +137,7 @@
     },
     {
       "state": "결제완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
       "imgUrl": "/images/sample/sample01.png",
