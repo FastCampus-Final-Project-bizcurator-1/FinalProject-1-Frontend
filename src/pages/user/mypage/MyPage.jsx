@@ -4,13 +4,16 @@ import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { HiOutlineShoppingCart, HiOutlineHeart } from 'react-icons/hi';
 import { RiFileList2Line, RiShoppingBagLine } from 'react-icons/ri';
 import MyPagePaymentHistoryItem from './MyPagePaymentHistoryItem';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
   const { ownerName, businessLicense, payment_history } = userInfo;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/mock/user/mypage.json`)
+    fetch(`/mock/user/mypage2.json`)
       .then(res => res.json())
       .then(data => setUserInfo(data));
   }, []);
@@ -23,7 +26,7 @@ export default function MyPage() {
             마이페이지
           </Title>
         </TitleContainer>
-        <CursorContainer>
+        <CursorContainer onClick={() => navigate('/mypage/usermodify')}>
           <UserContainer>
             <Title size={28}>
               {ownerName}
@@ -54,25 +57,25 @@ export default function MyPage() {
       </Column>
       <Column>
         <UserActivityContainer>
-          <ActivityItem>
+          <ActivityItem onClick={() => navigate('/mypage/myinquirylist')}>
             <IconContainer size={32} margin="0 0 15px 0" color="#181818">
               <HiOutlineShoppingCart />
             </IconContainer>
             <Text>문의 내역</Text>
           </ActivityItem>
-          <ActivityItem>
+          <ActivityItem onClick={() => navigate('/mypage/order')}>
             <IconContainer size={32} margin="0 0 15px 0" color="#181818">
               <RiShoppingBagLine />
             </IconContainer>
             <Text>내 거래</Text>
           </ActivityItem>
-          <ActivityItem>
+          <ActivityItem onClick={() => navigate('/mypage/cart')}>
             <IconContainer size={32} margin="0 0 15px 0" color="#181818">
               <RiFileList2Line />
             </IconContainer>
             <Text>장바구니</Text>
           </ActivityItem>
-          <ActivityItem>
+          <ActivityItem onClick={() => navigate('/mypage/wishlist')}>
             <IconContainer size={32} margin="0 0 15px 0" color="#181818">
               <HiOutlineHeart />
             </IconContainer>
@@ -88,9 +91,17 @@ export default function MyPage() {
           <Text color="#797979">최근 1달, 최대 20개까지</Text>
         </TitleContainer>
         <UserPaymentHistoryContainer>
-          {payment_history?.map((paymenthistory, i) => {
-            return <MyPagePaymentHistoryItem paymenthistory={paymenthistory} />;
-          })}
+          {payment_history ? (
+            payment_history?.map((paymenthistory, i) => {
+              return (
+                <MyPagePaymentHistoryItem paymenthistory={paymenthistory} />
+              );
+            })
+          ) : (
+            <HistoryContainer>
+              <Text size={26}>거래내역이 없습니다.</Text>
+            </HistoryContainer>
+          )}
         </UserPaymentHistoryContainer>
       </Column>
     </Container>
@@ -192,3 +203,27 @@ const ActivityItem = styled.div`
 `;
 
 const UserPaymentHistoryContainer = styled.ul``;
+const HistoryContainer = styled.ul`
+  ${props => props.theme.variables.flex('', 'center', 'center')}
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #f5f5f5;
+  padding: 30x;
+  font-size: 14px;
+  transition: height 0.2s ease-in;
+  border-radius: 10px;
+  margin-bottom: 36px;
+
+  @media (max-width: 1024px) {
+    height: 150px;
+  }
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
+
+  @media (max-width: 480px) {
+    height: 315px;
+  }
+`;

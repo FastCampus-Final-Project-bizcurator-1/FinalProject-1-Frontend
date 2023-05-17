@@ -12,6 +12,7 @@ import FindPw from './pages/user/login/FindPw';
 import MyPage from './pages/user/mypage/MyPage';
 import UserModify from './pages/user/mypage/UserModify';
 import MyOrder from './pages/user/mypage/MyOrder';
+import OrderDetail from './pages/user/mypage/OrderDetail';
 import WishList from './pages/user/mypage/WishList';
 import MyInquiryList from './pages/user/mypage/MyInquiryList';
 import Cart from './pages/user/mypage/Cart';
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: '/mypage', element: <MyPage /> },
       { path: '/mypage/usermodify', element: <UserModify /> },
       { path: '/mypage/order', element: <MyOrder /> },
+      { path: '/mypage/order/detail/:orderNumber', element: <OrderDetail /> },
       { path: '/mypage/wishlist', element: <WishList /> },
       { path: '/mypage/myinquirylist', element: <MyInquiryList /> },
       { path: '/mypage/cart', element: <Cart /> },
