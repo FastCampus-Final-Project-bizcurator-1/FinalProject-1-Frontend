@@ -95,7 +95,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
                   {state === '결제완료' ? (
                     <>
                       <StateName color="#2b66f6">
-                        {state === '배송시작' ? '배송시작' : '결제완료'}
+                        {state === '결제완료' ? '결제완료' : '배송시작'}
                       </StateName>
                       <StateName>배송중</StateName>
                       <StateName>배송완료</StateName>
@@ -103,7 +103,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
                   ) : (
                     <>
                       <StateName color="#2b66f6">
-                        {state === '배송시작' ? '배송시작' : '결제완료'}
+                        {state === '결제완료' ? '결제완료' : '배송시작'}
                       </StateName>
                       <StateName color={test1}>배송중</StateName>
                       <StateName color={test2}>배송완료</StateName>
@@ -154,7 +154,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
             {state === '결제완료' ? (
               <>
                 <StateName color="#2b66f6">
-                  {state === '배송시작' ? '배송시작' : '결제완료'}
+                  {state === '결제완료' ? '결제완료' : '배송시작'}
                 </StateName>
                 <StateName>배송중</StateName>
                 <StateName>배송완료</StateName>
@@ -162,7 +162,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
             ) : (
               <>
                 <StateName color="#2b66f6">
-                  {state === '배송시작' ? '배송시작' : '결제완료'}
+                  {state === '결제완료' ? '결제완료' : '배송시작'}
                 </StateName>
                 <StateName color={test1}>배송중</StateName>
                 <StateName color={test2}>배송완료</StateName>
