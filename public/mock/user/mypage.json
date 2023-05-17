@@ -85,7 +85,7 @@
       "auto_confirmation": "2023-01-16T"
     },
     {
-      "state": "결제완료",
+      "state": "배송중",
       "number": 9856347982678,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
@@ -119,7 +119,7 @@
       "auto_confirmation": "2019-10-04T"
     },
     {
-      "state": "결제완료",
+      "state": "배송시작",
       "number": 523798267814867,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
@@ -136,7 +136,7 @@
       "auto_confirmation": "2023-03-16T"
     },
     {
-      "state": "결제완료",
+      "state": "배송완료",
       "number": 523798267814867,
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",

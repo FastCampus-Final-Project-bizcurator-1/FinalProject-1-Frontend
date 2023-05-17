@@ -94,7 +94,10 @@ export default function MyPage() {
           {payment_history ? (
             payment_history?.map((paymenthistory, i) => {
               return (
-                <MyPagePaymentHistoryItem paymenthistory={paymenthistory} />
+                <MyPagePaymentHistoryItem
+                  key={i}
+                  paymenthistory={paymenthistory}
+                />
               );
             })
           ) : (

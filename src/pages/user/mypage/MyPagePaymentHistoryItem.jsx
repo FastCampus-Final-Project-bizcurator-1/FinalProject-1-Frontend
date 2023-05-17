@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { formatNumber } from '../../../helper/formatNumber';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import PaymentComplete from './progressbar/PaymentComplete';
+import ShippingInProgress from './progressbar/ShippingInProgress';
+import DeliveryComplete from './progressbar/DeliveryComplete';
 
 export default function MyPagePaymentHistoryItem({ paymenthistory }) {
   const { product_name, price, count, created_at, state, imgUrl, number } =
@@ -21,10 +24,6 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
   const date = new Date(created_at);
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
-
-  const status = state === '배송중' ? true : false;
-  const test1 = status ? true : true;
-  const test2 = status ? false : true;
 
   return (
     <Container>
@@ -61,7 +60,12 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
               color="#2b66f6"
               size={14}
               weight="bold"
-              onClick={() => navigate(`/mypage/order/detail/${number}`)}
+              onClick={() =>
+                navigate(
+                  `/mypage/order/detail/${number}`,
+                  (state = { ...paymenthistory })
+                )
+              }
             >
               주문 상세보기
               <MdOutlineArrowForwardIos />
@@ -70,52 +74,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
               ''
             ) : (
               <>
-                <Progressbar>
-                  <TrackerContainer>
-                    {state === '결제완료' ? (
-                      <>
-                        <ProgressTracker color="#2b66fa" />
-                        <ProgressTracker />
-                        <ProgressTracker />
-                      </>
-                    ) : (
-                      <>
-                        <ProgressTracker color="#2b66fa" />
-                        <ProgressTracker color={test1} />
-                        <ProgressTracker color={test2} />
-                      </>
-                    )}
-                  </TrackerContainer>
-                  <ValueContainer>
-                    {state === '결제완료' ? (
-                      <></>
-                    ) : (
-                      <>
-                        <ProgressbarValue color={test1} />
-                        <ProgressbarValue color={test2} />
-                      </>
-                    )}
-                  </ValueContainer>
-                </Progressbar>
-                <StateContainer>
-                  {state === '결제완료' ? (
-                    <>
-                      <StateName color="#2b66f6">
-                        {state === '결제완료' ? '결제완료' : '배송시작'}
-                      </StateName>
-                      <StateName>배송중</StateName>
-                      <StateName>배송완료</StateName>
-                    </>
-                  ) : (
-                    <>
-                      <StateName color="#2b66f6">
-                        {state === '결제완료' ? '결제완료' : '배송시작'}
-                      </StateName>
-                      <StateName color={test1}>배송중</StateName>
-                      <StateName color={test2}>배송완료</StateName>
-                    </>
-                  )}
-                </StateContainer>
+                <PaymentComplete state={state} />
                 <ButtonContainer>
                   <Button color="#2b66fa">리뷰확인</Button>
                   <Button>장바구니</Button>
@@ -129,52 +88,13 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
         ''
       ) : (
         <Column2>
-          <Progressbar>
-            <TrackerContainer>
-              {state === '결제완료' ? (
-                <>
-                  <ProgressTracker color="#2b66fa" />
-                  <ProgressTracker />
-                  <ProgressTracker />
-                </>
-              ) : (
-                <>
-                  <ProgressTracker color="#2b66fa" />
-                  <ProgressTracker color={test1} />
-                  <ProgressTracker color={test2} />
-                </>
-              )}
-            </TrackerContainer>
-            <ValueContainer>
-              {state === '결제완료' ? (
-                <></>
-              ) : (
-                <>
-                  <ProgressbarValue color={test1} />
-                  <ProgressbarValue color={test2} />
-                </>
-              )}
-            </ValueContainer>
-          </Progressbar>
-          <StateContainer>
-            {state === '결제완료' ? (
-              <>
-                <StateName color="#2b66f6">
-                  {state === '결제완료' ? '결제완료' : '배송시작'}
-                </StateName>
-                <StateName>배송중</StateName>
-                <StateName>배송완료</StateName>
-              </>
-            ) : (
-              <>
-                <StateName color="#2b66f6">
-                  {state === '결제완료' ? '결제완료' : '배송시작'}
-                </StateName>
-                <StateName color={test1}>배송중</StateName>
-                <StateName color={test2}>배송완료</StateName>
-              </>
-            )}
-          </StateContainer>
+          {state === '배송완료' ? (
+            <DeliveryComplete />
+          ) : state === '배송중' ? (
+            <ShippingInProgress />
+          ) : (
+            <PaymentComplete state={state} />
+          )}
           <ButtonContainer>
             <Button color="#2b66fa">리뷰확인</Button>
             <Button>장바구니</Button>
@@ -320,7 +240,16 @@ const ProgressbarValue = styled.div`
   top: -14px;
   height: 6px;
   border-radius: 5px;
-  background-color: ${props => (props.color ? '#2b66f6' : '#ffffff')};
+  background-color: #2b66f6;
+`;
+
+const ProgressbarValue2 = styled.div`
+  position: relative;
+  width: 50%;
+  top: -14px;
+  height: 6px;
+  border-radius: 5px;
+  background-color: #ffffff;
 `;
 
 const ProgressTracker = styled.div`
@@ -328,9 +257,24 @@ const ProgressTracker = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: ${props => (props.color ? '#2b66f6' : '#ffffff')};
+  background-color: #2b66f6;
   top: -4px;
   z-index: 999;
+`;
+const ProgressTracker2 = styled.div`
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  top: -4px;
+  z-index: 999;
+`;
+const StateName = styled.div`
+  color: #2b66f6;
+`;
+const StateName2 = styled.div`
+  color: #797979;
 `;
 
 const ValueContainer = styled.div`
@@ -350,10 +294,6 @@ const StateContainer = styled.div`
   @media (max-width: 480px) {
     width: 100%;
   }
-`;
-
-const StateName = styled.div`
-  color: ${props => (props.color ? '#2b66f6' : '#797979')};
 `;
 
 const ButtonContainer = styled.div`
