@@ -74,7 +74,13 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
               ''
             ) : (
               <>
-                <PaymentComplete state={state} />
+                {state === '배송완료' ? (
+                  <DeliveryComplete />
+                ) : state === '배송중' ? (
+                  <ShippingInProgress />
+                ) : (
+                  <PaymentComplete state={state} />
+                )}
                 <ButtonContainer>
                   <Button color="#2b66fa">리뷰확인</Button>
                   <Button>장바구니</Button>
@@ -108,25 +114,13 @@ const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 100%;
   background-color: #f5f5f5;
   padding: 25px;
   font-size: 14px;
   transition: height 0.2s ease-in;
   border-radius: 10px;
   margin-bottom: 36px;
-
-  @media (max-width: 1024px) {
-    height: 320px;
-  }
-
-  @media (max-width: 768px) {
-    height: 370px;
-  }
-
-  @media (max-width: 480px) {
-    height: 315px;
-  }
 `;
 
 const Column = styled.div`
@@ -135,13 +129,11 @@ const Column = styled.div`
   width: 100%;
   margin: ${props => (props.margin ? props.margin : '')};
 
-  @media (max-width: 480px) {
-  }
+  @
 `;
 
 const Column2 = styled.div`
-  ${props =>
-    props.theme.variables.flex('column', 'space-between', 'flex-start')}
+  ${props => props.theme.variables.flex('column', 'space-between', 'center')}
   position: relative;
   width: 100%;
   margin: ${props => (props.margin ? props.margin : '')};
@@ -298,11 +290,11 @@ const StateContainer = styled.div`
 
 const ButtonContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'space-between', '')}
-  width: 90%;
-  margin: 40px auto;
+  width: 95%;
+  margin: 20px auto;
 
   @media (max-width: 768px) {
-    margin: 20px 30px;
+    margin: 10px 30px;
   }
 `;
 const Button = styled.div`
