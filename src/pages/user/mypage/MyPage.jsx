@@ -13,7 +13,7 @@ export default function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/mock/user/mypage2.json`)
+    fetch(`/mock/user/mypage.json`)
       .then(res => res.json())
       .then(data => setUserInfo(data));
   }, []);
