@@ -8,7 +8,7 @@ import ShippingInProgress from './progressbar/ShippingInProgress';
 import DeliveryComplete from './progressbar/DeliveryComplete';
 
 export default function MyPagePaymentHistoryItem({ paymenthistory }) {
-  const { product_name, price, count, created_at, state, imgUrl, number } =
+  const { product_name, price, count, created_at, imgUrl, number, state } =
     paymenthistory;
   const navigate = useNavigate();
 
@@ -61,10 +61,9 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
               size={14}
               weight="bold"
               onClick={() =>
-                navigate(
-                  `/mypage/order/detail/${number}`,
-                  (state = { ...paymenthistory })
-                )
+                navigate(`/mypage/order/detail/${number}`, {
+                  state: paymenthistory,
+                })
               }
             >
               주문 상세보기
@@ -205,87 +204,8 @@ const ProductInfoContainer = styled.div`
   margin : 0 0 0 30px;
 `;
 
-const Progressbar = styled.div`
-  position: relative;
-  width: 88%;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  margin: 15px auto;
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    margin: 30px auto 15px;
-  }
-  @media (max-width: 480px) {
-    width: 95%;
-  }
-`;
-
-const TrackerContainer = styled.div`
-  ${props => props.theme.variables.flex('row', 'space-between', '')}
-`;
-
-const ProgressbarValue = styled.div`
-  position: relative;
-  width: 50%;
-  top: -14px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #2b66f6;
-`;
-
-const ProgressbarValue2 = styled.div`
-  position: relative;
-  width: 50%;
-  top: -14px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #ffffff;
-`;
-
-const ProgressTracker = styled.div`
-  position: relative;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #2b66f6;
-  top: -4px;
-  z-index: 999;
-`;
-const ProgressTracker2 = styled.div`
-  position: relative;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  top: -4px;
-  z-index: 999;
-`;
-const StateName = styled.div`
-  color: #2b66f6;
-`;
-const StateName2 = styled.div`
-  color: #797979;
-`;
-
-const ValueContainer = styled.div`
-  ${props => props.theme.variables.flex('row', 'space-between', '')}
-  position: absolute;
-  width: 100%;
-`;
-
 const PriceContainer = styled.div`
   ${props => props.theme.variables.flex('row', '', 'flex-start')}
-`;
-const StateContainer = styled.div`
-  ${props => props.theme.variables.flex('row', 'space-between', '')}
-  width: 95%;
-  margin: 0 auto;
-  font-size: 12px;
-  @media (max-width: 480px) {
-    width: 100%;
-  }
 `;
 
 const ButtonContainer = styled.div`
