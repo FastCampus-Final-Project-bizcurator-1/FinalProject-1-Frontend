@@ -3,11 +3,22 @@ import { useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { formatNumber } from '../../../helper/formatNumber';
 import { useNavigate } from 'react-router-dom';
-import TaxInvoiceModal from './TaxInvoiceModal';
+import TaxInvoiceModal from './modal/TaxInvoiceModal';
+import ExchangeModal from './modal/ExchangeModal';
 
 export default function OrderDetail() {
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
-  const [isToggled, setIsToggled] = useState(false);
+  const [isTaxToggled, setIsTaxToggled] = useState(false);
+  const [isExchangeToggled, setIsExchangeToggled] = useState(false);
+
+  function handleTaxToggled() {
+    console.log('세금');
+    setIsTaxToggled(prev => !prev);
+  }
+  function handleExchangeToggled() {
+    console.log('반품');
+    setIsExchangeToggled(prev => !prev);
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,10 +26,6 @@ export default function OrderDetail() {
     };
     window.addEventListener('resize', handleResize);
   }, []);
-
-  function handleToggled() {
-    setIsToggled(prev => !prev);
-  }
 
   const { orderNumber } = useParams();
   const Orderinfo = useLocation().state;
@@ -39,14 +46,16 @@ export default function OrderDetail() {
   } = Orderinfo;
   const navigate = useNavigate();
 
-  console.log(delivery_memo);
   const date = new Date(created_at);
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
 
   return (
     <Container>
-      {isToggled && <TaxInvoiceModal setIsToggled={setIsToggled} />}
+      {isExchangeToggled && (
+        <ExchangeModal handleExchangeToggled={handleExchangeToggled} />
+      )}
+      {isTaxToggled && <TaxInvoiceModal handleTaxToggled={handleTaxToggled} />}
       <Column margin="0 0 60px 0">
         <Title size={32}>주문상세</Title>
       </Column>
@@ -88,7 +97,7 @@ export default function OrderDetail() {
             ) : (
               <ProductInfoContainer>
                 <ButtonContainer>
-                  <Button>교환 반품</Button>
+                  <Button onClick={handleExchangeToggled}>교환 반품</Button>
                   <VerticalBar />
                   <Button>배송 현황</Button>
                   <VerticalBar />
@@ -159,7 +168,7 @@ export default function OrderDetail() {
           <InfoKey>총 결제금액</InfoKey>
           <InfoValue>{formatNumber(price * count + delivery_charge)}</InfoValue>
         </Row1>
-        <TaxInvoiceButton onClick={handleToggled}>
+        <TaxInvoiceButton onClick={handleTaxToggled}>
           <Text color="#2b66fa" weight="bold">
             세금계산서 발행 신청하기
           </Text>
@@ -190,13 +199,17 @@ const PaymentContainer = styled.div`
   ${props => props.theme.variables.flex('column', '', '')}
   position: relative;
   width: 100%;
-  height: 260px;
+  height: 270px;
   background-color: #f5f5f5;
   padding: 30px;
   font-size: 14px;
   transition: height 0.2s ease-in;
   border-radius: 10px;
   margin-bottom: 36px;
+
+  @media (max-width: 480px) {
+    height: 235px;
+  }
 `;
 
 const Title = styled.div`
@@ -283,8 +296,7 @@ const Row2 = styled.div`
   }
 `;
 const Row3 = styled.div`
-  ${props =>
-    props.theme.variables.flex('column', 'space-between', 'flex-start')}
+  ${props => props.theme.variables.flex('column', '', 'flex-start')}
 
   width: 75%;
   height: 100%;

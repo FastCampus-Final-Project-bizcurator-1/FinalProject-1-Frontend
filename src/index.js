@@ -28,6 +28,7 @@ import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
 import UserList from './pages/admin/userList/UserList';
+import DeliveryStatus from './pages/user/mypage/DeliveryStatus';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       { path: '/mypage/usermodify', element: <UserModify /> },
       { path: '/mypage/order', element: <MyOrder /> },
       { path: '/mypage/order/detail/:orderNumber', element: <OrderDetail /> },
+      {
+        path: '/mypage/order/detail/deliverytatus/:orderNumber',
+        element: <DeliveryStatus />,
+      },
       { path: '/mypage/wishlist', element: <WishList /> },
       { path: '/mypage/myinquirylist', element: <MyInquiryList /> },
       { path: '/mypage/cart', element: <Cart /> },
