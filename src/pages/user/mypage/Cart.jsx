@@ -47,6 +47,7 @@ export default function Cart() {
 
   // 전체 선택 버튼 설정
   const handleAllcheck = e => {
+    e.target.checked ? setLength(cartList.length) : setLength(0);
     setIsCheck({ allCheck: allCheck.checked });
     checkboxList.forEach(el => {
       // 해당 요소의 checked 속성을 변경
@@ -61,8 +62,10 @@ export default function Cart() {
       // 체크가 해제되면 => 전체 선택 해제
       allCheck.checked = false;
       setIsCheck({ ...isCheck, [e.target.id]: false, allCheck: false });
+      setLength(length - 1);
     } else {
       setIsCheck({ ...isCheck, [e.target.id]: true });
+      setLength(length + 1);
     }
     // 개별 선택 시 => 전체 선택 확인
     checkboxList.forEach(el => {
@@ -83,6 +86,7 @@ export default function Cart() {
     let money = 0;
     if (isCheck.allCheck) {
       if (cartList) {
+        setLength(cartList.length);
         cartList.forEach(el => {
           money += el.count * el.product_price;
         });
@@ -102,6 +106,8 @@ export default function Cart() {
     }
     setCharge(money);
   }, [isCheck, cartList, productCount, checkboxList]);
+
+  console.log(isCheck);
 
   return (
     <Wrapper bin={cartList === undefined}>
