@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CartCount from '../../../components/mypage/CartCount';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { formatNumber } from '../../../helper/formatNumber';
 
 export default function Cart() {
   // 경로이동
@@ -19,6 +20,8 @@ export default function Cart() {
   const [length, setLength] = useState(0);
   // window 크기
   const [width, setWidth] = useState(window.innerWidth);
+  // 결제금액
+  const [charge, setCharge] = useState(0);
 
   const allCheck = document.getElementById('allChecked');
   const checkboxList = document.querySelectorAll(
@@ -74,6 +77,31 @@ export default function Cart() {
       setIsCheck({ ...isCheck, allCheck: true });
     }
   };
+
+  // 총 결제 금액 계산
+  useEffect(() => {
+    let money = 0;
+    if (isCheck.allCheck) {
+      if (cartList) {
+        cartList.forEach(el => {
+          money += el.count * el.product_price;
+        });
+      }
+    } else {
+      checkboxList.forEach(checkbox => {
+        if (checkbox.id !== 'allCheck') {
+          if (checkbox.checked) {
+            cartList.forEach(el => {
+              if (el.id === parseInt(checkbox.id)) {
+                money += el.count * el.product_price;
+              }
+            });
+          }
+        }
+      });
+    }
+    setCharge(money);
+  }, [isCheck, cartList, productCount, checkboxList]);
 
   return (
     <Wrapper bin={cartList === undefined}>
@@ -135,7 +163,7 @@ export default function Cart() {
           </Container>
         ))}
       <ChargeContainer>
-        <ChargePrice>총 0원</ChargePrice>
+        <ChargePrice>총 {formatNumber(charge)}원</ChargePrice>
         <ChargeBtn>구매하기 ({length})</ChargeBtn>
       </ChargeContainer>
     </Wrapper>
