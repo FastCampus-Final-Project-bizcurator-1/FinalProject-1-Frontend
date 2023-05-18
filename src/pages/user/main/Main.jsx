@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import MainArea from '../../../components/main/mainslide/MainArea';
+import SecondArea from '../../../components/main/secondArea/SecondArea';
+import Purchase from '../../../components/main/purchaseSlide/Purchase';
+import PurchaseInquiry from '../../../components/main/purchaseInquiry/PurchaseInquiry';
 import PartnerList from '../../../components/main/PartnerList';
 import FAQ from '../../../components/main/FAQ/FAQ';
 import Sample from '../../../components/main/Sample/Sample';
@@ -52,7 +56,11 @@ export default function Main() {
   }, [sectionRef]);
   return (
     <>
-      <Test />
+      <MainArea />
+      <SecondArea />
+      <Purchase />
+      <PurchaseInquiry />
+      {/* <Test /> */}
       <div ref={sectionRef}>
         <Category />
         {outerWidth > 1024 ? (
@@ -71,9 +79,9 @@ export default function Main() {
   );
 }
 
-const Test = styled.div`
-  height: 2000px;
-`;
+// const Test = styled.div`
+//   height: 2000px;
+// `;
 const Bold = styled.span`
   font-weight: 700;
 `;
