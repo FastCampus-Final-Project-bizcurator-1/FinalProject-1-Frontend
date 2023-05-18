@@ -2,16 +2,31 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CartCount from '../../../components/mypage/CartCount';
 import CheckProduct from '../../../components/mypage/CheckProduct';
+import { IoIosArrowBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
+  // 경로이동
+  const navigate = useNavigate();
   // 사용자id
   const [userId, setUserId] = useState();
   // 장바구니상품
   const [cartList, setCartList] = useState();
   // 장바구니 count
-  const [productCount, setProductCount] = useState(1);
-  // 장바구니 check 여구
+  const [productCount, setProductCount] = useState();
+  // 장바구니 check 여부
   const [isCheck, setIsCheck] = useState({});
+  // 구매상품 선택 개수
+  const [length, setLength] = useState(0);
+  // window 크기
+  const [width, setWidth] = useState(window.innerWidth);
+
+  // width 변경 => "<" 아이콘 추가
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  window.addEventListener('resize', handleResize);
 
   // 장바구니요청
   useEffect(() => {
@@ -23,11 +38,17 @@ export default function Cart() {
       });
   }, []);
 
-  // console.log(isCheck);
-
   return (
     <Wrapper>
-      <Article>장바구니</Article>
+      <Article>
+        {width <= 768 && (
+          <Icon onClick={() => navigate('/mypage')}>
+            <IoIosArrowBack />
+          </Icon>
+        )}
+        장바구니
+      </Article>
+      {/* 장바구니 상품 */}
       {cartList &&
         cartList.map(cart => (
           <Container key={cart.id}>
@@ -41,6 +62,8 @@ export default function Cart() {
                 productId={cart.id}
                 setIsCheck={setIsCheck}
                 isCheck={isCheck}
+                setLength={setLength}
+                length={length}
               />
             </Top>
             <Middle>
@@ -59,6 +82,7 @@ export default function Cart() {
               initialCount={cart.count}
               productPrice={cart.product_price}
               productId={cart.id}
+              productCount={productCount}
             />
           </Container>
         ))}
@@ -67,42 +91,59 @@ export default function Cart() {
 }
 
 const Wrapper = styled.div`
-  width: 45%;
-  ${props => props.theme.variables.flex('column', '', 'center')};
-  margin: 30px auto;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+`;
+
+const Article = styled.div`
+  width: 100%;
+  height: 100px;
+  ${props => props.theme.variables.flex('', 'center', 'center')};
+  background-color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #2b66f6;
+  margin: 0 auto 20px;
+  border-bottom: 1px solid #f1f5ff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   transition: 0.3s ease;
-  @media (max-width: 1024px) {
-    padding: 0 15px;
-    width: 80%;
-  }
-  @media (max-width: 480px) {
-    padding: 0 15px;
-    width: 100%;
+  @media (max-width: 768px) {
+    height: 50px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #2b66f6;
   }
 `;
 
-const Article = styled.p`
+const Icon = styled.div`
   font-size: 24px;
-  font-weight: 600;
-  color: #2b66f6;
-  margin-bottom: 40px;
-  transition: 0.3s ease;
-  @media (max-width: 768px) {
-    font-size: 20px;
+  position: absolute;
+  left: 3%;
+  cursor: pointer;
+  :hover {
+    color: #b5cdfa;
   }
 `;
 
 const Container = styled.div`
-  width: 100%;
+  width: 45%;
   height: 230px;
   ${props => props.theme.variables.flex('column', 'space-evenly', 'center')};
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   border-radius: 15px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   transition: 0.3s ease;
   position: relative;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    width: 80%;
     height: 200px;
+  }
+  @media (max-width: 480px) {
+    width: 95%;
   }
 `;
 
@@ -113,7 +154,8 @@ const Top = styled.div`
 
 const Middle = styled.div`
   width: 90%;
-  ${props => props.theme.variables.flex('', 'space-between', 'center')};
+  height: 50%;
+  ${props => props.theme.variables.flex('', 'space-between', 'flex-start')};
   font-size: 16px;
   @media (max-width: 768px) {
     font-size: 14px;
@@ -128,25 +170,15 @@ const DeliveryDate = styled.p`
   }
 `;
 
-const CheckBtn = styled.div`
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
-`;
-
 const Img = styled.img`
   width: 120px;
-  height: 120px;
+  height: 100%;
   border: 1px solid #d0d0d0;
   border-radius: 10px;
   background-color: #fff;
   transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 100px;
-    height: 100px;
   }
   @media (max-width: 480px) {
     width: 85px;
@@ -157,9 +189,8 @@ const Img = styled.img`
 const ProductInfo = styled.div`
   text-overflow: ellipsis;
   width: 70%;
-  height: 90%;
+  height: 100%;
   line-height: 1.3;
-  ${props => props.theme.variables.flex('column', 'center', '')};
   @media (max-width: 768px) {
     width: 60%;
   }
@@ -176,5 +207,55 @@ const Manufacturer = styled.p`
   transition: 0.3s ease;
   @media (max-width: 480px) {
     font-size: 12px;
+  }
+`;
+
+const ChargeContainer = styled.div`
+  width: 45%;
+  height: 100px;
+  ${props => props.theme.variables.flex('', 'space-evenly', 'center')};
+  border-radius: 10px;
+  margin: 30px auto 0;
+  background-color: #fff;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0px -3px 10px #d0d0d0;
+  // padding: 0 25%;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 95px;
+    border-radius: 0;
+  }
+  @media (max-width: 480px) {
+    height: 85px;
+  }
+`;
+
+const ChargePrice = styled.p`
+  color: #181818;
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+const ChargeBtn = styled.button`
+  width: 45%;
+  height: 50px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #2b66f6;
+  transition: 0.3s ease;
+  &:hover {
+    background-color: #164ac9;
+  }
+  @media (max-width: 768px) {
+    width: 40%;
+    height: 45px;
+    font-size: 14px;
   }
 `;

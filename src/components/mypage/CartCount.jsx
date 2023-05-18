@@ -6,6 +6,8 @@ export default function CartCount({
   setProductCount,
   initialCount,
   productPrice,
+  productId,
+  productCount,
 }) {
   const [count, setCount] = useState(initialCount);
   const [price, setPrice] = useState(productPrice);
@@ -13,19 +15,20 @@ export default function CartCount({
   // 장바구니 수량변경
   const handleCount = e => {
     // post => count, productId
-    if (e.target.id === 'minus') {
-      setCount(initialCount - 1);
-      setProductCount(initialCount - 1);
+    if (count > 1) {
+      if (e.target.id === 'minus') {
+        setCount(count - 1);
+      }
     }
     if (e.target.id === 'plus') {
-      setCount(initialCount + 1);
-      setProductCount(initialCount + 1);
+      setCount(count + 1);
     }
   };
 
   // 수량변경에 따른 가격 변경
   useEffect(() => {
     setPrice(count * productPrice);
+    setProductCount({ ...productCount, [productId]: count });
   }, [productPrice, count]);
 
   return (

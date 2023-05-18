@@ -2,9 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 
-export default function CheckProduct({ productId, setIsCheck, isCheck }) {
+export default function CheckProduct({
+  productId,
+  setIsCheck,
+  isCheck,
+  setLength,
+  length,
+}) {
   const handleCheck = e => {
     setIsCheck({ ...isCheck, [productId]: !isCheck[productId] });
+    if (!isCheck[productId]) {
+      setLength(length + 1);
+    } else {
+      setLength(length - 1);
+    }
   };
 
   return (
