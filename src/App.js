@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import Header from './components/main/Header';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import variables from './styles/variables';
@@ -8,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 function App() {
   return (
     <ThemeProvider theme={{ style: theme, variables }}>
+      <Header />
       <GlobalStyle />
       <Outlet />
       <Footer />
