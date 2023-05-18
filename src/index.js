@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import AdminApp from './AdminApp';
 import Main from './pages/user/main/Main';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/user/SignUp';
@@ -14,18 +15,19 @@ import MyOrder from './pages/user/mypage/MyOrder';
 import WishList from './pages/user/mypage/WishList';
 import MyInquiryList from './pages/user/mypage/MyInquiryList';
 import Cart from './pages/user/mypage/Cart';
-import Inquiry from './pages/user/Inquiry';
+import Inquiry from './pages/user/inquiry/Inquiry';
 import ProductDetail from './pages/user/shopping/ProductDetail';
 import Shopping from './pages/user/shopping/Shopping';
 import Payment from './pages/user/Payment';
 import AdminLogin from './pages/admin/AdminLogin';
 import CategoryManagement from './pages/admin/CategoryManagement';
 import InquiryHistory from './pages/admin/InquiryHistory';
-import PaymentHistory from './pages/admin/PaymentHistory';
+import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
 import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
-import UserList from './pages/admin/UserList';
+import UserList from './pages/admin/userList/UserList';
+import FloatingButton from './components/FloatingButton';
 
 const router = createBrowserRouter([
   {
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <App />,
+    element: <AdminApp />,
     errorElement: <NotFound />,
     children: [
       { index: true, element: <AdminLogin /> },

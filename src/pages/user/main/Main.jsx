@@ -9,6 +9,7 @@ import Sample from '../../../components/main/Sample/Sample';
 import BusinessDeals from '../../../components/main/BusinessDeals';
 import Category from '../../../components/main/category/Category';
 import styled from 'styled-components';
+import FloatingButton from '../../../components/FloatingButton';
 
 export default function Main() {
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
@@ -74,6 +75,7 @@ export default function Main() {
         <Sample isView={isView} />
         <FAQ />
         <PartnerList />
+        <FloatingButton />
       </div>
     </>
   );
