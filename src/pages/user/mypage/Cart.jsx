@@ -22,6 +22,8 @@ export default function Cart() {
   const [width, setWidth] = useState(window.innerWidth);
   // 결제금액
   const [charge, setCharge] = useState(0);
+  //
+  const [open, setOpen] = useState(false);
 
   const allCheck = document.getElementById('allChecked');
   const checkboxList = document.querySelectorAll(
@@ -29,11 +31,12 @@ export default function Cart() {
   );
 
   // width 변경 => "<" 아이콘 추가
-  const handleResize = () => {
-    setWidth(window.innerWidth);
-  };
-
-  window.addEventListener('resize', handleResize);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   // 장바구니요청
   useEffect(() => {
@@ -107,8 +110,6 @@ export default function Cart() {
     setCharge(money);
   }, [isCheck, cartList, productCount, checkboxList]);
 
-  console.log(isCheck);
-
   return (
     <Wrapper bin={cartList === undefined}>
       <Article>
@@ -168,10 +169,34 @@ export default function Cart() {
             />
           </Container>
         ))}
-      <ChargeContainer>
-        <ChargePrice>총 {formatNumber(charge)}원</ChargePrice>
-        <ChargeBtn>구매하기 ({length})</ChargeBtn>
-      </ChargeContainer>
+      {!open ? (
+        <ChargeContainer status={!open}>
+          <div>
+            <div>
+              <p>상품가격</p>
+              <p>{formatNumber(charge)}원</p>
+            </div>
+            <div>
+              <p>배송비</p>
+              <p>{formatNumber(3000)}원</p>
+            </div>
+            <div>
+              <p>총 결제 금액</p>
+              <p>{formatNumber(charge + 3000)}원</p>
+            </div>
+          </div>
+          <div>
+            <p>주문 예상 금액</p>
+            <ChargePrice>{formatNumber(charge + 3000)}원</ChargePrice>
+            <ChargeBtn>구매하기 ({length})</ChargeBtn>
+          </div>
+        </ChargeContainer>
+      ) : (
+        <ChargeContainer>
+          <ChargePrice>총 {formatNumber(charge)}원</ChargePrice>
+          <ChargeBtn>구매하기 ({length})</ChargeBtn>
+        </ChargeContainer>
+      )}
     </Wrapper>
   );
 }
@@ -362,8 +387,11 @@ const Manufacturer = styled.p`
 
 const ChargeContainer = styled.div`
   width: 45%;
-  height: 100px;
-  ${props => props.theme.variables.flex('', 'space-evenly', 'center')};
+  height: ${props => (props.status ? '200px' : '100px')};
+  ${props =>
+    props.status
+      ? props.theme.variables.flex('column', 'space-evenly', 'center')
+      : props.theme.variables.flex('', 'space-evenly', 'center')};
   border-radius: 10px 10px 0 0;
   margin: 30px auto 0;
   background-color: #fff;
@@ -375,11 +403,11 @@ const ChargeContainer = styled.div`
   }
   @media (max-width: 768px) {
     width: 100%;
-    height: 95px;
+    height: ${props => (props.status ? '150px' : '95px')};
     border-radius: 0;
   }
   @media (max-width: 480px) {
-    height: 85px;
+    height: ${props => (props.status ? '140px' : '85px')};
   }
 `;
 
