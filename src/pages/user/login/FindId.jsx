@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import FindIdModal from '../../../components/login/FindIdModal';
+import axios from 'axios';
 
 export default function FindId() {
   // 모달
@@ -21,15 +22,28 @@ export default function FindId() {
 
   // 아이디 찾기 정보 submit
   const onSubmit = data => {
-    console.log(data);
-    // 이메일전송 api 연결 & 모달 오픈
-    setOpen(true);
+    // console.log(data);
+    axios
+      .post('http://52.78.88.121:8080/findUserIdByManagerName', {
+        email: data.email,
+        managerName: data.managerName,
+      })
+      .then(res => {
+        if (res.status === 200) {
+          // 이메일전송 api 연결 성공 => 인증번호 입력 모달 오픈
+          // console.log(res);
+          setOpen(true);
+        }
+      })
+      .catch(e => {
+        alert('이름 또는 이메일을 다시 한 번 확인해주세요.');
+      });
   };
 
   // Enter 눌렀을 경우에도 아이디 찾기 요청
   const onKeyPress = e => {
     if (e.key === 'Enter') {
-      handleSubmit(onSubmit());
+      handleSubmit(onSubmit);
     }
   };
 
@@ -93,6 +107,7 @@ export default function FindId() {
 
 const Wrapper = styled.div`
   width: 350px;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -125,6 +140,7 @@ const Info = styled.p`
 
 const Form = styled.form`
   width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
