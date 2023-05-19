@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CartCount from '../../../components/mypage/CartCount';
-import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { formatNumber } from '../../../helper/formatNumber';
 
@@ -169,31 +169,49 @@ export default function Cart() {
             />
           </Container>
         ))}
-      {!open ? (
-        <ChargeContainer status={!open}>
-          <div>
-            <div>
-              <p>상품가격</p>
+      {open ? (
+        <ChargeContainer status={open}>
+          <ChargeContent>
+            <Content>
+              <ContentTitle>상품가격</ContentTitle>
               <p>{formatNumber(charge)}원</p>
-            </div>
-            <div>
-              <p>배송비</p>
-              <p>{formatNumber(3000)}원</p>
-            </div>
-            <div>
-              <p>총 결제 금액</p>
-              <p>{formatNumber(charge + 3000)}원</p>
-            </div>
-          </div>
-          <div>
-            <p>주문 예상 금액</p>
-            <ChargePrice>{formatNumber(charge + 3000)}원</ChargePrice>
+            </Content>
+            <Content>
+              <ContentTitle>배송비</ContentTitle>
+              {length > 0 ? <p>{formatNumber(3000)}원</p> : <p>총 0원</p>}
+            </Content>
+            <Content>
+              <ContentTitle>총 결제 금액</ContentTitle>
+              {length > 0 ? (
+                <p>총 {formatNumber(charge + 3000)}원</p>
+              ) : (
+                <p>총 0원</p>
+              )}
+            </Content>
+          </ChargeContent>
+          <ExceptCharge>주문 예상 금액</ExceptCharge>
+          <ChargeBox>
+            <ChargePrice>
+              {length > 0 ? (
+                <>총 {formatNumber(charge + 3000)}원</>
+              ) : (
+                <>총 0원</>
+              )}
+              <ChargeOpen onClick={() => setOpen(false)}>
+                <IoIosArrowDown />
+              </ChargeOpen>
+            </ChargePrice>
             <ChargeBtn>구매하기 ({length})</ChargeBtn>
-          </div>
+          </ChargeBox>
         </ChargeContainer>
       ) : (
         <ChargeContainer>
-          <ChargePrice>총 {formatNumber(charge)}원</ChargePrice>
+          <ChargePrice>
+            총 {formatNumber(charge)}원
+            <ChargeOpen onClick={() => setOpen(true)}>
+              <IoIosArrowUp />
+            </ChargeOpen>
+          </ChargePrice>
           <ChargeBtn>구매하기 ({length})</ChargeBtn>
         </ChargeContainer>
       )}
@@ -242,6 +260,7 @@ const SelectContainer = styled.div`
   top: 80px;
   z-index: 1;
   box-shadow: 0px 3px 3px #f1f5ff;
+  transition: 0.3s ease;
   @media (max-width: 1024px) {
     padding: 0 10%;
   }
@@ -256,6 +275,7 @@ const Label = styled.div`
   ${props => props.theme.variables.flex('', 'center', 'center')};
   font-size: 13px;
   cursor: ${props => (props.button ? 'pointer' : '')};
+  transition: 0.3s ease;
   @media (max-width: 480px) {
     font-size: 12px;
   }
@@ -266,6 +286,7 @@ const Icon = styled.div`
   position: absolute;
   left: 3%;
   cursor: pointer;
+  transition: 0.3s ease;
   :hover {
     color: #b5cdfa;
   }
@@ -278,6 +299,7 @@ const CheckBox = styled.input`
   border-radius: 100%;
   margin-right: 5px;
   position: relative;
+  transition: 0.3s ease;
   &:checked {
     border: 0;
     background-color: #2b66f6;
@@ -313,6 +335,7 @@ const Container = styled.div`
   background-color: #fff;
   transition: 0.3s ease;
   position: relative;
+  transition: 0.3s ease;
   @media (max-width: 1024px) {
     width: 80%;
     height: 200px;
@@ -332,6 +355,7 @@ const Middle = styled.div`
   height: 50%;
   ${props => props.theme.variables.flex('', 'space-between', 'flex-start')};
   font-size: 16px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 14px;
   }
@@ -340,6 +364,7 @@ const Middle = styled.div`
 const DeliveryDate = styled.p`
   font-size: 12px;
   color: #2b66f6;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 10px;
   }
@@ -366,6 +391,7 @@ const ProductInfo = styled.div`
   width: 70%;
   height: 100%;
   line-height: 1.3;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 60%;
   }
@@ -387,34 +413,108 @@ const Manufacturer = styled.p`
 
 const ChargeContainer = styled.div`
   width: 45%;
-  height: ${props => (props.status ? '200px' : '100px')};
+  height: ${props => (props.status ? '230px' : '100px')};
   ${props =>
     props.status
-      ? props.theme.variables.flex('column', 'space-evenly', 'center')
+      ? props.theme.variables.flex('column', 'center', 'center')
       : props.theme.variables.flex('', 'space-evenly', 'center')};
   border-radius: 10px 10px 0 0;
   margin: 30px auto 0;
   background-color: #fff;
   position: sticky;
   bottom: 0;
+  padding: 0 15px;
   box-shadow: 0px -3px 3px #f1f5ff;
+  transition: 0.3s ease;
   @media (max-width: 1024px) {
     width: 80%;
   }
   @media (max-width: 768px) {
     width: 100%;
-    height: ${props => (props.status ? '150px' : '95px')};
-    border-radius: 0;
+    height: ${props => (props.status ? '230px' : '95px')};
   }
   @media (max-width: 480px) {
-    height: ${props => (props.status ? '140px' : '85px')};
+    height: ${props => (props.status ? '200px' : '85px')};
+    ${props =>
+      props.status
+        ? props.theme.variables.flex('column', 'center', 'center')
+        : props.theme.variables.flex('', 'space-between', 'center')};
   }
 `;
 
-const ChargePrice = styled.p`
+const ChargeContent = styled.div`
+  width: 80%;
+  height: 40%;
+  ${props => props.theme.variables.flex('column', 'space-around', 'center')};
+  font-size: 16px;
+  transition: 0.3s ease;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const Content = styled.div`
+  width: 100%;
+  ${props => props.theme.variables.flex('', 'flex-start', '')};
+`;
+
+const ExceptCharge = styled.p`
+  width: 80%;
   color: #181818;
   font-size: 18px;
   font-weight: 600;
+  margin: 15px 0 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d0d0d0;
+  transition: 0.3s ease;
+  @media (max-width: 480px) {
+    width: 100%;
+    margin: 10px 0 5px;
+  }
+`;
+
+const ChargeBox = styled.div`
+  width: 80%;
+  height: 25%;
+  ${props => props.theme.variables.flex('', 'space-between', 'center')};
+  transition: 0.3s ease;
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const ContentTitle = styled.p`
+  width: 200px;
+  color: #797979;
+  transition: 0.3s ease;
+  @media (max-width: 480px) {
+    width: 130px;
+  }
+`;
+
+const ChargePrice = styled.div`
+  color: #181818;
+  font-size: 18px;
+  font-weight: 600;
+  position: relative;
+  transition: 0.3s ease;
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+`;
+
+const ChargeOpen = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  position: absolute;
+  right: -25px;
+  top: -10%;
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 const ChargeBtn = styled.button`
@@ -433,6 +533,11 @@ const ChargeBtn = styled.button`
   @media (max-width: 768px) {
     width: 40%;
     height: 45px;
+    font-size: 14px;
+  }
+  @media (max-width: 480px) {
+    width: 45%;
+    height: 40px;
     font-size: 14px;
   }
 `;
