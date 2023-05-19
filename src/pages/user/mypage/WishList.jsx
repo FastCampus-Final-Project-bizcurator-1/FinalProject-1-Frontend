@@ -24,8 +24,8 @@ export default function WishList() {
       {wishList &&
         wishList.map(wish =>
           wish.id % 3 === 0 ? (
-            <>
-              <Container key={wish.id} id="wishContainer">
+            <div key={wish.id}>
+              <Container id="wishContainer">
                 {/* 관심상품 info */}
                 <Content>
                   <Img src={`${wish.product_img}`} alt={wish.product_name} />
@@ -44,7 +44,7 @@ export default function WishList() {
                 <CartBtn>장바구니 담기</CartBtn>
               </Container>
               <Discount>관심있는 상품들, 대량으로 구매하면 할인 적용!</Discount>
-            </>
+            </div>
           ) : (
             <Container key={wish.id} id="wishContainer">
               {/* 관심상품 info */}
