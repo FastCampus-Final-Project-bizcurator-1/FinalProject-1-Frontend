@@ -59,8 +59,15 @@ const Tabs = styled.div`
   color: #e8f0f2;
   border-radius: 0.6rem;
 
+  @media (max-width: 1024px) {
+    width: 110%;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-left: -3.5rem;
+  }
+
   @media (max-width: 769px) {
-    width: 95%;
+    width: 90%;
     padding: 2rem 1rem;
     margin: 40px auto 1.5rem; /* 40px from the top */
   }
