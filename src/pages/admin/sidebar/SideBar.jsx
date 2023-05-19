@@ -17,7 +17,7 @@ export default function SideBar() {
     }
   };
 
-  console.log(select);
+  // console.log(select);
 
   // 로그인 페이지 사이드바 숨김
   if (location.pathname === '/admin') {
@@ -59,6 +59,7 @@ const Container = styled.div`
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   @media (max-width: 1024px) {
     flex-direction: row;
   }

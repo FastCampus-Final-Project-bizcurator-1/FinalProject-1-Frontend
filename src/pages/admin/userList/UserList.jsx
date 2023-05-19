@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import UserInfo from './UserInfo';
 
 export default function UserList() {
-  const [select, setSelect] = useState('ROLE_STANDBY');
+  const [select, setSelect] = useState('ALL');
   const [userList, setUserList] = useState();
 
   useEffect(() => {
@@ -26,12 +26,20 @@ export default function UserList() {
     <Container>
       <RoleStateContainer>
         <RoleState
+          className={select === 'ALL' ? 'active' : ''}
+          data-id="ALL"
+          onClick={handleSelect}
+        >
+          {49}
+          <Text>전체</Text>
+        </RoleState>
+        <RoleState
           className={select === 'ROLE_STANDBY' ? 'active' : ''}
           data-id="ROLE_STANDBY"
           onClick={handleSelect}
         >
           {6}
-          <Text data-id="자식">승인대기</Text>
+          <Text>승인대기</Text>
         </RoleState>
         <RoleState
           className={select === 'ROLE_REFUSE' ? 'active' : ''}
@@ -73,47 +81,34 @@ export default function UserList() {
 
 const Container = styled.div`
   ${props => props.theme.variables.flex('column', '', 'center')}
-  width: 100%;
-  height: 100px;
+  width: 50%;
   font-size: 16px;
   font-family: 'Noto Sans KR', sans-serif;
-  left: 10%;
-  margin-top: 30px;
+  margin: 30px auto;
+  padding: 15px;
 
   @media (max-width: 1024px) {
-    margin-top: 20px;
-  }
-  @media (max-width: 480px) {
-    height: 224px;
+    width: 80%;
   }
 `;
 
 const RoleStateContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'space-around', 'center')}
-  padding: 0 140px;
-  width: 60%;
+  width: 80%;
   height: 50px;
-
-  @media (max-width: 1440px) {
-    width: 70%;
-    padding: 0 160px;
-  }
+  line-height: 1.3;
   @media (max-width: 1024px) {
-    width: 100%;
-    padding: 0 100px;
-  }
-  @media (max-width: 768px) {
-    padding: 0 40px;
-  }
+  width: 100%;
 `;
 
 const RoleState = styled.div`
   ${props => props.theme.variables.flex('column', 'center', 'center')}
-  width: 33%;
+  width: 15%;
   text-align: center;
   font-weight: bold;
   color: #797979;
   font-size: 18px;
+  cursor: pointer;
 
   &:hover {
     color: #d30000;
@@ -128,14 +123,14 @@ const Text = styled.span`
   text-align: center;
   font-size: 12px;
   font-weight: 500;
-  margin-top: 16px;
+  margin-top: 12px;
   color: #434343;
   letter-spacing: -1px;
 `;
 
 const SearchContainer = styled.div`
   ${props => props.theme.variables.flex('row', 'center', 'center')}
-  width: 50%;
+  width: 80%;
   height: 40px;
   margin: 12px 0;
 
@@ -176,7 +171,7 @@ const Input = styled.input`
 `;
 
 const UserListContainer = styled.div`
-  width: 50%;
+  width: 80%;
   margin-top: 10px;
   @media (max-width: 1024px) {
     width: 100%;
