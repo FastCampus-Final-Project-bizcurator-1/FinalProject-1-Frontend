@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import MainArea from '../../../components/main/mainslide/MainArea';
+import SecondArea from '../../../components/main/secondArea/SecondArea';
+import Purchase from '../../../components/main/purchaseSlide/Purchase';
+import PurchaseInquiry from '../../../components/main/purchaseInquiry/PurchaseInquiry';
 import PartnerList from '../../../components/main/PartnerList';
 import FAQ from '../../../components/main/FAQ/FAQ';
 import Sample from '../../../components/main/Sample/Sample';
 import BusinessDeals from '../../../components/main/BusinessDeals';
 import Category from '../../../components/main/category/Category';
 import styled from 'styled-components';
+import FloatingButton from '../../../components/FloatingButton';
 
 export default function Main() {
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
@@ -52,7 +57,11 @@ export default function Main() {
   }, [sectionRef]);
   return (
     <>
-      <Test />
+      <MainArea />
+      <SecondArea />
+      <Purchase />
+      <PurchaseInquiry />
+      {/* <Test /> */}
       <div ref={sectionRef}>
         <Category />
         {outerWidth > 1024 ? (
@@ -66,14 +75,15 @@ export default function Main() {
         <Sample isView={isView} />
         <FAQ />
         <PartnerList />
+        <FloatingButton />
       </div>
     </>
   );
 }
 
-const Test = styled.div`
-  height: 2000px;
-`;
+// const Test = styled.div`
+//   height: 2000px;
+// `;
 const Bold = styled.span`
   font-weight: 700;
 `;
