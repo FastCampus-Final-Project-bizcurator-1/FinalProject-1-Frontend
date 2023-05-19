@@ -6,7 +6,6 @@ import MyOrderPaymentHistoryItem from './MyOrderPaymentHistoryItem';
 export default function MyOrder() {
   const [userInfo, setUserInfo] = useState({});
   const { payment_history } = userInfo;
-  const [isTaxToggled, setIsTaxToggled] = useState(false);
   const [isExchangeToggled, setIsExchangeToggled] = useState(false);
 
   useEffect(() => {
@@ -15,9 +14,6 @@ export default function MyOrder() {
       .then(data => setUserInfo(data));
   }, []);
 
-  function handleTaxToggled() {
-    setIsTaxToggled(prev => !prev);
-  }
   function handleExchangeToggled() {
     setIsExchangeToggled(prev => !prev);
   }
@@ -39,7 +35,6 @@ export default function MyOrder() {
             payment_history?.map((paymenthistory, i) => {
               return (
                 <MyOrderPaymentHistoryItem
-                  isTaxToggled={isTaxToggled}
                   handleExchangeToggled={handleExchangeToggled}
                   key={i}
                   paymenthistory={paymenthistory}

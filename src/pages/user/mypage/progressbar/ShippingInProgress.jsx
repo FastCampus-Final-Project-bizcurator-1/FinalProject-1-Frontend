@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function ShippingInProgress() {
+export default function ShippingInProgress({ color }) {
+  console.log(color);
   return (
     <>
       <Progressbar>
         <TrackerContainer>
           <ProgressTracker />
           <ProgressTracker />
-          <ProgressTracker2 />
+          <ProgressTracker2 color={color} />
         </TrackerContainer>
         <ValueContainer>
           <ProgressbarValue />
-          <ProgressbarValue2 />
+          <ProgressbarValue2 color={color} />
         </ValueContainer>
       </Progressbar>
       <StateContainer>
@@ -74,7 +75,7 @@ const ProgressbarValue2 = styled.div`
   top: -14px;
   height: 6px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: ${props => (props.color ? props.color : '#ffffff')};
 `;
 
 const ProgressTracker = styled.div`
@@ -84,16 +85,16 @@ const ProgressTracker = styled.div`
   border-radius: 50%;
   background-color: #2b66f6;
   top: -4px;
-  z-index: 999;
+  z-index: 100;
 `;
 const ProgressTracker2 = styled.div`
   position: relative;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: ${props => (props.color ? props.color : '#ffffff')};
   top: -4px;
-  z-index: 999;
+  z-index: 100;
 `;
 
 const StateName = styled.div`

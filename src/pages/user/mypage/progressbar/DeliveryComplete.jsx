@@ -68,15 +68,6 @@ const ProgressbarValue = styled.div`
   background-color: #2b66f6;
 `;
 
-const ProgressbarValue2 = styled.div`
-  position: relative;
-  width: 50%;
-  top: -14px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #ffffff;
-`;
-
 const ProgressTracker = styled.div`
   position: relative;
   width: 14px;
@@ -86,19 +77,7 @@ const ProgressTracker = styled.div`
   top: -4px;
   z-index: 999;
 `;
-const ProgressTracker2 = styled.div`
-  position: relative;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  top: -4px;
-  z-index: 999;
-`;
 
 const StateName = styled.div`
   color: #2b66f6;
-`;
-const StateName2 = styled.div`
-  color: #797979;
 `;

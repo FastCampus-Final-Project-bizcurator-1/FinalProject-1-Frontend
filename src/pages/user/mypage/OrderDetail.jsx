@@ -12,11 +12,9 @@ export default function OrderDetail() {
   const [isExchangeToggled, setIsExchangeToggled] = useState(false);
 
   function handleTaxToggled() {
-    console.log('세금');
     setIsTaxToggled(prev => !prev);
   }
   function handleExchangeToggled() {
-    console.log('반품');
     setIsExchangeToggled(prev => !prev);
   }
 
@@ -57,7 +55,7 @@ export default function OrderDetail() {
       )}
       {isTaxToggled && <TaxInvoiceModal handleTaxToggled={handleTaxToggled} />}
       <Column margin="0 0 60px 0">
-        <Title size={32}>주문상세</Title>
+        <Title size={32}>주문 상세</Title>
       </Column>
       <SubInfo>
         <Text color="#797979" size={14}>
@@ -99,7 +97,16 @@ export default function OrderDetail() {
                 <ButtonContainer>
                   <Button onClick={handleExchangeToggled}>교환 반품</Button>
                   <VerticalBar />
-                  <Button>배송 현황</Button>
+                  <Button
+                    onClick={() =>
+                      navigate(
+                        `/mypage/order/detail/deliverytatus/${orderNumber}`,
+                        { state: { ...Orderinfo, day, month } }
+                      )
+                    }
+                  >
+                    배송 현황
+                  </Button>
                   <VerticalBar />
                   <Button2>재구매</Button2>
                 </ButtonContainer>

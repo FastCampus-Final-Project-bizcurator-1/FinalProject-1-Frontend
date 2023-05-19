@@ -80,7 +80,9 @@ export default function MyOrderPaymentHistoryItem({
           <VerticalBar />
           <Button
             onClick={() => {
-              navigate(`/mypage/order/detail/deliverytatus/${number}`);
+              navigate(`/mypage/order/detail/deliverytatus/${number}`, {
+                state: paymenthistory,
+              });
             }}
           >
             배송 현황
@@ -92,6 +94,7 @@ export default function MyOrderPaymentHistoryItem({
     </Container>
   );
 }
+
 const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
