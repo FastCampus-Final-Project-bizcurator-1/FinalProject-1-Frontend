@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function TaxInvoiceModal({ setIsToggled }) {
+export default function ExchangeModal({ handleExchangeToggled }) {
   return (
     <Wrapper>
       <Container>
-        <Large>세금계산서 신청하시겠어요?</Large>
+        <Large>교환/반품을 시청하시겠어요?</Large>
         <Small>비즈큐레이터에서 5일 이내 연락드릴게요!</Small>
         <BtnContainer>
           <Btn>신청하기</Btn>
-          <Btn2 onClick={() => setIsToggled(false)}>취소</Btn2>
+          <Btn2 onClick={handleExchangeToggled}>취소</Btn2>
         </BtnContainer>
       </Container>
     </Wrapper>

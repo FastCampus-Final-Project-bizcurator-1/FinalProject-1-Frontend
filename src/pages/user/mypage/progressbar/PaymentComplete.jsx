@@ -1,24 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function PaymentComplete({ state }) {
+export default function PaymentComplete({ state, color }) {
   return (
     <>
       <Progressbar>
         <TrackerContainer>
           <ProgressTracker />
-          <ProgressTracker2 />
-          <ProgressTracker2 />
+          <ProgressTracker2 color={color} />
+          <ProgressTracker2 color={color} />
         </TrackerContainer>
         <ValueContainer>
-          <ProgressbarValue2 />
-          <ProgressbarValue2 />
+          <ProgressbarValue2 color={color} />
+          <ProgressbarValue2 color={color} />
         </ValueContainer>
       </Progressbar>
       <StateContainer>
         <StateName>{state === '결제완료' ? '결제완료' : '배송시작'}</StateName>
-        <StateName2>배송중</StateName2>
-        <StateName2>배송완료</StateName2>
+        <StateName2 color={color}>배송중</StateName2>
+        <StateName2 color={color}>배송완료</StateName2>
       </StateContainer>
     </>
   );
@@ -74,7 +74,7 @@ const ProgressbarValue2 = styled.div`
   top: -14px;
   height: 6px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: ${props => (props.color ? props.color : '#ffffff')};
 `;
 
 const ProgressTracker = styled.div`
@@ -91,7 +91,7 @@ const ProgressTracker2 = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: ${props => (props.color ? props.color : '#ffffff')};
   top: -4px;
   z-index: 999;
 `;

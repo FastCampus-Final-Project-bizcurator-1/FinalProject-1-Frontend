@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { formatNumber } from '../../../helper/formatNumber';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 import PaymentComplete from './progressbar/PaymentComplete';
 import ShippingInProgress from './progressbar/ShippingInProgress';
 import DeliveryComplete from './progressbar/DeliveryComplete';
 
-export default function MyPagePaymentHistoryItem({ paymenthistory }) {
+export default function MyOrderPaymentHistoryItem({
+  paymenthistory,
+  handleExchangeToggled,
+}) {
   const { product_name, price, count, created_at, imgUrl, number, state } =
     paymenthistory;
   const navigate = useNavigate();
-
-  const [outerWidth, setOuterWidth] = useState(window.outerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setOuterWidth(window.outerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-  }, []);
 
   const date = new Date(created_at);
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -35,7 +29,7 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
           </div>
         </SubInfo>
       </Column>
-      <Column>
+      <Column margin="20px 0">
         <Row1>
           <Img src={imgUrl} />
         </Row1>
@@ -69,53 +63,45 @@ export default function MyPagePaymentHistoryItem({ paymenthistory }) {
               주문 상세보기
               <MdOutlineArrowForwardIos />
             </OrderDetail>
-            {outerWidth <= 768 ? (
-              ''
+            <br />
+            {state === '배송완료' ? (
+              <DeliveryComplete />
+            ) : state === '배송중' ? (
+              <ShippingInProgress />
             ) : (
-              <>
-                {state === '배송완료' ? (
-                  <DeliveryComplete />
-                ) : state === '배송중' ? (
-                  <ShippingInProgress />
-                ) : (
-                  <PaymentComplete state={state} />
-                )}
-                <ButtonContainer>
-                  <Button color="#2b66fa">리뷰확인</Button>
-                  <Button>장바구니</Button>
-                </ButtonContainer>
-              </>
+              <PaymentComplete state={state} />
             )}
           </ProductInfoContainer>
         </Row2>
       </Column>
-      {outerWidth > 768 ? (
-        ''
-      ) : (
-        <Column2>
-          {state === '배송완료' ? (
-            <DeliveryComplete />
-          ) : state === '배송중' ? (
-            <ShippingInProgress />
-          ) : (
-            <PaymentComplete state={state} />
-          )}
-          <ButtonContainer>
-            <Button color="#2b66fa">리뷰확인</Button>
-            <Button>장바구니</Button>
-          </ButtonContainer>
-        </Column2>
-      )}
+      <ProductInfoContainer>
+        <ButtonContainer>
+          <Button onClick={handleExchangeToggled}>교환 반품</Button>
+          <VerticalBar />
+          <Button
+            onClick={() => {
+              navigate(`/mypage/order/detail/deliverytatus/${number}`, {
+                state: paymenthistory,
+              });
+            }}
+          >
+            배송 현황
+          </Button>
+          <VerticalBar />
+          <Button2>재구매</Button2>
+        </ButtonContainer>
+      </ProductInfoContainer>
     </Container>
   );
 }
+
 const Container = styled.li`
   ${props => props.theme.variables.flex('column', '', 'flex-start')}
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 350px;
   background-color: #f5f5f5;
-  padding: 25px;
+  padding: 30px;
   font-size: 14px;
   transition: height 0.2s ease-in;
   border-radius: 10px;
@@ -139,6 +125,7 @@ const Column2 = styled.div`
 const Row1 = styled.div`
   width: 20%;
   height: auto;
+  margin-right: 20px;
 
   @media (max-width: 1024px) {
     width: 25%;
@@ -197,42 +184,8 @@ const SubInfo = styled.div`
   margin-bottom: 10px;
 `;
 
-const ProductInfoContainer = styled.div`
-  ${props => props.theme.variables.flex('column', 'center', 'flex-start')}
-  margin : 0 0 0 30px;
-`;
-
 const PriceContainer = styled.div`
   ${props => props.theme.variables.flex('row', '', 'flex-start')}
-`;
-
-const ButtonContainer = styled.div`
-  ${props => props.theme.variables.flex('row', 'space-between', '')}
-  width: 95%;
-  margin: 20px auto;
-
-  @media (max-width: 768px) {
-    margin: 10px 30px;
-  }
-`;
-const Button = styled.div`
-  ${props => props.theme.variables.flex('', 'center', 'center')}
-  width: 48%;
-  height: 45px;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 16px;
-  color: ${props => (props.color ? '#ffffff' : '#434343')};
-  line-height: 40px;
-  border: 1px solid ${props => (props.color ? props.color : '#d0d0d0')};
-  background-color: ${props => (props.color ? props.color : '#f5f5f5')};
-  cursor: pointer;
-  font-weight: bold;
-
-  @media (max-width: 480px) {
-    height: 40px;
-    font-size: 10px;
-  }
 `;
 
 const OrderDetail = styled.div`
@@ -251,4 +204,56 @@ const OrderDetail = styled.div`
   @media (max-width: 480px) {
     font-size: ${props => props.size - 2}px;
   }
+`;
+const ProductInfoContainer = styled.div`
+  ${props => props.theme.variables.flex('column', 'center', 'flex-start')}
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const ButtonContainer = styled.div`
+  ${props => props.theme.variables.flex('row', 'space-between', 'center')}
+  position: relative;
+  width: 100%;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+
+  @media (max-width: 480px) {
+    height: 35px;
+    font-size: 10px;
+  }
+`;
+const Button = styled.div`
+  ${props => props.theme.variables.flex('', 'center', 'center')}
+  width: 30%;
+  height: 45px;
+  font-size: 16px;
+  color: #434343;
+  cursor: pointer;
+  font-weight: bold;
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
+`;
+
+const Button2 = styled.div`
+  ${props => props.theme.variables.flex('', 'center', 'center')}
+  width: 30%;
+  height: 45px;
+  font-size: 16px;
+  color: #434343;
+  cursor: pointer;
+  font-weight: bold;
+
+  @media (max-width: 480px) {
+    height: 40px;
+    font-size: 10px;
+  }
+`;
+const VerticalBar = styled.div`
+  width: 1px;
+  height: 16px;
+  background-color: ${props => (props.color ? props.color : '#d0d0d0')};
+  margin: ${props => (props.margin ? props.margin : '')};
 `;
