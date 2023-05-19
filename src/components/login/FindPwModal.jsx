@@ -1,15 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-export default function FindPwModal({ setOpen }) {
+export default function FindPwModal() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
         <Large>임시 비밀번호 발송을 완료하였습니다.</Large>
         <Small>해당 비밀번호를 이용하여 로그인 해주세요.</Small>
-        <Btn onClick={() => (window.location.href = '/login')}>
-          로그인 하러가기
-        </Btn>
+        <Btn onClick={() => navigate('/login')}>로그인 하러가기</Btn>
       </Container>
     </Wrapper>
   );
@@ -39,6 +39,7 @@ const Container = styled.div`
   background-color: #fff;
   border: 0;
   border-radius: 10px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 290px;
     height: 150px;
@@ -52,6 +53,7 @@ const Large = styled.p`
   margin: 0;
   padding: 0;
   text-align: center;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 14px;
   }
@@ -59,15 +61,16 @@ const Large = styled.p`
 
 const Small = styled.p`
   font-size: 13px;
-  margin-top: 5px;
+  margin-top: 10px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 12px;
   }
 `;
 
 const Btn = styled.button`
-  width: 70%;
-  height: 40px;
+  width: 65%;
+  height: 45px;
   font-weight: 600;
   color: #fff;
   border: 0;
@@ -75,4 +78,7 @@ const Btn = styled.button`
   background-color: #2b66f6;
   margin-top: 15px;
   cursor: pointer;
+  &:hover {
+    background-color: #164ac9;
+  }
 `;

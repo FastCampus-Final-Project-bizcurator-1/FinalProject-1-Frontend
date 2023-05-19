@@ -22,16 +22,13 @@ export default function FindId() {
 
   // 아이디 찾기 정보 submit
   const onSubmit = data => {
-    // console.log(data);
     axios
-      .post('http://52.78.88.121:8080/findUserIdByManagerName', {
-        email: data.email,
-        managerName: data.managerName,
-      })
+      .post(
+        `http://52.78.88.121:8080/findUserIdByManagerName?email=${data.email}&managerName=${data.managerName}`
+      )
       .then(res => {
         if (res.status === 200) {
-          // 이메일전송 api 연결 성공 => 인증번호 입력 모달 오픈
-          // console.log(res);
+          // 인증메일 발송 => 모달 open
           setOpen(true);
         }
       })
@@ -108,10 +105,7 @@ export default function FindId() {
 const Wrapper = styled.div`
   width: 350px;
   height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.variables.flex(' column', 'center', 'center')};
   margin: 60px auto 100px;
   padding: 0 15px;
   transition: 0.3s ease;
@@ -140,11 +134,7 @@ const Info = styled.p`
 
 const Form = styled.form`
   width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.variables.flex(' column', 'center', 'center')};
 `;
 
 const TextArea = styled.div`
