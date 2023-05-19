@@ -12,6 +12,7 @@ import FindPw from './pages/user/login/FindPw';
 import MyPage from './pages/user/mypage/MyPage';
 import UserModify from './pages/user/mypage/UserModify';
 import MyOrder from './pages/user/mypage/MyOrder';
+import OrderDetail from './pages/user/mypage/OrderDetail';
 import WishList from './pages/user/mypage/WishList';
 import MyInquiryList from './pages/user/mypage/MyInquiryList';
 import Cart from './pages/user/mypage/Cart';
@@ -20,14 +21,14 @@ import ProductDetail from './pages/user/shopping/ProductDetail';
 import Shopping from './pages/user/shopping/Shopping';
 import Payment from './pages/user/Payment';
 import AdminLogin from './pages/admin/AdminLogin';
-import CategoryManagement from './pages/admin/CategoryManagement';
-import InquiryHistory from './pages/admin/InquiryHistory';
+import CategoryManagement from './pages/admin/product/CategoryManagement';
+import InquiryHistory from './pages/admin/inquiryhistory/InquiryHistory';
 import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
 import Product from './pages/admin/Product';
 import ProductAdd from './pages/admin/ProductAdd';
 import ProductModify from './pages/admin/ProductModify';
 import UserList from './pages/admin/userList/UserList';
-import FloatingButton from './components/FloatingButton';
+import DeliveryStatus from './pages/user/mypage/DeliveryStatus';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
       { path: '/mypage', element: <MyPage /> },
       { path: '/mypage/usermodify', element: <UserModify /> },
       { path: '/mypage/order', element: <MyOrder /> },
+      { path: '/mypage/order/detail/:orderNumber', element: <OrderDetail /> },
+      {
+        path: '/mypage/order/detail/deliverytatus/:orderNumber',
+        element: <DeliveryStatus />,
+      },
       { path: '/mypage/wishlist', element: <WishList /> },
       { path: '/mypage/myinquirylist', element: <MyInquiryList /> },
       { path: '/mypage/cart', element: <Cart /> },

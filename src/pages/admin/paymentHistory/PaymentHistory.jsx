@@ -5,7 +5,6 @@ import PaymentItem from './PaymentItem';
 export default function PaymentHistory() {
   const date = new Date();
   const [year, setYear] = useState();
-  const [month, setMonth] = useState();
 
   const [history, setHistory] = useState([]);
 
@@ -45,6 +44,9 @@ export default function PaymentHistory() {
     <Container>
       <DateSelect>
         <SelectOption onChange={handleSelect}>
+          <option value="" selected disabled hidden>
+            년
+          </option>
           {yearsArray.map((e, i) => {
             return (
               <option value={`20${e}`} key={i}>
@@ -54,6 +56,9 @@ export default function PaymentHistory() {
           })}
         </SelectOption>
         <SelectOption onChange={handleSelect}>
+          <option value="" selected disabled hidden>
+            월
+          </option>
           {monthArray.map((e, i) => {
             return (
               <option key={i} value={e}>
@@ -74,30 +79,22 @@ export default function PaymentHistory() {
 
 const Container = styled.div`
   ${props => props.theme.variables.flex('column', '', 'center')}
-  width: 100%;
+  width: 50%;
   font-size: 16px;
   font-family: 'Noto Sans KR', sans-serif;
-  left: 10%;
-  margin-top: 30px;
+  margin: 30px auto;
   background-color: #ffffff;
+  padding: 15px;
 
   @media (max-width: 1024px) {
+    width: 80%;
     margin-top: 10px;
   }
 `;
 
-const Text = styled.span`
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  margin-top: 16px;
-  color: #434343;
-  letter-spacing: -1px;
-`;
-
 const DateSelect = styled.div`
   ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
-  width: 50%;
+  width: 100%;
   height: 40px;
   margin: 12px 0;
   margin-left: 50px;
@@ -129,7 +126,7 @@ const SelectOption = styled.select`
 `;
 
 const HistoryContainer = styled.div`
-  width: 50%;
+  width: 100%;
   margin-top: 10px;
   @media (max-width: 1024px) {
     width: 100%;
