@@ -10,7 +10,7 @@ export default function Category() {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log(window.outerWidth);
+      // console.log(window.outerWidth);
       setOuterWidth(window.outerWidth);
     };
 

@@ -11,7 +11,7 @@ export default function PartnerList() {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log(window.outerWidth);
+      // console.log(window.outerWidth);
       setOuterWidth(window.outerWidth);
     };
 

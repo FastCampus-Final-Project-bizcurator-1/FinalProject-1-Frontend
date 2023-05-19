@@ -36,7 +36,7 @@ export default function Header() {
               </NavLink>
             ) : (
               <NavLink>
-                <Link to="/signup">로그인</Link>
+                <Link to="/login">로그인</Link>
               </NavLink>
             )}
             {token ? (
@@ -47,7 +47,7 @@ export default function Header() {
               </NavLink>
             ) : (
               <NavLink>
-                <Link to="/login">가입혜택받기</Link>
+                <Link to="/signup">가입혜택받기</Link>
               </NavLink>
             )}
           </NavLinks>

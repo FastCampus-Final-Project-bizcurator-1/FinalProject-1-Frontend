@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../../../components/login/LoginModal';
+import axios from 'axios';
+import { setCookie } from '../../../cookie';
 
 export default function Login() {
   // 경로이동을 위함
@@ -18,8 +20,25 @@ export default function Login() {
 
   // 로그인정보 submit
   const onSubmit = data => {
-    // 메인이동
-    navigate('/');
+    axios
+      .post('http://52.78.88.121:8080/login', {
+        userId: data.userId,
+        password: data.password,
+      })
+      .then(res => {
+        if (res.status === 200) {
+          const accessToken = res.data.token;
+          // console.log(accessToken);
+          // 세션쿠키설정
+          setCookie('accessToken', accessToken, {
+            path: '/',
+          });
+          // 메인이동
+          navigate('/');
+        }
+      })
+      // 로그인 실패시 모달 open
+      .catch(e => setOpen(true));
   };
 
   // Enter 눌렀을 경우에도 로그인 요청
@@ -86,6 +105,7 @@ export default function Login() {
 
 const Wrapper = styled.div`
   width: 340px;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
