@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../../../components/login/LoginModal';
-import axios from 'axios';
 import { setCookie } from '../../../cookie';
+import { useService } from '../../../context/context';
 
 export default function Login() {
   // 경로이동을 위함
@@ -18,13 +18,13 @@ export default function Login() {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  //context API 사용을 위함
+  const { service } = useService();
+
   // 로그인정보 submit
   const onSubmit = data => {
-    axios
-      .post('http://52.78.88.121:8080/login', {
-        userId: data.userId,
-        password: data.password,
-      })
+    service
+      .login(data.userId, data.password)
       .then(res => {
         if (res.status === 200) {
           const accessToken = res.data.token;
