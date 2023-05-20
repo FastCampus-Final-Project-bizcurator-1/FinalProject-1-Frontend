@@ -18,6 +18,7 @@
   "payment_history": [
     {
       "state": "배송완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
@@ -27,13 +28,18 @@
       "delivery_name": "김채원",
       "delivery_company": "CJ대한통운",
       "delivery_number": "3478953467",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-05-12T14:30:00Z",
       "auto_confirmation": "2023-05-26T"
     },
     {
       "state": "배송중",
+      "number": 354275230531652,
       "manager_name": "김채원",
       "product_name": "더블유 세안용품 5종 세트 어쩌고 저쩌고 길게 텍스트를 넣어봅시다",
       "imgUrl": "/images/sample/sample01.png",
@@ -43,13 +49,18 @@
       "delivery_name": "김채원",
       "delivery_company": "우체국",
       "delivery_number": "68934798647563",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "3개월",
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2019-09-20T11:30:00Z",
       "auto_confirmation": "2019-10-04T"
     },
     {
       "state": "배송시작",
+      "number": 34567835467893,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
@@ -59,13 +70,19 @@
       "delivery_name": "김채원",
       "delivery_company": "우체국",
       "delivery_number": "68934798647563",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "6개월",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-03-02T14:30:00Z",
       "auto_confirmation": "2023-03-16T"
     },
     {
       "state": "결제완료",
+      "number": 698734687934879,
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
       "imgUrl": "/images/sample/sample01.png",
@@ -75,13 +92,19 @@
       "delivery_name": "김채원",
       "delivery_company": "CU 편의점택배",
       "delivery_number": "53465347824367",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-01-02T11:30:00Z",
       "auto_confirmation": "2023-01-16T"
     },
     {
-      "state": "결제완료",
+      "state": "배송중",
+      "number": 9856347982678,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "깨끗한도시 두루마리 휴지 30개 X 1박스",
@@ -91,13 +114,19 @@
       "delivery_name": "김채원",
       "delivery_company": "로젠택배",
       "delivery_number": "63412079423786",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-05-12T14:30:00Z",
       "auto_confirmation": "2023-05-26T"
     },
     {
       "state": "결제완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "product_name": "더블유 세안용품 5종 세트",
       "imgUrl": "/images/sample/sample01.png",
@@ -107,13 +136,19 @@
       "delivery_name": "김채원",
       "delivery_company": "한진택배",
       "delivery_number": "059862356712",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2019-09-20T11:30:00Z",
       "auto_confirmation": "2019-10-04T"
     },
     {
-      "state": "결제완료",
+      "state": "배송시작",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "phone_number": "010-5346-2479",
       "product_name": "메디안 치석케어 오리지널 치약, 120g 9개",
@@ -123,13 +158,19 @@
       "delivery_name": "김채원",
       "delivery_company": "한진택배",
       "delivery_number": "059862356712",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-03-02T14:30:00Z",
       "auto_confirmation": "2023-03-16T"
     },
     {
-      "state": "결제완료",
+      "state": "배송완료",
+      "number": 523798267814867,
       "manager_name": "김채원",
       "product_name": "송월타월 호텔수건 크러쉬 150g 30수 면사 5개입",
       "imgUrl": "/images/sample/sample01.png",
@@ -139,8 +180,13 @@
       "delivery_name": "김채원",
       "delivery_company": "우체국",
       "delivery_number": "68934798647563",
+      "delivery_charge": 3000,
+      "payment_method": "삼성카드",
+      "installment_option": "일시불",
+
       "delivery_phonenumber": "010-3254-7869",
       "delivery_address": "(04837) 서울특별시 용산구 한강대로 42, 16층",
+      "delivery_memo": "문앞에 놔주세요.",
       "created_at": "2023-01-02T11:30:00Z",
       "auto_confirmation": "2023-01-16T"
     }

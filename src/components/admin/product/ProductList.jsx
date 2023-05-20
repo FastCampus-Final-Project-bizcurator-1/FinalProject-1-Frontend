@@ -58,7 +58,9 @@ export default function ProductList() {
             <BtnGroup>
               <Btn
                 modify={true}
-                onClick={() => navigate(`/modify/${product.id}`)}
+                onClick={() =>
+                  (window.location.href = `/admin/management/product/modify/${product.id}`)
+                }
               >
                 수정
               </Btn>

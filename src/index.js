@@ -16,7 +16,7 @@ import OrderDetail from './pages/user/mypage/OrderDetail';
 import WishList from './pages/user/mypage/WishList';
 import MyInquiryList from './pages/user/mypage/MyInquiryList';
 import Cart from './pages/user/mypage/Cart';
-import Inquiry from './pages/user/Inquiry';
+import Inquiry from './pages/user/inquiry/Inquiry';
 import ProductDetail from './pages/user/shopping/ProductDetail';
 import Shopping from './pages/user/shopping/Shopping';
 import Payment from './pages/user/Payment';
@@ -24,10 +24,11 @@ import AdminLogin from './pages/admin/AdminLogin';
 import CategoryManagement from './pages/admin/product/CategoryManagement';
 import InquiryHistory from './pages/admin/inquiryhistory/InquiryHistory';
 import PaymentHistory from './pages/admin/paymentHistory/PaymentHistory';
-import Product from './pages/admin/Product';
-import ProductAdd from './pages/admin/ProductAdd';
-import ProductModify from './pages/admin/ProductModify';
 import UserList from './pages/admin/userList/UserList';
+import DeliveryStatus from './pages/user/mypage/DeliveryStatus';
+import Product from './pages/admin/product/Product';
+import ProductAdd from './pages/admin/product/ProductAdd';
+import ProductModify from './pages/admin/product/ProductModify';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       { path: '/mypage/usermodify', element: <UserModify /> },
       { path: '/mypage/order', element: <MyOrder /> },
       { path: '/mypage/order/detail/:orderNumber', element: <OrderDetail /> },
+      {
+        path: '/mypage/order/detail/deliverytatus/:orderNumber',
+        element: <DeliveryStatus />,
+      },
       { path: '/mypage/wishlist', element: <WishList /> },
       { path: '/mypage/myinquirylist', element: <MyInquiryList /> },
       { path: '/mypage/cart', element: <Cart /> },

@@ -1,0 +1,68 @@
+{
+  "user_id": "ssammoo123",
+  "cart": [
+    {
+      "id": 1,
+      "product_name": "돌돌말이 휴지 30개 2박스",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 20000,
+      "manufacturer": "깨끗한 나라",
+      "delivery_date": 7,
+      "count": 2
+    },
+    {
+      "id": 2,
+      "product_name": "빙그레 바나나맛 우유 20팩 5박스",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 50000,
+      "manufacturer": "빙그레",
+      "delivery_date": 10,
+      "count": 2
+    },
+    {
+      "id": 3,
+      "product_name": "두루마리 휴지 30개 X 1박스깨끗한 나라 어쩌구 저쩌구구구ㄴㄴㄴㄴㄴㄴssadasdadsadadㄴㄴㄴ",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 100000,
+      "manufacturer": "깨끗한 나라",
+      "delivery_date": 5,
+      "count": 5
+    },
+    {
+      "id": 4,
+      "product_name": "요리 필수템 ! 기름기 쫘-악 ! 우주최강 키친타올 30개 2박스",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 20000,
+      "manufacturer": "우주최강",
+      "delivery_date": 7,
+      "count": 3
+    },
+    {
+      "id": 5,
+      "product_name": "이제는 뭘 이름으로 해야할 지 모르겠는 어쩌구 저쩌구 너무 긴 이름을 가진 상품",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 60000,
+      "manufacturer": "무엇이든 만드는 곳일걸 아마도 그렇겠지",
+      "delivery_date": 14,
+      "count": 1
+    },
+    {
+      "id": 6,
+      "product_name": "너무 맛있어서 이빨썩을지도? 츄파츕스 막대사탕 대용량 100개 X 1통",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 5000,
+      "manufacturer": "츄파츕스",
+      "delivery_date": 4,
+      "count": 1
+    },
+    {
+      "id": 7,
+      "product_name": "안찢어지는 일회용 종이컵 1박스 (50묶음 X 10)",
+      "product_img": "/asdf/asdf/asdf",
+      "product_price": 30000,
+      "manufacturer": "무엇이든 만드는 곳일걸 아마도 그렇겠지",
+      "delivery_date": 7,
+      "count": 10
+    }
+  ]
+}

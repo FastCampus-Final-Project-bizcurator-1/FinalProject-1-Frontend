@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import FindPwModal from '../../../components/login/FindPwModal';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 export default function FindPw() {
+  // 경로이동
+  const navigate = useNavigate();
   // 모달
   const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
@@ -22,7 +26,20 @@ export default function FindPw() {
   // 비밀번호 찾기 정보 submit
   const onSubmit = data => {
     // console.log(data);
-    setOpen(true);
+    axios
+      .post(
+        `http://52.78.88.121:8080/setRandomPassword?userId=${data.userId}&email=${data.email}`
+      )
+      .then(res => {
+        if (res.status === 200) {
+          // api 이메일 인증 => 임시 비밀번호 발급
+          // console.log(res);
+          setOpen(true);
+        }
+      })
+      .catch(e => {
+        alert('아이디 또는 이메일을 다시 한 번 확인해주세요.');
+      });
   };
 
   // Enter 눌렀을 경우에도 비밀번호 찾기 요청
@@ -92,10 +109,8 @@ export default function FindPw() {
 
 const Wrapper = styled.div`
   width: 370px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 60vh;
+  ${props => props.theme.variables.flex(' column', 'center', 'center')};
   margin: 60px auto 100px;
   padding: 0 15px;
   transition: 0.3s ease;
@@ -124,10 +139,7 @@ const Info = styled.p`
 
 const Form = styled.form`
   width: 95%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.variables.flex(' column', 'center', 'center')};
 `;
 
 const TextArea = styled.div`

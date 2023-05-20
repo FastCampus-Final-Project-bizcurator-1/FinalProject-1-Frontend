@@ -1,32 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-export default function FindIdModal({ setOpen }) {
-  // 경로이동을 위함
+export default function FindIdModal() {
   const navigate = useNavigate();
-  // 인증여부 확인
-  const [success, setSuccess] = useState(false);
-  const handleSubmit = () => {
-    // api를 통해 인증여부 확인
-    // setSuccess(true);
-    // 만약, 인증 x
-    if (success) {
-      setOpen(false);
-      navigate('/login');
-    } else {
-      alert('인증에 실패하였습니다. 다시 시도해주세요');
-      setOpen(false);
-      window.location.reload();
-    }
-  };
   return (
     <Wrapper>
       <Container>
         <Large>인증 메일이 발송되었습니다.</Large>
-        <Small>발송된 이메일을 통해 인증을 완료해 주세요.</Small>
-        <Btn onClick={() => handleSubmit()}>인증완료</Btn>
-        <Notice>* 인증완료 후, 해당 버튼을 클릭해주세요</Notice>
+        <Small>
+          발송 메일을 통해 인증을 완료하시면
+          <br /> 아이디를 확인하실 수 있습니다.
+        </Small>
+        <BtnGroup>
+          <Btn onClick={() => navigate('/login')}>로그인 하러가기</Btn>
+          <Btn find={true} onClick={() => navigate('/findpw')}>
+            비밀번호 찾기
+          </Btn>
+        </BtnGroup>
       </Container>
     </Wrapper>
   );
@@ -35,9 +26,7 @@ export default function FindIdModal({ setOpen }) {
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.variables.flex('', 'center', 'center')};
   background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 50%;
@@ -49,13 +38,11 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 380px;
   height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.variables.flex('column', 'center', 'center')};
   background-color: #fff;
   border: 0;
   border-radius: 10px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 290px;
     height: 150px;
@@ -66,9 +53,8 @@ const Large = styled.p`
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
-  margin: 0;
-  padding: 0;
   text-align: center;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 14px;
   }
@@ -76,26 +62,36 @@ const Large = styled.p`
 
 const Small = styled.p`
   font-size: 13px;
-  margin-top: 5px;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 10px;
+  transition: 0.3s ease;
   @media (max-width: 768px) {
     font-size: 12px;
   }
 `;
 
-const Btn = styled.button`
-  width: 70%;
-  height: 40px;
-  font-weight: 600;
-  color: #fff;
-  border: 0;
-  border-radius: 999px;
-  background-color: #2b66f6;
-  margin-top: 15px;
-  cursor: pointer;
+const BtnGroup = styled.div`
+  width: 90%;
+  ${props => props.theme.variables.flex('', 'space-around', 'center')};
 `;
 
-const Notice = styled.p`
-  color: #d30000;
-  margin: 10px 0;
-  font-size: 12px;
+const Btn = styled.button`
+  width: 46%;
+  height: 45px;
+  font-weight: 600;
+  color: ${props => (props.find ? '#2b66f6' : '#fff')};
+  border: ${props => (props.find ? '2px solid #2b66f6' : '0')};
+  border-radius: 999px;
+  background-color: ${props => (props.find ? 'transparent' : '#2b66f6')};
+  margin-top: 15px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${props => (props.find ? 'transparent' : ' #164ac9')};
+    border: ${props => (props.find ? '2px solid #164ac9' : '0')};
+    color: ${props => (props.find ? '#164ac9' : '#fff')};
+  }
+  @media (max-width: 768px) {
+    height: 40px;
+  }
 `;

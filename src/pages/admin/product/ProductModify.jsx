@@ -3,41 +3,66 @@ import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { TiDeleteOutline } from 'react-icons/ti';
+import { useParams } from 'react-router-dom';
+import ProductModal from '../../../components/admin/product/ProductModal';
 
-export default function ProductAdd() {
+export default function ProductModify() {
+  const { productId } = useParams();
+  // 상품등록데이터
+  const [data, setData] = useState();
+  // 서브카테고리
   const [subList, setSubList] = useState();
+  // 이미지파일
   const [imgList, setImgList] = useState([]);
-
+  // 모달
+  const [open, setOpen] = useState(false);
+  // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
+  // 서브카테고리 가져오기
   const handleCategory = e => {
-    console.log(e.target.value);
-    // api 연결 => 서브카테고리 가져오기
-    // setSubList()
+    // console.log(e.target.value);
+    // api 연결 => setSubList()
   };
 
+  // 이미지 삭제
   const handleDeleteImg = name => {
     // 삭제 구현하기
     console.log(name);
   };
 
+  // data전송 => 모달
   const onSubmit = data => {
     data.productImgfile = imgList;
-    // data 전송
     console.log(data);
+    setData(data);
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    console.log(productId);
+    // data 가져오기 => setData()
+    // 이미지 파일설정 => setImgList()
+  }, [productId]);
+
+  const handleChange = e => {
+    console.log(e.target.value);
+    setValue(e.target.id, e.target.value);
   };
 
   return (
     <Wrapper>
+      {open && <ProductModal setOpen={setOpen} data={data} />}
       <ListPage href="/admin/management/product">
         <MdArrowBackIos />
         상품 목록
       </ListPage>
-      <Article>상품 등록</Article>
+      <Article>상품 수정</Article>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Section>
           <P>상품명</P>
@@ -45,10 +70,12 @@ export default function ProductAdd() {
             <Input
               type="text"
               {...register('productName', { required: true })}
+              value={`${productId}에 해당하는 상품명`}
             />
           </TextField>
         </Section>
         <Section>
+          {/* 선택되어져 있기 !!! */}
           <P>카테고리</P>
           <SelectField>
             <SelectBox
@@ -108,6 +135,7 @@ export default function ProductAdd() {
           </FileNameSection>
         )}
         <Section>
+          {/* 선택 값 가져와서 표기 */}
           <P>노출상태</P>
           <RadioField>
             <RadioLabel>
@@ -115,7 +143,7 @@ export default function ProductAdd() {
                 type="radio"
                 name="productStatus"
                 value="PUBLIC"
-                defaultChecked
+                // defaultChecked= {data.view_status === "PUBLIC"}
                 {...register('productStatus')}
               />
               공개
@@ -125,6 +153,7 @@ export default function ProductAdd() {
                 type="radio"
                 name="productStatus"
                 value="PRIVATE"
+                // defaultChecked= {data.view_status === "PRIVATE"}
                 {...register('productStatus')}
               />
               비공개
@@ -137,6 +166,7 @@ export default function ProductAdd() {
             <Input
               type="text"
               {...register('consumerPrice', { required: true })}
+              value={`${productId}의 소비자가`}
             />{' '}
             원
           </TextField>
@@ -146,7 +176,9 @@ export default function ProductAdd() {
           <TextField>
             <Input
               type="text"
+              id="productPrice"
               {...register('productPrice', { required: true })}
+              defaultValue={`${productId}의 판매가`}
             />{' '}
             원
           </TextField>
@@ -157,6 +189,7 @@ export default function ProductAdd() {
             <Input
               type="text"
               {...register('manufacturer', { required: true })}
+              value={`${productId}의 제조사`}
             />
           </TextField>
         </Section>
@@ -165,7 +198,7 @@ export default function ProductAdd() {
           <RadioField>
             <RadioLabel>
               <RadioBtn
-                defaultChecked
+                // defaultChecked= {data.delivery === "DOMESTIC"}
                 type="radio"
                 name="delivery"
                 value="DOMESTIC"
@@ -175,6 +208,7 @@ export default function ProductAdd() {
             </RadioLabel>
             <RadioLabel>
               <RadioBtn
+                // defaultChecked= {data.delivery === "OVERSEA"}
                 type="radio"
                 name="delivery"
                 value="OVERSEA"
@@ -190,6 +224,7 @@ export default function ProductAdd() {
             <Input
               type="text"
               {...register('deliveryCharge', { required: true })}
+              value={`${productId}의 배송비`}
             />{' '}
             원
           </TextField>
@@ -200,6 +235,7 @@ export default function ProductAdd() {
             <Input
               type="date"
               {...register('deliveryDate', { required: true })}
+              // value={`${productId}의 배송기간`}
             />{' '}
             일
           </TextField>
@@ -210,6 +246,7 @@ export default function ProductAdd() {
             <Input
               type="text"
               {...register('minimumQuantity', { required: true })}
+              value={`${productId}의 최소구매수량`}
             />{' '}
             개
           </TextField>
@@ -220,7 +257,11 @@ export default function ProductAdd() {
         <Section>
           <P>옵션</P>
           <TextField>
-            <Input type="text" {...register('option', { required: true })} />
+            <Input
+              type="text"
+              {...register('option', { required: true })}
+              value={`${productId}의 옵션값`}
+            />
             <OptionBtn onClick={() => console.log('추가')}> + 추가</OptionBtn>
           </TextField>
         </Section>
@@ -436,7 +477,6 @@ const File = styled.input`
 
 const FileNameSection = styled.div`
   width: 100%;
-  height: 100%;
   ${props => props.theme.variables.flex('', 'flex-start', 'center')};
   flex-wrap: wrap;
   margin-bottom: 10px;
@@ -446,7 +486,7 @@ const FileName = styled.div`
   height: 100%;
   ${props => props.theme.variables.flex('', 'center', 'center')};
   color: #434343;
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 25px;
   transition: 0.3s ease;
   @media (max-width: 480px) {
