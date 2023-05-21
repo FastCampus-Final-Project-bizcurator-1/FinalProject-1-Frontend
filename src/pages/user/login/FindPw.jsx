@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import FindPwModal from '../../../components/login/FindPwModal';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
+import { useService } from '../../../context/context';
 
 export default function FindPw() {
-  // 경로이동
-  const navigate = useNavigate();
+  //context API 사용을 위함
+  const { service } = useService();
   // 모달
   const [open, setOpen] = useState(false);
   // react-hook-form 사용을 위함
@@ -23,21 +22,18 @@ export default function FindPw() {
   const watchWriteId = watch('userId');
   const watchWriteEmail = watch('email');
 
-  // 비밀번호 찾기 정보 submit
+  // 아이디 찾기 정보 submit
   const onSubmit = data => {
-    // console.log(data);
-    axios
-      .post(
-        `http://52.78.88.121:8080/setRandomPassword?userId=${data.userId}&email=${data.email}`
-      )
+    service
+      .findPw(data.userId, data.email)
       .then(res => {
         if (res.status === 200) {
           // api 이메일 인증 => 임시 비밀번호 발급
-          // console.log(res);
           setOpen(true);
         }
       })
       .catch(e => {
+        // console.log(e);
         alert('아이디 또는 이메일을 다시 한 번 확인해주세요.');
       });
   };
