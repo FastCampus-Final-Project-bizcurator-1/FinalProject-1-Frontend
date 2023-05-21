@@ -58,6 +58,7 @@ export default function SignUp() {
   }, [loginData, confirmEmail, corporateData, isVerify]);
 
   useEffect(() => {
+    // console.log(loginFinish, corporateFinish);
     const startBtn = document.getElementById('startBtn');
     if (!(loginFinish && corporateFinish)) {
       startBtn.disabled = true;

@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import FileModal from './FileModal';
 import axios from 'axios';
 
-export default function CorporateInfo({ setCorporateData, corporateData }) {
+export default function CorporateInfo({
+  setCorporateData,
+  corporateData,
+  setIsVerify,
+  isVerify,
+}) {
   // 사업자등록번호 확인을 위함
   const [numError, setNumError] = useState(false);
   // 개업일시 확인을 위함
   const [dateError, setDateError] = useState(false);
-  // 사업자 정보 진위 확인
-  const [isVerify, setIsVerify] = useState(false);
   // 사업자등록증 첨부 모달
   const [open, setOpen] = useState(false);
   // 사업자등록증
