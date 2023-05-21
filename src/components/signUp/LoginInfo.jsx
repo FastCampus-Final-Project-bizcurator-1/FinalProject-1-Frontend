@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import EmailModal from './EmailModal';
-import axios from 'axios';
 import { useService } from '../../context/context';
 
 export default function LoginInfo({

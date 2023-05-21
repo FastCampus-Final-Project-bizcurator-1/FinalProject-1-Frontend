@@ -61,6 +61,15 @@ export default class Service {
     );
   }
 
+  // 회원가입
+  async signup(formData) {
+    return this.client.post('http://52.78.88.121:8080/signup', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
+
   //관리자
 
   async userList() {

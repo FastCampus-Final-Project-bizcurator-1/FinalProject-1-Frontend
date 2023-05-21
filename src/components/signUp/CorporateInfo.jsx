@@ -16,11 +16,21 @@ export default function CorporateInfo({
   // 사업자등록증 첨부 모달
   const [open, setOpen] = useState(false);
   // 사업자등록증
-  const [businessLicense, setBusinessLicense] = useState('');
+  const [businessLicense, setBusinessLicense] = useState();
 
   // coporateData 설정
   const handleChange = e => {
-    setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
+    if (e.target.id === 'openingDate') {
+      setCorporateData({
+        ...corporateData,
+        [e.target.id]: e.target.value.replace(
+          /^(\d{0,4})(\d{0,2})(\d{0,})$/g,
+          '$1-$2-$3'
+        ),
+      });
+    } else {
+      setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
+    }
   };
 
   // 사업자등록번호 검사
@@ -46,7 +56,6 @@ export default function CorporateInfo({
     const reg = /^\d{8}$/;
     const date = parseInt(e.target.value.split('-').join(''));
     if (reg.test(date)) {
-      e.target.value = date;
       setDateError(false);
       handleChange(e);
     } else {
@@ -59,6 +68,7 @@ export default function CorporateInfo({
       .replace(/(-{1,2}$)/g, '');
   };
 
+  // 사업자등록증 진위여부 확인
   const checkVerify = e => {
     if (isVerify === false) {
       const SERVICEKEY = process.env.REACT_APP_SERVICE_KEY;
@@ -69,7 +79,7 @@ export default function CorporateInfo({
             businesses: [
               {
                 b_no: corporateData.corporateNumber,
-                start_dt: corporateData.openingDate,
+                start_dt: corporateData.openingDate.split('-').join(''),
                 p_nm: corporateData.ownerName,
                 p_nm2: '',
                 b_nm: corporateData.companyName,
@@ -98,6 +108,7 @@ export default function CorporateInfo({
     }
   };
 
+  // 사업자등록증 첨부
   useEffect(() => {
     businessLicense &&
       setCorporateData({ ...corporateData, businessLicense: businessLicense });
@@ -158,7 +169,7 @@ export default function CorporateInfo({
               <Span>첨부 (선택)</Span>
             )}
           </FileBtn>
-          <Error>{businessLicense}</Error>
+          <Error>{businessLicense?.name}</Error>
         </Attach>
       </BtnGroup>
     </Container>
