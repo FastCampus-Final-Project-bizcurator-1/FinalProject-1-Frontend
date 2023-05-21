@@ -111,7 +111,6 @@ export default function SignUp() {
           isVerify={isVerify}
         />
         <ServiceAgreement />
-        {/* {serviceError && <Error>* 필수 항목을 동의해주세요.</Error>} */}
         <StartBtn
           id="startBtn"
           finish={loginFinish && corporateFinish}
@@ -123,7 +122,7 @@ export default function SignUp() {
       {loginFinish && corporateFinish ? (
         <></>
       ) : (
-        <Error>* 필수 입력 항목을 확인해주세요 </Error>
+        <Error>* 필수 항목을 확인해주세요 </Error>
       )}
     </Wrapper>
   );

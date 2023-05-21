@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import EmailModal from './EmailModal';
+import axios from 'axios';
+import { useService } from '../../context/context';
 
 export default function LoginInfo({
   loginData,
@@ -24,6 +26,8 @@ export default function LoginInfo({
   const [pwError, setpwError] = useState(false);
   // 비밀번호 일치 확인을 위함
   const [checkPw, setCheckPw] = useState(false);
+  //context API 사용을 위함
+  const { service } = useService();
 
   // loginData 설정
   const handleChange = e => {
@@ -42,12 +46,30 @@ export default function LoginInfo({
   };
 
   // 아이디 중복확인
-  const checkExist = () => {
-    console.log(loginData.userId);
-    // api 연결 => 아이디 중복확인
-    // setIsCheck(true);
-    alert('사용가능한 아이디입니다.');
-    // alert('이미 존재하는 아이디입니다.');
+  const checkExist = e => {
+    if (isCheck === false) {
+      if (loginData.userId.length) {
+        service
+          .checkIdExist(loginData.userId)
+          .then(res => {
+            if (res.data === false) {
+              setIsCheck(true);
+              alert('사용가능한 아이디입니다.');
+              e.target.disabled = true;
+            } else {
+              alert(
+                '이미 가입되어 있는 아이디입니다. 다른 아이디로 가입해주세요.'
+              );
+            }
+          })
+          .catch(e => {
+            // console.log(e);
+            alert('아이디를 확인해주세요.');
+          });
+      } else {
+        alert('아이디를 확인해주세요.');
+      }
+    }
   };
 
   // 연락처 패턴 확인
@@ -97,11 +119,21 @@ export default function LoginInfo({
     }
   };
 
-  // 이메일 인증
-  const handleConfirm = e => {
-    // api 연결 => 해당 이메일로 인증번호발송
-    console.log(loginData.email);
-    setOpen(true);
+  // 이메일 인증메일 발송
+  const sendEmail = e => {
+    if (confirmEmail === false) {
+      if (emailError === false) {
+        service
+          .sendEmail(loginData.email)
+          .then(res => setOpen(true))
+          .catch(e => {
+            // console.log(e);
+            alert('이메일을 확인해주세요.');
+          });
+      } else {
+        alert('이메일을 확인해주세요.');
+      }
+    }
   };
 
   // 비밀번호 패턴 확인
@@ -130,7 +162,11 @@ export default function LoginInfo({
   return (
     <Container className="loginInfo">
       {open && (
-        <EmailModal setOpen={setOpen} setConfirmEmail={setConfirmEmail} />
+        <EmailModal
+          setOpen={setOpen}
+          setConfirmEmail={setConfirmEmail}
+          email={loginData.email}
+        />
       )}
       <Title>로그인 정보</Title>
       <TextField>
@@ -142,7 +178,7 @@ export default function LoginInfo({
           name="login"
           onChange={validId}
         />
-        <Btn finish={isCheck} onClick={() => checkExist()}>
+        <Btn finish={isCheck} onClick={e => checkExist(e)}>
           {isCheck ? '확인 완료' : '중복 확인'}
         </Btn>
       </TextField>
@@ -177,7 +213,7 @@ export default function LoginInfo({
           name="login"
           onChange={validEmail}
         />
-        <Btn finish={confirmEmail} onClick={e => handleConfirm(e)}>
+        <Btn id="emailBtn" finish={confirmEmail} onClick={e => sendEmail(e)}>
           {confirmEmail ? '인증완료' : '인증메일 발송'}
         </Btn>
       </TextField>
@@ -266,9 +302,10 @@ const Error = styled.p`
   font-size: 12px;
 `;
 
-const Btn = styled.button`
+const Btn = styled.div`
   width: 95px;
   height: 30px;
+  ${props => props.theme.variables.flex('', 'center', 'center')};
   border: ${props => (props.finish ? '0' : '1px solid #2b66f6')};
   border-radius: 999px;
   background-color: ${props => (props.finish ? '#2b66f6' : 'transparent')};
@@ -279,6 +316,7 @@ const Btn = styled.button`
   position: absolute;
   bottom: 15%;
   right: 0;
+  cursor: ${props => (props.finish ? '' : 'pointer')};
   transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 80px;
