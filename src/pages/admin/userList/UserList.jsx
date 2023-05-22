@@ -1,17 +1,45 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+/* eslint-disable default-case */
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UserInfo from './UserInfo';
+import { useService } from '../../../context/context';
+import { getCookie } from '../../../cookie';
+import { useQuery } from '@tanstack/react-query';
 
 export default function UserList() {
   const [select, setSelect] = useState('ALL');
-  const [userList, setUserList] = useState();
+  const [userCount, setUserCount] = useState({});
+  // const [refuseModal, setRefuseModal] = useState(false);
+  // const [approvalModal, setApprovalModal] = useState(false);
+  const { service } = useService();
+
+  service.setAuthToken(getCookie('accessToken'));
+
+  const QueryOption = {
+    staleTime: 5 * 60 * 1000,
+    enabled: true,
+  };
 
   useEffect(() => {
-    fetch('/mock/admin/user.json')
-      .then(res => res.json())
-      .then(data => setUserList(data.user));
-  }, []);
+    service.getUserCount().then(res => setUserCount(res.data));
+  }, [userCount]);
+
+  const { data: userList, isLoading } = useQuery(
+    ['userList', select],
+    () => {
+      switch (select) {
+        case 'ALL':
+          return service.userListRoleAll(1).then(res => res.data.content);
+        case 'ROLE_STANDBY':
+          return service.userListRoleStandBy(1).then(res => res.data.content);
+        case 'ROLE_REFUSE':
+          return service.userListRoleRefuse(1).then(res => res.data.content);
+        case 'ROLE_USER':
+          return service.userListRoleUser(1).then(res => res.data.content);
+      }
+    },
+    QueryOption
+  );
 
   const handleSelect = e => {
     const tagName = e.target.tagName;
@@ -30,7 +58,9 @@ export default function UserList() {
           data-id="ALL"
           onClick={handleSelect}
         >
-          {49}
+          {userCount?.standbyCount +
+            userCount?.refuseCount +
+            userCount?.userCount}
           <Text>전체</Text>
         </RoleState>
         <RoleState
@@ -38,7 +68,7 @@ export default function UserList() {
           data-id="ROLE_STANDBY"
           onClick={handleSelect}
         >
-          {6}
+          {userCount?.standbyCount}
           <Text>승인대기</Text>
         </RoleState>
         <RoleState
@@ -46,7 +76,7 @@ export default function UserList() {
           data-id="ROLE_REFUSE"
           onClick={handleSelect}
         >
-          {4}
+          {userCount?.refuseCount}
           <Text className={select === 'ROLE_REFUSE' ? 'active' : ''}>반려</Text>
         </RoleState>
         <RoleState
@@ -54,7 +84,7 @@ export default function UserList() {
           data-id="ROLE_USER"
           onClick={handleSelect}
         >
-          {39}
+          {userCount?.userCount}
           <Text className={select === 'ROLE_USER' ? 'active' : ''}>
             승인완료
           </Text>
@@ -68,13 +98,18 @@ export default function UserList() {
         </SelectOption>
         <Input />
       </SearchContainer>
-      <UserListContainer>
-        <UserInfoList>
-          {userList?.map((userInfo, i) => {
-            return <UserInfo userInfo={userInfo} key={i} />;
-          })}
-        </UserInfoList>
-      </UserListContainer>
+      {isLoading ? (
+        <div>Loadingf...</div>
+      ) : (
+        <UserListContainer>
+          <UserInfoList>
+            {userList &&
+              userList.map((userInfo, i) => (
+                <UserInfo userInfo={userInfo} key={i} />
+              ))}
+          </UserInfoList>
+        </UserListContainer>
+      )}
     </Container>
   );
 }

@@ -17,6 +17,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
+  const { service } = useService();
 
   //context API 사용을 위함
   const { service } = useService();

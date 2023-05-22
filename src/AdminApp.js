@@ -5,16 +5,21 @@ import variables from './styles/variables';
 import { Outlet } from 'react-router-dom';
 import SideBar from './pages/admin/sidebar/SideBar';
 import Apiprovider from './context/context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider theme={{ style: theme, variables }}>
       <GlobalStyle />
-      <Apiprovider>
-        <Nav>navBar입니다</Nav>
-        <SideBar />
-        <Outlet />
-      </Apiprovider>
+      <QueryClientProvider client={queryClient}>
+        <Apiprovider>
+          <Nav>navBar입니다</Nav>
+          <SideBar />
+          <Outlet />
+        </Apiprovider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

@@ -6,16 +6,21 @@ import variables from './styles/variables';
 import Footer from './components/main/Footer';
 import { Outlet } from 'react-router-dom';
 import Apiprovider from './context/context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider theme={{ style: theme, variables }}>
-      <Apiprovider>
-        <Header />
-        <GlobalStyle />
-        <Outlet />
-        <Footer />
-      </Apiprovider>
+      <GlobalStyle />
+      <QueryClientProvider client={queryClient}>
+        <Apiprovider>
+          <Header />
+          <Outlet />
+          <Footer />
+        </Apiprovider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
