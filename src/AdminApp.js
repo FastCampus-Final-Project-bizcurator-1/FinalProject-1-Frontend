@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 import SideBar from './pages/admin/sidebar/SideBar';
 import Apiprovider from './context/context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Header from './components/main/Header';
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,8 @@ function App() {
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
         <Apiprovider>
-          <Nav>navBar입니다</Nav>
+          {/* <Nav>navBar입니다</Nav> */}
+          <Header />
           <SideBar />
           <Outlet />
         </Apiprovider>

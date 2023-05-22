@@ -11,7 +11,7 @@ export default class Service {
   setAuthToken(accessToken) {
     this.client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   }
-  
+
   async login(userId, password) {
     return this.client.post('/login', {
       userId,
