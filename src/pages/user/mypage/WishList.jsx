@@ -22,31 +22,9 @@ export default function WishList() {
     <Wrapper>
       <Article>관심상품</Article>
       {wishList &&
-        wishList.map(wish =>
-          wish.id % 3 === 0 ? (
-            <div key={wish.id}>
-              <Container id="wishContainer">
-                {/* 관심상품 info */}
-                <Content>
-                  <Img src={`${wish.product_img}`} alt={wish.product_name} />
-                  <ProductInfo>
-                    <ProductName>
-                      {wish.product_name.length >= 40
-                        ? wish.product_name.substr(0, 40) + '...'
-                        : wish.product_name}
-                    </ProductName>
-                    <Manufacturer>{wish.manufacturer}</Manufacturer>
-                    <Price>{wish.product_price}</Price>
-                  </ProductInfo>
-                  {/* 관심상품 버튼 */}
-                  <MyPageWishBtn userId={userId} productId={wish.id} />
-                </Content>
-                <CartBtn>장바구니 담기</CartBtn>
-              </Container>
-              <Discount>관심있는 상품들, 대량으로 구매하면 할인 적용!</Discount>
-            </div>
-          ) : (
-            <Container key={wish.id} id="wishContainer">
+        wishList.map(wish => (
+          <Container key={wish.id}>
+            <ContentContainer id="wishContainer">
               {/* 관심상품 info */}
               <Content>
                 <Img src={`${wish.product_img}`} alt={wish.product_name} />
@@ -63,9 +41,12 @@ export default function WishList() {
                 <MyPageWishBtn userId={userId} productId={wish.id} />
               </Content>
               <CartBtn>장바구니 담기</CartBtn>
-            </Container>
-          )
-        )}
+            </ContentContainer>
+            {wish.id % 3 === 0 && (
+              <Discount>관심있는 상품들, 대량으로 구매하면 할인 적용!</Discount>
+            )}
+          </Container>
+        ))}
     </Wrapper>
   );
 }
@@ -97,6 +78,10 @@ const Article = styled.p`
 `;
 
 const Container = styled.div`
+  width: 90%;
+`;
+
+const ContentContainer = styled.div`
   width: 100%;
   height: 230px;
   ${props => props.theme.variables.flex('column', 'center', 'center')};
