@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FileModal from './FileModal';
+import axios from 'axios';
 
-export default function CorporateInfo({ setCorporateData, corporateData }) {
+export default function CorporateInfo({
+  setCorporateData,
+  corporateData,
+  setIsVerify,
+  isVerify,
+}) {
   // 사업자등록번호 확인을 위함
   const [numError, setNumError] = useState(false);
   // 개업일시 확인을 위함
   const [dateError, setDateError] = useState(false);
-  // 사업자등록증 첨부 확인
-  const [attachFinish, setAttachFinish] = useState(false);
-  // 사업자 정보 진위 확인
-  const [isVerify, setIsVerify] = useState(false);
   // 사업자등록증 첨부 모달
   const [open, setOpen] = useState(false);
   // 사업자등록증
-  const [businessLicense, setBusinessLicense] = useState('');
+  const [businessLicense, setBusinessLicense] = useState();
 
   // coporateData 설정
   const handleChange = e => {
-    setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
+    if (e.target.id === 'openingDate') {
+      setCorporateData({
+        ...corporateData,
+        [e.target.id]: e.target.value.replace(
+          /^(\d{0,4})(\d{0,2})(\d{0,})$/g,
+          '$1-$2-$3'
+        ),
+      });
+    } else {
+      setCorporateData({ ...corporateData, [e.target.id]: e.target.value });
+    }
   };
 
   // 사업자등록번호 검사
@@ -44,7 +56,6 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
     const reg = /^\d{8}$/;
     const date = parseInt(e.target.value.split('-').join(''));
     if (reg.test(date)) {
-      e.target.value = date;
       setDateError(false);
       handleChange(e);
     } else {
@@ -57,19 +68,51 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
       .replace(/(-{1,2}$)/g, '');
   };
 
-  const checkVerify = () => {
-    console.log(corporateData);
-    // 오픈 api 연결 => 검증
-    // 성공 => setIsVerify(true)
-    alert('인증이 완료되었습니다.');
-    // alert('인증에 실패하였습니다. 확인 후, 다시 시도해주세요');
+  // 사업자등록증 진위여부 확인
+  const checkVerify = e => {
+    if (isVerify === false) {
+      const SERVICEKEY = process.env.REACT_APP_SERVICE_KEY;
+      axios
+        .post(
+          `https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=${SERVICEKEY}`,
+          {
+            businesses: [
+              {
+                b_no: corporateData.corporateNumber,
+                start_dt: corporateData.openingDate.split('-').join(''),
+                p_nm: corporateData.ownerName,
+                p_nm2: '',
+                b_nm: corporateData.companyName,
+                corp_no: '',
+                b_sector: '',
+                b_type: '',
+              },
+            ],
+          }
+        )
+        .then(res => {
+          if (res.data.data[0].status.utcc_yn) {
+            alert(
+              '인증에 실패하였습니다. 폐업자의 경우, 서비스 이용이 어렵습니다.'
+            );
+            setIsVerify(true);
+          } else {
+            alert('인증이 완료되었습니다.');
+            setIsVerify(true);
+            e.target.disabled = true;
+          }
+        })
+        .catch(e =>
+          alert('인증에 실패하였습니다. 내용 확인 후, 다시 시도해주세요')
+        );
+    }
   };
 
+  // 사업자등록증 첨부
   useEffect(() => {
     businessLicense &&
       setCorporateData({ ...corporateData, businessLicense: businessLicense });
   }, [businessLicense]);
-  // console.log(businessLicense);
 
   return (
     <Container className="coporateInfo">
@@ -106,7 +149,7 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
       </TextField>
       {dateError && <Error>정확한 날짜를 입력해주세요.</Error>}
       <BtnGroup>
-        <CofirmBtn finish={isVerify} onClick={() => checkVerify()}>
+        <CofirmBtn finish={isVerify} onClick={e => checkVerify(e)}>
           {isVerify ? (
             <>
               사업자정보<Span> 확인 완료</Span>
@@ -126,7 +169,7 @@ export default function CorporateInfo({ setCorporateData, corporateData }) {
               <Span>첨부 (선택)</Span>
             )}
           </FileBtn>
-          <Error>{businessLicense}</Error>
+          <Error>{businessLicense?.name}</Error>
         </Attach>
       </BtnGroup>
     </Container>
@@ -191,7 +234,7 @@ const BtnGroup = styled.div`
   align-items: flex-start;
 `;
 
-const CofirmBtn = styled.button`
+const CofirmBtn = styled.div`
   width: 200px;
   height: 52px;
   display: flex;
@@ -203,6 +246,8 @@ const CofirmBtn = styled.button`
   color: ${props => (props.finish ? '#fff' : '#2B66F6')};
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
+  cursor: ${props => (props.finish ? '' : 'pointer')};
   transition: 0.3s ease;
   @media (max-width: 768px) {
     width: 160px;

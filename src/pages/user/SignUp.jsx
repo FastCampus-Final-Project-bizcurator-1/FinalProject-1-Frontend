@@ -5,6 +5,7 @@ import LoginInfo from '../../components/signUp/LoginInfo';
 import CorporateInfo from '../../components/signUp/CorporateInfo';
 import ServiceAgreement from '../../components/signUp/ServiceAgreement';
 import ServiceModal from '../../components/signUp/ServiceModal';
+import { useService } from '../../context/context';
 
 export default function SignUp() {
   // 로그인 정보
@@ -32,6 +33,8 @@ export default function SignUp() {
   const [corporateFinish, setCoporateFinish] = useState(false);
   // 서비스정책 완료 x  => 모달
   const [open, setOpen] = useState(false);
+  //context API 사용을 위함
+  const { service } = useService();
 
   useEffect(() => {
     // 로그인정보 완료 체크
@@ -58,12 +61,16 @@ export default function SignUp() {
   }, [loginData, confirmEmail, corporateData, isVerify]);
 
   useEffect(() => {
+    // console.log(loginFinish, corporateFinish);
     const startBtn = document.getElementById('startBtn');
-    if (!(loginFinish && corporateFinish)) {
+    if (loginFinish && corporateFinish) {
+      startBtn.disabled = false;
+    } else {
       startBtn.disabled = true;
     }
   }, [loginFinish, corporateFinish]);
 
+  // 회원가입
   const handleSubmit = () => {
     // 서비스정책 필수 항목 체크 확인
     const checkList = document.querySelectorAll('.serviceArea input:required');
@@ -74,10 +81,37 @@ export default function SignUp() {
       }
     }
     if (count === 3) {
-      // console.log('완료');
-      // api 연결 => 회원가입
+      // 전송용 formData
+      const formData = new FormData();
+      let dataSet = {
+        userId: loginData.userId,
+        password: loginData.password,
+        managerName: loginData.managerName,
+        phoneNumber: loginData.phoneNumber,
+        email: loginData.email,
+        companyName: corporateData.companyName,
+        ownerName: corporateData.ownerName,
+        openingDate: corporateData.openingDate,
+        corporateNumber: corporateData.corporateNumber,
+      };
+      formData.append('requestDTO', JSON.stringify(dataSet));
+      formData.append('businessLicense', corporateData.businessLicense);
+      // 회원가입
+      service
+        .signup(formData)
+        .then(res => {
+          alert('회원가입이 완료되었습니다.');
+          window.location.href = '/login';
+        })
+        .catch(e => {
+          const message = e.response.data;
+          if (message === 'existId') {
+            alert('아이디 중복 확인을 다시 진행해주세요.');
+          } else {
+            alert('회원가입이 정상적으로 완료되지 않았습니다.');
+          }
+        });
     } else {
-      // console.log('미완료');
       setOpen(true);
     }
   };
@@ -111,7 +145,6 @@ export default function SignUp() {
           isVerify={isVerify}
         />
         <ServiceAgreement />
-        {/* {serviceError && <Error>* 필수 항목을 동의해주세요.</Error>} */}
         <StartBtn
           id="startBtn"
           finish={loginFinish && corporateFinish}
@@ -123,7 +156,7 @@ export default function SignUp() {
       {loginFinish && corporateFinish ? (
         <></>
       ) : (
-        <Error>* 필수 입력 항목을 확인해주세요 </Error>
+        <Error>* 필수 항목을 확인해주세요 </Error>
       )}
     </Wrapper>
   );
@@ -254,7 +287,7 @@ const StartBtn = styled.button`
   border: ${props => (props.finish ? '0' : '1px solid #d0d0d0')};
   border-radius: 999px;
   background-color: ${props => (props.finish ? '#2b66f6' : '#f5f5f5')};
-  cursor: ${props => (props.finish ? 'pointer' : 'default')};
+  cursor: ${props => (props.finish ? 'pointer' : '')};
   transition: 0.3s ease;
 `;
 
