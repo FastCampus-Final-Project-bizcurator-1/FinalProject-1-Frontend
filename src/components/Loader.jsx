@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
+import ReactLoading from 'react-loading';
 
 export default function Loader() {
   return (
     <Wrapper>
       <Container>
-        <Large>Loading ...</Large>
+        <Large>
+          <ReactLoading type="spin" color="#2b66f6" />
+        </Large>
         <Small>로딩 중입니다. 창을 닫지 말아주세요.</Small>
       </Container>
     </Wrapper>
@@ -47,7 +50,7 @@ const Large = styled.p`
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
-  margin: 0;
+  margin-bottom: 10px;
   padding: 0;
   text-align: center;
   transition: 0.3s ease;
