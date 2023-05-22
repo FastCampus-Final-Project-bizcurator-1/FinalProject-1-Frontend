@@ -99,7 +99,7 @@ export default function UserList() {
         <Input />
       </SearchContainer>
       {isLoading ? (
-        <div>Loadingf...</div>
+        <div>Loading...</div>
       ) : (
         <UserListContainer>
           <UserInfoList>
