@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MyPageWishBtn from '../../../components/mypage/MyPageWishBtn';
+import { formatNumber } from '../../../helper/formatNumber';
 
 export default function WishList() {
   // 사용자id
@@ -35,7 +36,7 @@ export default function WishList() {
                       : wish.product_name}
                   </ProductName>
                   <Manufacturer>{wish.manufacturer}</Manufacturer>
-                  <Price>{wish.product_price}</Price>
+                  <Price>{formatNumber(wish.product_price)}원</Price>
                 </ProductInfo>
                 {/* 관심상품 버튼 */}
                 <MyPageWishBtn userId={userId} productId={wish.id} />
