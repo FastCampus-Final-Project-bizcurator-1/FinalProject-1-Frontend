@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import EmailModal from './EmailModal';
 import { useService } from '../../context/context';
+import Loader from '../Loader';
 
 export default function LoginInfo({
   loginData,
@@ -27,6 +28,8 @@ export default function LoginInfo({
   const [checkPw, setCheckPw] = useState(false);
   //context API 사용을 위함
   const { service } = useService();
+  // 로딩
+  const [loading, setLoading] = useState(null);
 
   // loginData 설정
   const handleChange = e => {
@@ -48,23 +51,25 @@ export default function LoginInfo({
   const checkExist = e => {
     if (isCheck === false) {
       if (loginData.userId.length) {
-        service
-          .checkIdExist(loginData.userId)
-          .then(res => {
+        try {
+          setLoading(true);
+          service.checkIdExist(loginData.userId).then(res => {
             if (res.data === false) {
               setIsCheck(true);
+              setLoading(false);
               alert('사용가능한 아이디입니다.');
               e.target.disabled = true;
             } else {
+              setLoading(false);
               alert(
                 '이미 가입되어 있는 아이디입니다. 다른 아이디로 가입해주세요.'
               );
             }
-          })
-          .catch(e => {
-            // console.log(e);
-            alert('아이디를 확인해주세요.');
           });
+        } catch (error) {
+          setLoading(false);
+          alert('아이디를 확인해주세요.');
+        }
       } else {
         alert('아이디를 확인해주세요.');
       }
@@ -122,13 +127,16 @@ export default function LoginInfo({
   const sendEmail = e => {
     if (confirmEmail === false) {
       if (emailError === false) {
-        service
-          .sendEmail(loginData.email)
-          .then(res => setOpen(true))
-          .catch(e => {
-            // console.log(e);
-            alert('이메일을 확인해주세요.');
+        try {
+          setLoading(true);
+          service.sendEmail(loginData.email).then(res => {
+            setLoading(false);
+            setOpen(true);
           });
+        } catch (error) {
+          setLoading(false);
+          alert('이메일을 확인해주세요.');
+        }
       } else {
         alert('이메일을 확인해주세요.');
       }
@@ -157,6 +165,10 @@ export default function LoginInfo({
       setCheckPw(true);
     }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <Container className="loginInfo">
