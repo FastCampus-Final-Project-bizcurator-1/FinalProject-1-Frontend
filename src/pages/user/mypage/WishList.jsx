@@ -79,7 +79,7 @@ const Article = styled.p`
 `;
 
 const Container = styled.div`
-  width: 90%;
+  width: 100%;
 `;
 
 const ContentContainer = styled.div`
@@ -103,7 +103,7 @@ const Content = styled.div`
   ${props => props.theme.variables.flex('', 'space-evenly', '')};
   transition: 0.3s ease;
   @media (max-width: 768px) {
-    width: 100%;
+    width: 95%;
   }
 `;
 
@@ -174,7 +174,7 @@ const CartBtn = styled.button`
     background-color: #164ac9;
   }
   @media (max-width: 768px) {
-    width: 100%;
+    width: 95%;
     height: 40px;
     font-size: 14px;
   }
