@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function FileModal({ setOpen, setBusinessLicense }) {
   const handleSubmit = e => {
-    setBusinessLicense(e.target.value);
+    setBusinessLicense(e.target.files[0]);
     alert('사업자등록증 첨부가 완료되었습니다.');
     setOpen(false);
   };
@@ -17,7 +17,7 @@ export default function FileModal({ setOpen, setBusinessLicense }) {
         <Large>사업자등록증을 꼭! 첨부해 주세요.</Large>
         <Small>가입 후 마이페이지에서도 등록이 가능해요.</Small>
         <BtnGroup>
-          <Form>
+          <Form encType="multipart/form-data">
             <Label htmlFor="file">첨부하기</Label>
             <File type="file" id="file" onChange={e => handleSubmit(e)} />
           </Form>

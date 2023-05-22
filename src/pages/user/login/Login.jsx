@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../../../components/login/LoginModal';
-import axios from 'axios';
 import { setCookie } from '../../../cookie';
 import { useService } from '../../../context/context';
 
@@ -18,6 +17,9 @@ export default function Login() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
+  const { service } = useService();
+
+  //context API 사용을 위함
   const { service } = useService();
 
   // 로그인정보 submit

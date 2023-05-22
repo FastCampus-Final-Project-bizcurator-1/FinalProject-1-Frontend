@@ -1,21 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { useService } from '../../context/context';
 
-export default function EmailModal({ setOpen, setConfirmEmail }) {
+export default function EmailModal({ setOpen, setConfirmEmail, email }) {
+  //context API 사용을 위함
+  const { service } = useService();
+  // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // 인증 번호 확인
   const onSubmit = data => {
-    console.log(data);
-    // api 연결 & 검증
-    // 성공 => setConfirmEmail(true)
-    // 실패 => alert('인증에 실패하였습니다. 확인 후, 다시 시도해주세요');
-    // 모달닫기
-    setOpen(false);
+    service
+      .confirmEmail(email, data.confirmNum)
+      .then(res => {
+        setConfirmEmail(res.data);
+        alert('인증이 완료되었습니다. ');
+        setOpen(false);
+      })
+      .catch(e => alert('인증에 실패하였습니다. 확인 후, 다시 시도해주세요'));
   };
 
   return (
@@ -31,11 +38,11 @@ export default function EmailModal({ setOpen, setConfirmEmail }) {
               {...register('confirmNum', {
                 required: true,
                 pattern: {
-                  value: /^[0-9]/g,
+                  value: /^[a-zA-Z0-9]+$/,
                 },
               })}
             />
-            {errors.confirmNum && <Error>* 숫자만 입력 가능</Error>}
+            {errors.confirmNum && <Error>* 영문과 숫자만 입력 가능</Error>}
           </TextField>
           <Btn>인증하기</Btn>
         </Form>
