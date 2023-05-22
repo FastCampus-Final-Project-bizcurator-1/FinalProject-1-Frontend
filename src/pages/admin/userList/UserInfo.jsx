@@ -3,8 +3,22 @@ import styled from 'styled-components';
 import ManagementButton from './ManagementButton';
 import { TbTriangleFilled, TbTriangleInvertedFilled } from 'react-icons/tb';
 
-export default function UserInfo({ userInfo }) {
-  const { role, company, email, id, manager_name, phone_number } = userInfo;
+export default function UserInfo({
+  userInfo,
+  handleRefuseModal,
+  handleApprovalModal,
+  handleSelectUser,
+}) {
+  const {
+    role,
+    additionalData,
+    companyName,
+    email,
+    userId,
+    managerName,
+    phoneNumber,
+    businessLicense,
+  } = userInfo;
   const [isToggled, setIsToggled] = useState(false);
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
 
@@ -16,8 +30,11 @@ export default function UserInfo({ userInfo }) {
     window.addEventListener('resize', handleResize);
   }, []);
 
-  const toggleAnimation = () => {
-    setIsToggled(prev => !prev);
+  const toggleAnimation = e => {
+    if (e.target.tagName !== 'BUTTON') {
+      console.log(userInfo);
+      setIsToggled(prev => !prev);
+    }
   };
 
   return (
@@ -30,7 +47,7 @@ export default function UserInfo({ userInfo }) {
       <UserInfoItem>
         <InfoKey>담당자</InfoKey>
         <InfoValue>
-          {manager_name}
+          {managerName}
           <VerticalBar />
           {role === 'ROLE_STANDBY' ? (
             <RoleStandBy />
@@ -43,13 +60,13 @@ export default function UserInfo({ userInfo }) {
       </UserInfoItem>
       <UserInfoItem>
         <InfoKey>업체명</InfoKey>
-        <InfoValue>{company.company_name}</InfoValue>
+        <InfoValue>{companyName}</InfoValue>
       </UserInfoItem>
       {isToggled && (
         <>
           <UserInfoItem>
             <InfoKey>아이디</InfoKey>
-            <InfoValue>{id}</InfoValue>
+            <InfoValue>{userId}</InfoValue>
           </UserInfoItem>
           <UserInfoItem>
             <InfoKey>이메일</InfoKey>
@@ -58,9 +75,16 @@ export default function UserInfo({ userInfo }) {
 
           <UserInfoItem>
             <InfoKey>연락처</InfoKey>
-            <InfoValue>{phone_number}</InfoValue>
+            <InfoValue>{phoneNumber}</InfoValue>
           </UserInfoItem>
-          <ManagementButton />
+          <ManagementButton
+            role={role}
+            additionalData={additionalData}
+            businessLicense={businessLicense}
+            userId={userId}
+            handleRefuseModal={handleRefuseModal}
+            handleApprovalModal={handleApprovalModal}
+          />
         </>
       )}
       <ToggleButton>

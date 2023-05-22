@@ -10,9 +10,15 @@ import BusinessDeals from '../../../components/main/BusinessDeals';
 import Category from '../../../components/main/category/Category';
 import styled from 'styled-components';
 import FloatingButton from '../../../components/FloatingButton';
+import { getCookie } from '../../../cookie';
+import { useService } from '../../../context/context';
 
 export default function Main() {
   const [outerWidth, setOuterWidth] = useState(window.outerWidth);
+
+  const { service } = useService();
+
+  service.setAuthToken(getCookie('accessToken'));
 
   useEffect(() => {
     const handleResize = () => {
