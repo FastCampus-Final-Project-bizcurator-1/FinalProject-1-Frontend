@@ -46,7 +46,7 @@ const Container = styled.div`
   }
 `;
 
-const Large = styled.p`
+const Large = styled.div`
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
